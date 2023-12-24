@@ -1,7 +1,7 @@
-require 'net/http'
-require 'uri'
-require 'json'
-require 'optparse'
+require "net/http"
+require "uri"
+require "json"
+require "optparse"
 
 # コマンドライン引数を解析する
 options = {}
