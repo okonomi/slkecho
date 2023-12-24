@@ -27,7 +27,7 @@ end
 # Slack APIへのリクエストを構築
 uri = URI("https://slack.com/api/chat.postMessage")
 request = Net::HTTP::Post.new(uri)
-request.content_type = "application/json"
+request.content_type = "application/json; charset=utf-8"
 request["Authorization"] = "Bearer #{ENV['SLACK_API_TOKEN']}" # 環境変数からトークンを取得
 request.body = {
   channel: options[:channel],
