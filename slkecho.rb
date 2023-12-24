@@ -25,18 +25,18 @@ if options[:channel].nil? || options[:message].empty?
 end
 
 # Slack APIへのリクエストを構築
-uri = URI.parse("https://slack.com/api/chat.postMessage")
+uri = URI("https://slack.com/api/chat.postMessage")
 request = Net::HTTP::Post.new(uri)
 request.content_type = "application/json"
 request["Authorization"] = "Bearer #{ENV['SLACK_API_TOKEN']}" # 環境変数からトークンを取得
-request.body = JSON.dump({
-  "channel" => options[:channel],
-  "text" => options[:message]
-})
+request.body = {
+  channel: options[:channel],
+  text: options[:message]
+}.to_json
 
 # HTTPリクエストを送信し、エラーをハンドルする
 begin
-  response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == "https") do |http|
+  response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
     http.request(request)
   end
 
