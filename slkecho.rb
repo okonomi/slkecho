@@ -15,7 +15,7 @@ end
 opts.parse!
 
 # メッセージを標準入力から取得
-options[:message] = ARGV.empty? ? STDIN.read.chomp : ARGV.first
+options[:message] = ARGV.first
 
 # チャンネル名のバリデーション
 if options[:channel].nil? || options[:message].empty?
