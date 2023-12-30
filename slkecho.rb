@@ -11,6 +11,9 @@ opts = OptionParser.new do |opts|
   opts.on("-c", "--channel CHANNEL", "Slack channel to post the message") do |c|
     options[:channel] = c
   end
+  opts.on("-s", "--subject SUBJECT", "Subject of message") do |s|
+    options[:subject] = s
+  end
 end
 opts.parse!
 
@@ -33,7 +36,28 @@ headers = {
 }
 body = {
   "channel" => options[:channel],
-  "text" => options[:message],
+  "blocks" => []
+}
+
+if !options[:subject].nil?
+  body["blocks"] << {
+    "type" => "header",
+    "text" => {
+      "type" => "plain_text",
+      "text" => options[:subject],
+      "emoji" => true
+    }
+  }
+end
+
+body["blocks"] << {
+  "type" => "context",
+  "elements" => [
+    {
+      "type" => "mrkdwn",
+      "text" => options[:message]
+    }
+  ]
 }
 
 # HTTPリクエストを送信し、エラーをハンドルする
