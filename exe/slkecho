@@ -3,4 +3,4 @@
 
 require_relative "../lib/slkecho"
 
-Slkecho::CLI.start(ARGV)
+Slkecho::CLI.start
