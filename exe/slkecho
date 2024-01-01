@@ -1,3 +1,6 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
 require "net/http"
 require "uri"
 require "json"
@@ -5,13 +8,13 @@ require "optparse"
 
 # コマンドライン引数を解析する
 options = {}
-opts = OptionParser.new do |opts|
-  opts.banner = "Usage: echo2slack.rb [options] or echo | echo2slack.rb [options]"
+opts = OptionParser.new do |o|
+  o.banner = "Usage: echo2slack.rb [options] or echo | echo2slack.rb [options]"
 
-  opts.on("-c", "--channel CHANNEL", "Slack channel to post the message") do |c|
+  o.on("-c", "--channel CHANNEL", "Slack channel to post the message") do |c|
     options[:channel] = c
   end
-  opts.on("-s", "--subject SUBJECT", "Subject of message") do |s|
+  o.on("-s", "--subject SUBJECT", "Subject of message") do |s|
     options[:subject] = s
   end
 end
@@ -32,14 +35,14 @@ http = Net::HTTP.new(uri.host, uri.port)
 http.use_ssl = true
 headers = {
   "Content-Type" => "application/json; charset=utf-8",
-  "Authorization" => "Bearer #{ENV['SLACK_API_TOKEN']}", # 環境変数からトークンを取得
+  "Authorization" => "Bearer #{ENV["SLACK_API_TOKEN"]}" # 環境変数からトークンを取得
 }
 body = {
   "channel" => options[:channel],
   "blocks" => []
 }
 
-if !options[:subject].nil?
+unless options[:subject].nil?
   body["blocks"] << {
     "type" => "header",
     "text" => {
@@ -69,10 +72,10 @@ begin
   if response.is_a?(Net::HTTPSuccess) && result["ok"]
     puts "Message sent successfully."
   else
-    puts "Error sending message: #{result['error']}"
+    puts "Error sending message: #{result["error"]}"
     exit 1
   end
-rescue => e
+rescue StandardError => e
   puts "HTTP Request failed: #{e.message}"
   exit 1
 end
