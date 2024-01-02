@@ -7,7 +7,7 @@ require "optparse"
 
 module Slkecho
   class CLI
-    def self.start # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
+    def self.parse_options(argv) # rubocop:disable Metrics/MethodLength
       # コマンドライン引数を解析する
       options = {}
       opts = OptionParser.new do |o|
@@ -20,17 +20,24 @@ module Slkecho
           options[:subject] = s
         end
       end
-      opts.parse!
+      argv = opts.parse(argv)
 
-      # メッセージを標準入力から取得
-      options[:message] = ARGV.first
+      options[:message] = argv.first unless argv.empty?
 
+      options
+    end
+
+    def self.validate_options(options)
       # チャンネル名のバリデーション
-      if options[:channel].nil? || options[:message].empty?
-        puts "Both message and channel are required."
-        puts opts
-        exit 1
-      end
+      raise Slkecho::InvalidOptionError, "channel is required." if options[:channel].nil?
+      raise Slkecho::InvalidOptionError, "channel must start with #." unless options[:channel].start_with?("#")
+
+      true
+    end
+
+    def self.start(argv) # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
+      options = parse_options(argv)
+      validate_options(options)
 
       uri = URI.parse("https://slack.com/api/chat.postMessage")
       http = Net::HTTP.new(uri.host, uri.port)

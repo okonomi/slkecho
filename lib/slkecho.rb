@@ -4,6 +4,6 @@ require_relative "slkecho/version"
 require_relative "slkecho/cli"
 
 module Slkecho
-  class Error < StandardError; end
+  class InvalidOptionError < StandardError; end
   # Your code goes here...
 end
