@@ -4,7 +4,9 @@
 require_relative "../lib/slkecho"
 
 begin
-  Slkecho::CLI.start(ARGV)
+  cli = Slkecho::CLI.new
+  cli.run(ARGV)
+
   puts "Message sent successfully."
 rescue Slkecho::InvalidOptionError => e
   puts e.message

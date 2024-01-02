@@ -6,7 +6,7 @@ module Slkecho
   class CLI
     Options = Struct.new(:channel, :subject, :message, keyword_init: true)
 
-    def self.parse_options(argv) # rubocop:disable Metrics/MethodLength
+    def parse_options(argv) # rubocop:disable Metrics/MethodLength
       # コマンドライン引数を解析する
       options = Slkecho::CLI::Options.new
       opts = OptionParser.new do |o|
@@ -26,7 +26,7 @@ module Slkecho
       options
     end
 
-    def self.validate_options(options)
+    def validate_options(options)
       # チャンネル名のバリデーション
       raise Slkecho::InvalidOptionError, "channel is required." if options[:channel].nil?
       raise Slkecho::InvalidOptionError, "channel must start with #." unless options[:channel].start_with?("#")
@@ -37,7 +37,7 @@ module Slkecho
       true
     end
 
-    def self.start(argv)
+    def run(argv)
       options = parse_options(argv)
       validate_options(options)
 

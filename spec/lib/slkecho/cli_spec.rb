@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 RSpec.describe Slkecho::CLI do
-  describe ".parse_options" do
-    subject { described_class.parse_options(argv) }
+  describe "#parse_options" do
+    subject { described_class.new.parse_options(argv) }
 
     context "when no arguments" do
       let(:argv) { %w[] }
@@ -23,8 +23,8 @@ RSpec.describe Slkecho::CLI do
     end
   end
 
-  describe ".validate_options" do
-    subject { described_class.validate_options(options) }
+  describe "#validate_options" do
+    subject { described_class.new.validate_options(options) }
 
     context "when channel is not given" do
       let(:options) { { channel: nil, message: "" } }
