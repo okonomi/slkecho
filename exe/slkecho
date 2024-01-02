@@ -7,7 +7,7 @@ begin
   Slkecho::CLI.start(ARGV)
   puts "Message sent successfully."
 rescue Slkecho::InvalidOptionError => e
-  puts "Error: #{e.message}"
+  puts e.message
   exit 1
 rescue Slkecho::SlackRequestError => e
   puts "HTTP Request failed: #{e.message}"
