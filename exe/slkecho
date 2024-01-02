@@ -3,4 +3,16 @@
 
 require_relative "../lib/slkecho"
 
-Slkecho::CLI.start(ARGV)
+begin
+  Slkecho::CLI.start(ARGV)
+  puts "Message sent successfully."
+rescue Slkecho::InvalidOptionError => e
+  puts "Error: #{e.message}"
+  exit 1
+rescue Slkecho::SlackRequestError => e
+  puts "HTTP Request failed: #{e.message}"
+  exit 1
+rescue Slkecho::SlackResponseError => e
+  puts "Error sending message: #{e.message}"
+  exit 1
+end

@@ -13,3 +13,4 @@ gem "rubocop", "~> 1.21"
 gem "rubocop-rspec"
 
 gem "debug"
+gem "webmock"

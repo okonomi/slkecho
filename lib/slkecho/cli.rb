@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require "net/http"
-require "uri"
-require "json"
 require "optparse"
 
 module Slkecho
@@ -40,59 +37,12 @@ module Slkecho
       true
     end
 
-    def self.start(argv) # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
+    def self.start(argv)
       options = parse_options(argv)
       validate_options(options)
 
-      uri = URI.parse("https://slack.com/api/chat.postMessage")
-      http = Net::HTTP.new(uri.host, uri.port)
-      http.use_ssl = true
-      headers = {
-        "Content-Type" => "application/json; charset=utf-8",
-        "Authorization" => "Bearer #{ENV["SLACK_API_TOKEN"]}" # 環境変数からトークンを取得
-      }
-      body = {
-        "channel" => options[:channel],
-        "blocks" => []
-      }
-
-      unless options[:subject].nil?
-        body["blocks"] << {
-          "type" => "header",
-          "text" => {
-            "type" => "plain_text",
-            "text" => options[:subject],
-            "emoji" => true
-          }
-        }
-      end
-
-      body["blocks"] << {
-        "type" => "context",
-        "elements" => [
-          {
-            "type" => "mrkdwn",
-            "text" => options[:message]
-          }
-        ]
-      }
-
-      # HTTPリクエストを送信し、エラーをハンドルする
-      begin
-        response = http.post(uri.path, body.to_json, headers)
-
-        # レスポンスのチェック
-        result = JSON.parse(response.body)
-        if response.is_a?(Net::HTTPSuccess) && result["ok"]
-          puts "Message sent successfully."
-        else
-          puts "Error sending message: #{result["error"]}"
-          exit 1
-        end
-      rescue StandardError => e
-        puts "HTTP Request failed: #{e.message}"
-        exit 1
-      end
+      client = Slkecho::SlackClient.new
+      client.post_message(options)
     end
   end
 end
