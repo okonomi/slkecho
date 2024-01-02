@@ -34,6 +34,9 @@ module Slkecho
       raise Slkecho::InvalidOptionError, "channel is required." if options[:channel].nil?
       raise Slkecho::InvalidOptionError, "channel must start with #." unless options[:channel].start_with?("#")
 
+      # メッセージのバリデーション
+      raise Slkecho::InvalidOptionError, "message is missing." if options[:message].nil?
+
       true
     end
 
