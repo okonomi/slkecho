@@ -10,7 +10,7 @@ module Slkecho
       # コマンドライン引数を解析する
       options = Slkecho::CLI::Options.new
       opts = OptionParser.new do |o|
-        o.banner = "Usage: echo2slack.rb [options] or echo | echo2slack.rb [options]"
+        o.banner = "Usage: slkecho [options] message"
 
         o.on("-c", "--channel CHANNEL", "Slack channel to post the message") do |c|
           options.channel = c
