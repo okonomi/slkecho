@@ -15,16 +15,16 @@ module Slkecho
         "Authorization" => "Bearer #{ENV["SLACK_API_TOKEN"]}" # 環境変数からトークンを取得
       }
       body = {
-        "channel" => options[:channel],
+        "channel" => options.channel,
         "blocks" => []
       }
 
-      unless options[:subject].nil?
+      unless options.subject.nil?
         body["blocks"] << {
           "type" => "header",
           "text" => {
             "type" => "plain_text",
-            "text" => options[:subject],
+            "text" => options.subject,
             "emoji" => true
           }
         }
@@ -35,7 +35,7 @@ module Slkecho
         "elements" => [
           {
             "type" => "mrkdwn",
-            "text" => options[:message]
+            "text" => options.message
           }
         ]
       }
