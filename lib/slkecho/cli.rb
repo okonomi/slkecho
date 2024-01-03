@@ -4,12 +4,19 @@ require "optparse"
 
 module Slkecho
   class CLI
-    def run(argv)
-      option_parser = Slkecho::OptionParser.new
-      options = option_parser.parse(argv)
+    def initialize(option_parser:, slack_client:)
+      @option_parser = option_parser
+      @slack_client = slack_client
+    end
 
-      client = Slkecho::SlackClient.new
-      client.post_message(options)
+    def run(argv)
+      options = @option_parser.parse(argv)
+      @slack_client.post_message(options)
+    end
+
+    def self.run(argv)
+      cli = new(option_parser: Slkecho::OptionParser.new, slack_client: Slkecho::SlackClient.new)
+      cli.run(argv)
     end
   end
 end
