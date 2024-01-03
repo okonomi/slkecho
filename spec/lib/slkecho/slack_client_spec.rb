@@ -5,11 +5,11 @@ RSpec.describe Slkecho::SlackClient do
     subject { described_class.new.post_message(options) }
 
     let(:options) do
-      {
+      Slkecho::Options.new(
         channel: "#general",
         subject: "subject",
         message: "message"
-      }
+      )
     end
 
     before do
