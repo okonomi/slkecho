@@ -3,9 +3,16 @@
 
 require_relative "../lib/slkecho"
 
+Slkecho.configure do |config|
+  config.slack_api_token = ENV["SLACK_API_TOKEN"]
+end
+
 begin
   Slkecho::CLI.run(ARGV)
   puts "Message sent successfully."
+rescue Slkecho::InvalidConfigurationError => e
+  puts e.message
+  exit 1
 rescue Slkecho::InvalidOptionError => e
   puts e.message
   exit 1

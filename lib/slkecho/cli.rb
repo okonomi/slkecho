@@ -15,9 +15,11 @@ module Slkecho
     end
 
     def self.run(argv)
+      Slkecho.configuration.validate
+
       cli = new(
         option_parser: Slkecho::OptionParser.new,
-        slack_client: Slkecho::SlackClient.new(slack_api_token: ENV["SLACK_API_TOKEN"])
+        slack_client: Slkecho::SlackClient.new(slack_api_token: Slkecho.configuration.slack_api_token)
       )
       cli.run(argv)
     end
