@@ -5,13 +5,10 @@ module Slkecho
     def option_parser
       @option_parser ||= ::OptionParser.new do |o|
         o.banner = "Usage: slkecho [options] message"
-
-        o.on("-c", "--channel CHANNEL", "Slack channel to post the message") do |c|
-          @options.channel = c
-        end
-        o.on("-s", "--subject SUBJECT", "Subject of message") do |s|
-          @options.subject = s
-        end
+        o.program_name = "slkecho"
+        o.version = Slkecho::VERSION
+        o.on("-c", "--channel CHANNEL", "Slack channel to post the message") { @options.channel = _1 }
+        o.on("-s", "--subject SUBJECT", "Subject of message") { @options.subject = _1 }
       end
     end
 
