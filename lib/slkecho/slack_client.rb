@@ -35,7 +35,7 @@ module Slkecho
         "blocks" => []
       }
       body["blocks"] << header_block(options.subject) unless options.subject.nil?
-      body["blocks"] << context_block(options.message)
+      body["blocks"] << section_block(options.message)
 
       body
     end
@@ -51,15 +51,13 @@ module Slkecho
       }
     end
 
-    def context_block(text)
+    def section_block(text)
       {
-        "type" => "context",
-        "elements" => [
-          {
-            "type" => "mrkdwn",
-            "text" => text
-          }
-        ]
+        "type" => "section",
+        "text" => {
+          "type" => "mrkdwn",
+          "text" => text
+        }
       }
     end
   end

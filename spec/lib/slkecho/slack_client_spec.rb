@@ -48,13 +48,11 @@ RSpec.describe Slkecho::SlackClient do
             }
           },
           {
-            "type" => "context",
-            "elements" => [
-              {
-                "type" => "mrkdwn",
-                "text" => "message"
-              }
-            ]
+            "type" => "section",
+            "text" => {
+              "type" => "mrkdwn",
+              "text" => "message"
+            }
           }
         ]
       end
@@ -74,13 +72,11 @@ RSpec.describe Slkecho::SlackClient do
       let(:blocks) do
         [
           {
-            "type" => "context",
-            "elements" => [
-              {
-                "type" => "mrkdwn",
-                "text" => "message"
-              }
-            ]
+            "type" => "section",
+            "text" => {
+              "type" => "mrkdwn",
+              "text" => "message"
+            }
           }
         ]
       end
