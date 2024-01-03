@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 RSpec.describe Slkecho::SlackClient do
+  let(:slack_api_token) { "xoxb-xxxxxxxxxxxx-xxxxxxxxxxxxxxxxxxxxxxxx" }
+
   describe "#post_message" do
-    subject { described_class.new.post_message(options) }
+    subject { described_class.new(slack_api_token: slack_api_token).post_message(options) }
 
     let(:options) do
       Slkecho::Options.new(

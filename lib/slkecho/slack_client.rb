@@ -6,13 +6,13 @@ require "json"
 
 module Slkecho
   class SlackClient
-    def initialize
+    def initialize(slack_api_token:)
       @uri = URI.parse("https://slack.com/api/chat.postMessage")
       @http = Net::HTTP.new(@uri.host, @uri.port)
       @http.use_ssl = true
       @headers = {
         "Content-Type" => "application/json; charset=utf-8",
-        "Authorization" => "Bearer #{ENV["SLACK_API_TOKEN"]}" # 環境変数からトークンを取得
+        "Authorization" => "Bearer #{slack_api_token}"
       }
     end
 
