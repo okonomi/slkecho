@@ -36,6 +36,8 @@ module Slkecho
       }
       body["blocks"] << header_block(options.subject) unless options.subject.nil?
       body["blocks"] << context_block(options.message)
+
+      body
     end
 
     def header_block(text)
