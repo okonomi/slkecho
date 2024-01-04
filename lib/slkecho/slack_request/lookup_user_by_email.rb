@@ -9,25 +9,22 @@ module Slkecho
     class LookupUserByEmail
       def initialize(slack_api_token:)
         @slack_api_token = slack_api_token
+
+        @uri = URI.parse("https://slack.com/api/users.lookupByEmail")
+        @http = Net::HTTP.new(@uri.host, @uri.port)
+        @http.use_ssl = true
+        @headers = {
+          "Authorization" => "Bearer #{slack_api_token}",
+          "Content-Type" => "application/x-www-form-urlencoded"
+        }
       end
 
-      def request(email:) # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
-        uri = URI("https://slack.com/api/users.lookupByEmail")
-        params = { email: email }
-        uri.query = URI.encode_www_form(params)
-
-        request = Net::HTTP::Get.new(uri)
-        request["Authorization"] = "Bearer #{@slack_api_token}"
-        request["Content-Type"] = "application/x-www-form-urlencoded"
-
+      def request(email:)
         begin
-          response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
-            http.request(request)
-          end
+          response = @http.get(uri_with_query(@uri, { email: email }), @headers)
         rescue StandardError => e
           raise Slkecho::SlackRequestError, e.message
         end
-
         raise Slkecho::SlackRequestError, response.body unless response.is_a?(Net::HTTPSuccess)
 
         user_info = JSON.parse(response.body)
@@ -35,6 +32,10 @@ module Slkecho
         raise Slkecho::SlackResponseError, user_info["error"] unless user_info["ok"]
 
         user_info["user"]
+      end
+
+      def uri_with_query(uri, params)
+        uri.dup.tap { _1.query = URI.encode_www_form(params) }
       end
     end
   end
