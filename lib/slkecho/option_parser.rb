@@ -9,6 +9,7 @@ module Slkecho
         o.version = Slkecho::VERSION
         o.on("-c", "--channel CHANNEL", "Slack channel to post the message") { @options.channel = _1 }
         o.on("-s", "--subject SUBJECT", "Subject of message") { @options.subject = _1 }
+        o.on("-m", "--mention EMAIL", "Mention to user by email") { @options.mention = _1 }
       end
     end
 
@@ -31,6 +32,12 @@ module Slkecho
       # channel
       raise Slkecho::InvalidOptionError, "channel is required." if options.channel.nil?
       raise Slkecho::InvalidOptionError, "channel must start with #." unless options.channel.start_with?("#")
+
+      # mention
+      unless options.mention.nil? || options.mention.include?("@")
+        raise Slkecho::InvalidOptionError,
+              "mention must be email."
+      end
 
       # message
       raise Slkecho::InvalidOptionError, "message is missing." if options.message.nil?
