@@ -28,18 +28,13 @@ RSpec.describe Slkecho::SlackClient do
   describe "#request_body" do
     subject do
       described_class.new(slack_api_token: slack_api_token)
-                     .request_body(channel: options.channel, message: options.message, subject: options.subject)
+                     .request_body(channel: channel, message: message, subject: subject_)
     end
 
     context "when subject is given" do
-      let(:options) do
-        Slkecho::Options.new(
-          channel: "#general",
-          subject: "subject",
-          message: "message"
-        )
-      end
-
+      let(:channel) { "#general" }
+      let(:message) { "message" }
+      let(:subject_) { "subject" }
       let(:blocks) do
         [
           {
@@ -64,14 +59,9 @@ RSpec.describe Slkecho::SlackClient do
     end
 
     context "when subject is not given" do
-      let(:options) do
-        Slkecho::Options.new(
-          channel: "#general",
-          subject: nil,
-          message: "message"
-        )
-      end
-
+      let(:channel) { "#general" }
+      let(:message) { "message" }
+      let(:subject_) { nil }
       let(:blocks) do
         [
           {
