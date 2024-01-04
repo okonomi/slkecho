@@ -1,18 +1,17 @@
 # frozen_string_literal: true
 
-RSpec.describe Slkecho::SlackClient do
+RSpec.describe Slkecho::SlackRequest::PostMessage do
   let(:slack_api_token) { "xoxb-xxxxxxxxxxxx-xxxxxxxxxxxxxxxxxxxxxxxx" }
 
-  describe "#post_message" do
-    subject { described_class.new(slack_api_token: slack_api_token).post_message(options) }
-
-    let(:options) do
-      Slkecho::Options.new(
-        channel: "#general",
-        subject: "subject",
-        message: "message"
-      )
+  describe "#request" do
+    subject do
+      described_class.new(slack_api_token: slack_api_token)
+                     .request(channel: channel, message: message, subject: subject_)
     end
+
+    let(:channel) { "#general" }
+    let(:message) { "message" }
+    let(:subject_) { "subject" }
 
     before do
       stub_request(:post, "https://slack.com/api/chat.postMessage")
@@ -26,17 +25,15 @@ RSpec.describe Slkecho::SlackClient do
   end
 
   describe "#request_body" do
-    subject { described_class.new(slack_api_token: slack_api_token).request_body(options) }
+    subject do
+      described_class.new(slack_api_token: slack_api_token)
+                     .request_body(channel: channel, message: message, subject: subject_)
+    end
 
     context "when subject is given" do
-      let(:options) do
-        Slkecho::Options.new(
-          channel: "#general",
-          subject: "subject",
-          message: "message"
-        )
-      end
-
+      let(:channel) { "#general" }
+      let(:message) { "message" }
+      let(:subject_) { "subject" }
       let(:blocks) do
         [
           {
@@ -61,14 +58,9 @@ RSpec.describe Slkecho::SlackClient do
     end
 
     context "when subject is not given" do
-      let(:options) do
-        Slkecho::Options.new(
-          channel: "#general",
-          subject: nil,
-          message: "message"
-        )
-      end
-
+      let(:channel) { "#general" }
+      let(:message) { "message" }
+      let(:subject_) { nil }
       let(:blocks) do
         [
           {

@@ -4,9 +4,14 @@ require "net/http"
 require "uri"
 require "json"
 
+require_relative "slack_request/lookup_user_by_email"
+require_relative "slack_request/post_message"
+
 module Slkecho
   class SlackClient
     def initialize(slack_api_token:)
+      @slack_api_token = slack_api_token
+
       @uri = URI.parse("https://slack.com/api/chat.postMessage")
       @http = Net::HTTP.new(@uri.host, @uri.port)
       @http.use_ssl = true
@@ -16,49 +21,13 @@ module Slkecho
       }
     end
 
-    def post_message(options)
-      # HTTPリクエストを送信し、エラーをハンドルする
-      response = @http.post(@uri.path, request_body(options).to_json, @headers)
-
-      # レスポンスのチェック
-      result = JSON.parse(response.body)
-      return true if response.is_a?(Net::HTTPSuccess) && result["ok"]
-
-      raise Slkecho::SlackResponseError, result["error"]
-    rescue StandardError => e
-      raise Slkecho::SlackRequestError, e.message
+    def lookup_user_by_email(email:)
+      Slkecho::SlackRequest::LookupUserByEmail.new(slack_api_token: @slack_api_token).request(email: email)
     end
 
-    def request_body(options)
-      body = {
-        "channel" => options.channel,
-        "blocks" => []
-      }
-      body["blocks"] << header_block(options.subject) unless options.subject.nil?
-      body["blocks"] << section_block(options.message)
-
-      body
-    end
-
-    def header_block(text)
-      {
-        "type" => "header",
-        "text" => {
-          "type" => "plain_text",
-          "text" => text,
-          "emoji" => true
-        }
-      }
-    end
-
-    def section_block(text)
-      {
-        "type" => "section",
-        "text" => {
-          "type" => "mrkdwn",
-          "text" => text
-        }
-      }
+    def post_message(channel:, message:, subject: nil, user_id: nil)
+      Slkecho::SlackRequest::PostMessage.new(slack_api_token: @slack_api_token)
+                                        .request(channel: channel, message: message, subject: subject, user_id: user_id)
     end
   end
 end

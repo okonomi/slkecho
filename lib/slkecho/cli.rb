@@ -11,7 +11,15 @@ module Slkecho
 
     def run(argv)
       options = @option_parser.parse(argv)
-      @slack_client.post_message(options)
+
+      user = options.mention.nil? ? nil : @slack_client.lookup_user_by_email(email: options.mention)
+
+      @slack_client.post_message(
+        channel: options.channel,
+        message: options.message,
+        subject: options.subject,
+        user_id: user["id"]
+      )
     end
 
     def self.run(argv)
