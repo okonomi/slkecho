@@ -1,5 +1,6 @@
 {
     "recommendations": [
+        "dotenv.dotenv-vscode",
         "shopify.ruby-extensions-pack"
     ]
 }
