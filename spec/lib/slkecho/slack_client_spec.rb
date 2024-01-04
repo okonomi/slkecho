@@ -26,7 +26,7 @@ RSpec.describe Slkecho::SlackClient do
   end
 
   describe "#request_body" do
-    subject { described_class.new(slack_api_token: slack_api_token).request_body(options) }
+    subject { described_class.new(slack_api_token: slack_api_token).request_body(channel: options.channel, message: options.message, subject: options.subject) }
 
     context "when subject is given" do
       let(:options) do

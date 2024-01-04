@@ -18,7 +18,7 @@ module Slkecho
 
     def post_message(options)
       # HTTPリクエストを送信し、エラーをハンドルする
-      response = @http.post(@uri.path, request_body(options).to_json, @headers)
+      response = @http.post(@uri.path, request_body(channel: options.channel, message: options.message, subject: options.subject).to_json, @headers)
 
       # レスポンスのチェック
       result = JSON.parse(response.body)
@@ -29,13 +29,13 @@ module Slkecho
       raise Slkecho::SlackRequestError, e.message
     end
 
-    def request_body(options)
+    def request_body(channel:, message:, subject: nil, user_id: nil)
       body = {
-        "channel" => options.channel,
+        "channel" => channel,
         "blocks" => []
       }
-      body["blocks"] << header_block(options.subject) unless options.subject.nil?
-      body["blocks"] << section_block(options.message)
+      body["blocks"] << header_block(subject) unless subject.nil?
+      body["blocks"] << section_block(message, user_id: user_id)
 
       body
     end
@@ -51,12 +51,12 @@ module Slkecho
       }
     end
 
-    def section_block(text)
+    def section_block(text, user_id: nil)
       {
         "type" => "section",
         "text" => {
           "type" => "mrkdwn",
-          "text" => text
+          "text" => user_id.nil? ? text : "<@#{user_id}> #{text}"
         }
       }
     end
