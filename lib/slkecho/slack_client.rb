@@ -16,9 +16,13 @@ module Slkecho
       }
     end
 
-    def post_message(options)
+    def post_message(channel:, message:, subject: nil, user_id: nil)
       # HTTPリクエストを送信し、エラーをハンドルする
-      response = @http.post(@uri.path, request_body(channel: options.channel, message: options.message, subject: options.subject).to_json, @headers)
+      response = @http.post(
+        @uri.path,
+        request_body(channel: channel, message: message, subject: subject, user_id: user_id).to_json,
+        @headers
+      )
 
       # レスポンスのチェック
       result = JSON.parse(response.body)

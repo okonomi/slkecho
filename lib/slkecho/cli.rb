@@ -11,7 +11,11 @@ module Slkecho
 
     def run(argv)
       options = @option_parser.parse(argv)
-      @slack_client.post_message(options)
+      @slack_client.post_message(
+        channel: options.channel,
+        message: options.message,
+        subject: options.subject
+      )
     end
 
     def self.run(argv)

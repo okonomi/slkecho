@@ -4,15 +4,14 @@ RSpec.describe Slkecho::SlackClient do
   let(:slack_api_token) { "xoxb-xxxxxxxxxxxx-xxxxxxxxxxxxxxxxxxxxxxxx" }
 
   describe "#post_message" do
-    subject { described_class.new(slack_api_token: slack_api_token).post_message(options) }
-
-    let(:options) do
-      Slkecho::Options.new(
-        channel: "#general",
-        subject: "subject",
-        message: "message"
-      )
+    subject do
+      described_class.new(slack_api_token: slack_api_token)
+                     .post_message(channel: channel, message: message, subject: subject_)
     end
+
+    let(:channel) { "#general" }
+    let(:message) { "message" }
+    let(:subject_) { "subject" }
 
     before do
       stub_request(:post, "https://slack.com/api/chat.postMessage")
