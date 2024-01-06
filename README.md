@@ -4,9 +4,21 @@ Slkecho is a CLI tool to post message to Slack like echo command.
 
 ## Installation
 
+Install it yourself as:
+
 ```
 gem install slkecho
 ```
+
+or add this line to your application's Gemfile:
+
+```
+source "https://rubygems.pkg.github.com/okonomi" do
+  gem "slkecho"
+end
+```
+
+More details: [Working with the RubyGems registry - GitHub Docs](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-rubygems-registry#installing-a-package)
 
 ## Usage
 

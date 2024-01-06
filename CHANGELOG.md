@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+- docs: Update installation section
+
 ## [v0.3.0] - 2024-01-06
 
 - Allow channel id
