@@ -36,11 +36,6 @@ module Slkecho
         raise Slkecho::InvalidOptionError, "channel must start with # or C."
       end
 
-      # mention
-      unless options.mention.nil? || options.mention.include?("@")
-        raise Slkecho::InvalidOptionError, "mention must be email."
-      end
-
       # message
       raise Slkecho::InvalidOptionError, "message is missing." if options.message.nil?
 
