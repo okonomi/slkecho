@@ -11,8 +11,22 @@ gem install slkecho
 ## Usage
 
 ```
-slkecho -c <channel> -s <subject> message
+slkecho -c <channel> -s <subject> -m <mention> message
 ```
+
+### Options
+
+#### -c, --channel <channel>
+
+Specify channel to post message.
+
+#### -s, --subject <subject>
+
+Specify subject to post message.
+
+#### -m, --mention <mention>
+
+Specify mention to post message.
 
 ## Contributing
 
