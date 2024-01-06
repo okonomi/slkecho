@@ -16,17 +16,17 @@ slkecho -c <channel> -s <subject> -m <mention> message
 
 ### Options
 
-#### -c, --channel <channel>
+#### -c, --channel <channel> (required)
 
-Specify channel to post message.
+Specify channel to post message. Channel name (starts `#`) or channel id (starts `C`).
 
-#### -s, --subject <subject>
+#### -s, --subject <subject> (optional)
 
 Specify subject to post message.
 
-#### -m, --mention <mention>
+#### -m, --mention <mention> (optional)
 
-Specify mention to post message.
+Specify mention to post message. user email or user id (starts `U`).
 
 ## Contributing
 
