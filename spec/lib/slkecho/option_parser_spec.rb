@@ -49,16 +49,22 @@ RSpec.describe Slkecho::OptionParser do
       end
     end
 
-    context "when channel does not start with #" do
+    context "when channel does not start with # or C" do
       let(:options) { Slkecho::Options.new(channel: "general", message: "") }
 
       it "raises InvalidOptionError" do
-        expect { subject }.to raise_error(Slkecho::InvalidOptionError, "channel must start with #.")
+        expect { subject }.to raise_error(Slkecho::InvalidOptionError, "channel must start with # or C.")
       end
     end
 
     context "when channel starts with #" do
       let(:options) { Slkecho::Options.new(channel: "#general", message: "") }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "when channel starts with C" do
+      let(:options) { Slkecho::Options.new(channel: "C123ABC456", message: "") }
 
       it { is_expected.to be_truthy }
     end
