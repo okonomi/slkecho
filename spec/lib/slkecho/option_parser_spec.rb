@@ -88,19 +88,5 @@ RSpec.describe Slkecho::OptionParser do
         expect { subject }.to raise_error(Slkecho::InvalidOptionError, "message is missing.")
       end
     end
-
-    context "when mention is not email" do
-      let(:options) { Slkecho::Options.new(channel: "#general", mention: "user1", message: "") }
-
-      it "raises InvalidOptionError" do
-        expect { subject }.to raise_error(Slkecho::InvalidOptionError, "mention must be email.")
-      end
-    end
-
-    context "when mention is email" do
-      let(:options) { Slkecho::Options.new(channel: "#general", mention: "user1@example.com", message: "") }
-
-      it { is_expected.to be_truthy }
-    end
   end
 end

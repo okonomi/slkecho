@@ -11,15 +11,24 @@ module Slkecho
 
     def run(argv)
       options = @option_parser.parse(argv)
-
-      user = options.mention.nil? ? nil : @slack_client.lookup_user_by_email(email: options.mention)
+      user_id = mention_to_user_id(options.mention)
 
       @slack_client.post_message(
         channel: options.channel,
         message: options.message,
         subject: options.subject,
-        user_id: user["id"]
+        user_id: user_id
       )
+    end
+
+    def mention_to_user_id(mention)
+      return nil if mention.nil?
+
+      return mention unless mention.include?("@")
+      return mention if mention.start_with?("U")
+
+      user = @slack_client.lookup_user_by_email(email: mention)
+      user["id"]
     end
 
     def self.run(argv)
