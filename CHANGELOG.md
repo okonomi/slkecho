@@ -1,6 +1,8 @@
 ## [Unreleased]
 
 - docs: Update installation section
+- feat: Improve error message
+- style: Align line wrapping
 
 ## [v0.3.0] - 2024-01-06
 

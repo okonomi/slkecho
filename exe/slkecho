@@ -17,9 +17,9 @@ rescue Slkecho::InvalidOptionError => e
   puts e.message
   exit 1
 rescue Slkecho::SlackRequestError => e
-  puts "HTTP Request failed: #{e.message}"
+  puts "Request failed: #{e.message}"
   exit 1
 rescue Slkecho::SlackResponseError => e
-  puts "Error sending message: #{e.message}"
+  puts "Error responsed: #{e.message}"
   exit 1
 end

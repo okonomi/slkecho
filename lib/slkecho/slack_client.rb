@@ -22,7 +22,8 @@ module Slkecho
     end
 
     def lookup_user_by_email(email:)
-      Slkecho::SlackRequest::LookupUserByEmail.new(slack_api_token: @slack_api_token).request(email: email)
+      Slkecho::SlackRequest::LookupUserByEmail.new(slack_api_token: @slack_api_token)
+                                              .request(email: email)
     end
 
     def post_message(channel:, message:, subject: nil, user_id: nil)
