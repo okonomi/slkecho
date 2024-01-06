@@ -16,20 +16,17 @@ module Slkecho
       end
 
       def request(channel:, message:, subject: nil, user_id: nil)
-        # HTTPリクエストを送信し、エラーをハンドルする
         response = @http.post(
           @uri.path,
           request_body(channel: channel, message: message, subject: subject, user_id: user_id).to_json,
           @headers
         )
+        raise Slkecho::SlackRequestError, response.body unless response.is_a?(Net::HTTPSuccess)
 
-        # レスポンスのチェック
         result = JSON.parse(response.body)
-        return true if response.is_a?(Net::HTTPSuccess) && result["ok"]
+        raise Slkecho::SlackResponseError, result["message"] unless result["ok"]
 
-        raise Slkecho::SlackResponseError, result["error"]
-      rescue StandardError => e
-        raise Slkecho::SlackRequestError, e.message
+        true
       end
 
       def request_body(channel:, message:, subject: nil, user_id: nil)
