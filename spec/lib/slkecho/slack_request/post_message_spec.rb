@@ -23,7 +23,7 @@ RSpec.describe Slkecho::SlackRequest::PostMessage do
 
     context "when API request is not successful" do
       let(:status_code) { 200 }
-      let(:response_body) { { ok: false, "message": "too_many_attachments" }.to_json }
+      let(:response_body) { { ok: false, "error": "too_many_attachments" }.to_json }
 
       it "raises SlackResponseError" do
         expect { subject }.to raise_error(Slkecho::SlackResponseError, "too_many_attachments")
