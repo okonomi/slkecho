@@ -11,14 +11,11 @@ begin
   Slkecho::CLI.run(ARGV)
   puts "Message sent successfully."
 rescue Slkecho::InvalidConfigurationError => e
-  puts e.message
-  exit 1
+  abort e.message
 rescue Slkecho::InvalidOptionError => e
   abort e.message
 rescue Slkecho::SlackRequestError => e
-  puts "Request failed: #{e.message}"
-  exit 1
+  abort "Request failed: #{e.message}"
 rescue Slkecho::SlackResponseError => e
-  puts "Error responsed: #{e.message}"
-  exit 1
+  abort "Error responsed: #{e.message}"
 end
