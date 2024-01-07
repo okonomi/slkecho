@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+- fix: Delay validation of configuration
+
 ## [v1.0.0] - 2024-01-06
 
 - docs: Update installation section
