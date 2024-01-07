@@ -14,8 +14,7 @@ rescue Slkecho::InvalidConfigurationError => e
   puts e.message
   exit 1
 rescue Slkecho::InvalidOptionError => e
-  puts e.message
-  exit 1
+  abort e.message
 rescue Slkecho::SlackRequestError => e
   puts "Request failed: #{e.message}"
   exit 1

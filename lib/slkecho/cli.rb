@@ -32,7 +32,7 @@ module Slkecho
     end
 
     def self.run(argv)
-      Slkecho.configuration.validate
+      # Slkecho.configuration.validate
 
       cli = new(
         option_parser: Slkecho::OptionParser.new,
