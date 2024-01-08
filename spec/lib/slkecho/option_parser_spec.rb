@@ -56,6 +56,12 @@ RSpec.describe Slkecho::OptionParser do
 
       it { is_expected.to have_attributes(message: nil) }
     end
+
+    context "when username is given" do
+      let(:argv) { ["--username", "My Bot"] }
+
+      it { is_expected.to have_attributes(username: "My Bot") }
+    end
   end
 
   describe "#validate_options" do
