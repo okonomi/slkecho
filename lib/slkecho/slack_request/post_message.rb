@@ -29,10 +29,11 @@ module Slkecho
         true
       end
 
-      def request_body(channel:, message:, subject: nil, user_id: nil)
+      def request_body(channel:, message:, subject: nil, user_id: nil, username: nil)
         body = {
           "channel" => channel,
-          "blocks" => []
+          "blocks" => [],
+          "username" => username
         }
         body["blocks"] << header_block(subject) unless subject.nil?
         body["blocks"] << section_block(message, user_id: user_id)

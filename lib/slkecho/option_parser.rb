@@ -10,6 +10,7 @@ module Slkecho
         o.on("-c", "--channel CHANNEL", "Slack channel to post the message") { @options.channel = _1 }
         o.on("-s", "--subject SUBJECT", "Subject of message") { @options.subject = _1 }
         o.on("-m", "--mention EMAIL", "Mention to user by email") { @options.mention = _1 }
+        o.on("--username USERNAME", "Username to post the message") { @options.username = _1 }
       end
     end
 

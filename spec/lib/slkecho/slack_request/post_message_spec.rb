@@ -43,13 +43,11 @@ RSpec.describe Slkecho::SlackRequest::PostMessage do
   describe "#request_body" do
     subject do
       described_class.new(slack_api_token: slack_api_token)
-                     .request_body(channel: channel, message: message, subject: subject_)
+                     .request_body(**params)
     end
 
     context "when subject is given" do
-      let(:channel) { "#general" }
-      let(:message) { "message" }
-      let(:subject_) { "subject" }
+      let(:params) { { channel: "#general", message: "message", subject: "subject" } }
       let(:blocks) do
         [
           {
@@ -74,9 +72,7 @@ RSpec.describe Slkecho::SlackRequest::PostMessage do
     end
 
     context "when subject is not given" do
-      let(:channel) { "#general" }
-      let(:message) { "message" }
-      let(:subject_) { nil }
+      let(:params) { { channel: "#general", message: "message" } }
       let(:blocks) do
         [
           {
@@ -90,6 +86,12 @@ RSpec.describe Slkecho::SlackRequest::PostMessage do
       end
 
       it { is_expected.to include("blocks" => blocks) }
+    end
+
+    context "when username is given" do
+      let(:params) { { channel: "#general", message: "message", username: "My Bot" } }
+
+      it { is_expected.to include("username" => "My Bot") }
     end
   end
 end
