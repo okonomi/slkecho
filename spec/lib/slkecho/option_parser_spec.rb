@@ -71,10 +71,16 @@ RSpec.describe Slkecho::OptionParser do
   end
 
   describe "#validate_options" do
-    subject { described_class.new.validate_options(options) }
+    def options_from(values)
+      Slkecho::Options.new.tap do |opt|
+        values.each { |k, v| opt.send("#{k}=", v) }
+      end
+    end
+
+    subject { described_class.new.validate_options(options_from(option_values)) }
 
     context "when channel is not given" do
-      let(:options) { Slkecho::Options.new(channel: nil, message: "") }
+      let(:option_values) { { channel: nil, message: "" } }
 
       it "raises InvalidOptionError" do
         expect { subject }.to raise_error(Slkecho::InvalidOptionError, "channel is required.")
@@ -82,7 +88,7 @@ RSpec.describe Slkecho::OptionParser do
     end
 
     context "when channel does not start with # or C" do
-      let(:options) { Slkecho::Options.new(channel: "general", message: "") }
+      let(:option_values) { { channel: "general", message: "" } }
 
       it "raises InvalidOptionError" do
         expect { subject }.to raise_error(Slkecho::InvalidOptionError, "channel must start with # or C.")
@@ -90,31 +96,31 @@ RSpec.describe Slkecho::OptionParser do
     end
 
     context "when channel starts with #" do
-      let(:options) { Slkecho::Options.new(channel: "#general", message: "") }
+      let(:option_values) { { channel: "#general", message: "" } }
 
       it { is_expected.to be_truthy }
     end
 
     context "when channel starts with C" do
-      let(:options) { Slkecho::Options.new(channel: "C123ABC456", message: "") }
+      let(:option_values) { { channel: "C123ABC456", message: "" } }
 
       it { is_expected.to be_truthy }
     end
 
     context "when subject is not given" do
-      let(:options) { Slkecho::Options.new(channel: "#general", subject: nil, message: "") }
+      let(:option_values) { { channel: "#general", subject: nil, message: "" } }
 
       it { is_expected.to be_truthy }
     end
 
     context "when subject is given" do
-      let(:options) { Slkecho::Options.new(channel: "#general", subject: "subject", message: "") }
+      let(:option_values) { { channel: "#general", subject: "subject", message: "" } }
 
       it { is_expected.to be_truthy }
     end
 
     context "when message is not given" do
-      let(:options) { Slkecho::Options.new(channel: "#general", message: nil) }
+      let(:option_values) { { channel: "#general", message: nil } }
 
       it "raises InvalidOptionError" do
         expect { subject }.to raise_error(Slkecho::InvalidOptionError, "message is missing.")
