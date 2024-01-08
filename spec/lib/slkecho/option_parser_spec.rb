@@ -40,9 +40,10 @@ RSpec.describe Slkecho::OptionParser do
     context "when message is from stdin" do
       let(:argv) { %w[-c #general] }
       let(:stdin) { instance_double(IO, tty?: false, read: "message") }
+      let!(:orig_stdin) { $stdin }
 
       before { $stdin = stdin }
-      after { $stdin = STDIN }
+      after { $stdin = orig_stdin }
 
       it { is_expected.to have_attributes(channel: "#general", subject: nil, mention: nil, message: "message") }
     end
