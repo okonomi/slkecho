@@ -1,6 +1,7 @@
 ## [Unreleased]
 
 - chore: Improved description of username option
+- feat: Add --icon-url option
 
 ## [v1.2.1] - 2024-01-08
 
