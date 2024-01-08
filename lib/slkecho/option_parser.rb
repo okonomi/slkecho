@@ -27,7 +27,7 @@ module Slkecho
       @options.message = if !argv.empty?
                            argv.first
                          elsif !$stdin.tty?
-                           $stdin.read
+                           $stdin.read.then { _1.empty? ? nil : _1 }
                          end
 
       @options.dup
