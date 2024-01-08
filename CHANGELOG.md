@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [v1.2.0] - 2024-01-08
+
 - feat: Add --username option
 
 ## [v1.1.0] - 2024-01-08
