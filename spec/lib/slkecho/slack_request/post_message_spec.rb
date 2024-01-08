@@ -6,7 +6,10 @@ RSpec.describe Slkecho::SlackRequest::PostMessage do
   describe "#request" do
     subject do
       described_class.new(slack_api_token: slack_api_token)
-                     .request(channel: "#general", message: "message", subject: "subject")
+                     .request(
+                       Slkecho::SlackRequest::PostMessage::Params.new(channel: "#general", message: "message",
+                                                                      subject: "subject")
+                     )
     end
 
     before do
@@ -43,7 +46,7 @@ RSpec.describe Slkecho::SlackRequest::PostMessage do
   describe "#request_body" do
     subject do
       described_class.new(slack_api_token: slack_api_token)
-                     .request_body(**params)
+                     .request_body(Slkecho::SlackRequest::PostMessage::Params.new(**params))
     end
 
     context "when subject is given" do

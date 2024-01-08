@@ -3,6 +3,8 @@
 module Slkecho
   module SlackRequest
     class PostMessage
+      Params = Struct.new(:channel, :message, :subject, :user_id, :username, :icon_url, keyword_init: true)
+
       def initialize(slack_api_token:)
         @slack_api_token = slack_api_token
 
@@ -15,11 +17,10 @@ module Slkecho
         }
       end
 
-      def request(channel:, message:, subject: nil, user_id: nil, username: nil, icon_url: nil) # rubocop:disable Metrics/ParameterLists
+      def request(params)
         response = @http.post(
           @uri.path,
-          request_body(channel: channel, message: message, subject: subject, user_id: user_id,
-                       username: username, icon_url: icon_url).to_json,
+          request_body(params).to_json,
           @headers
         )
         raise Slkecho::SlackRequestError, response.body unless response.is_a?(Net::HTTPSuccess)
@@ -30,15 +31,15 @@ module Slkecho
         true
       end
 
-      def request_body(channel:, message:, subject: nil, user_id: nil, username: nil, icon_url: nil) # rubocop:disable Metrics/ParameterLists
+      def request_body(params)
         body = {
-          "channel" => channel,
+          "channel" => params.channel,
           "blocks" => [],
-          "username" => username,
-          "icon_url" => icon_url
+          "username" => params.username,
+          "icon_url" => params.icon_url
         }
-        body["blocks"] << header_block(subject) unless subject.nil?
-        body["blocks"] << section_block(message, user_id: user_id)
+        body["blocks"] << header_block(params.subject) unless params.subject.nil?
+        body["blocks"] << section_block(params.message, user_id: params.user_id)
 
         body
       end
