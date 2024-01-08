@@ -87,5 +87,11 @@ RSpec.describe Slkecho::SlackRequest::PostMessage do
 
       it { is_expected.to include("blocks" => blocks) }
     end
+
+    context "when username is given" do
+      let(:params) { { channel: "#general", message: "message", username: "My Bot" } }
+
+      it { is_expected.to include("username" => "My Bot") }
+    end
   end
 end
