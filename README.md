@@ -26,6 +26,12 @@ More details: [Working with the RubyGems registry - GitHub Docs](https://docs.gi
 slkecho -c <channel> -s <subject> -m <mention> message
 ```
 
+or message from stdin:
+
+```
+cat message.txt | slkecho -c <channel> -s <subject> -m <mention>
+```
+
 ### Options
 
 #### -c, --channel <channel> (required)
