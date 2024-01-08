@@ -46,6 +46,10 @@ Specify subject to post message.
 
 Specify mention to post message. user email or user id (starts `U`).
 
+#### --username <username> (optional)
+
+Specify the username for the published message.
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/okonomi/slkecho.
