@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [v1.0.1] - 2024-01-08
+
 - fix: Delay validation of configuration
 - fix: Error messages are now output to stderr
 
