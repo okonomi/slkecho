@@ -35,5 +35,11 @@ RSpec.describe Slkecho do
 
       it { expect { subject }.to output(/message is missing./).to_stderr_from_any_process }
     end
+
+    context "when slack api token is missing" do
+      let(:args) { "--channel '#general' message" }
+
+      it { expect { subject }.to output(/slack_api_token is required./).to_stderr_from_any_process }
+    end
   end
 end
