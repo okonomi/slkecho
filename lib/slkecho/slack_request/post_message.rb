@@ -15,7 +15,7 @@ module Slkecho
         }
       end
 
-      def request(channel:, message:, subject: nil, user_id: nil, username: nil, icon_url: nil)
+      def request(channel:, message:, subject: nil, user_id: nil, username: nil, icon_url: nil) # rubocop:disable Metrics/ParameterLists
         response = @http.post(
           @uri.path,
           request_body(channel: channel, message: message, subject: subject, user_id: user_id,
@@ -30,7 +30,7 @@ module Slkecho
         true
       end
 
-      def request_body(channel:, message:, subject: nil, user_id: nil, username: nil, icon_url: nil)
+      def request_body(channel:, message:, subject: nil, user_id: nil, username: nil, icon_url: nil) # rubocop:disable Metrics/ParameterLists
         body = {
           "channel" => channel,
           "blocks" => [],

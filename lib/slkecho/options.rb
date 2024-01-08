@@ -4,7 +4,7 @@ module Slkecho
   class Options
     attr_accessor :channel, :subject, :mention, :message, :username, :icon_url
 
-    def initialize(channel: nil, subject: nil, mention: nil, message: nil, username: nil, icon_url: nil)
+    def initialize(channel: nil, subject: nil, mention: nil, message: nil, username: nil, icon_url: nil) # rubocop:disable Metrics/ParameterLists
       @channel = channel
       @subject = subject
       @mention = mention

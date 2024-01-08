@@ -9,7 +9,7 @@ module Slkecho
       @slack_client = slack_client
     end
 
-    def run(argv)
+    def run(argv) # rubocop:disable Metrics/MethodLength
       options = @option_parser.parse(argv)
 
       Slkecho.configuration.validate

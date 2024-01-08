@@ -2,7 +2,7 @@
 
 module Slkecho
   class OptionParser
-    def option_parser
+    def option_parser # rubocop:disable Metrics/AbcSize
       @option_parser ||= ::OptionParser.new do |o|
         o.banner = "Usage: slkecho [options] message"
         o.program_name = "slkecho"
