@@ -23,7 +23,12 @@ module Slkecho
     def parse_options(argv)
       @options = Slkecho::Options.new
       argv = option_parser.parse(argv)
-      @options.message = argv.first unless argv.empty?
+
+      @options.message = if !argv.empty?
+                           argv.first
+                         elsif !$stdin.tty?
+                           $stdin.read
+                         end
 
       @options.dup
     end

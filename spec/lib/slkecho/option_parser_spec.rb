@@ -36,6 +36,16 @@ RSpec.describe Slkecho::OptionParser do
                                            message: "message")
       }
     end
+
+    context "when message is from stdin" do
+      let(:argv) { %w[-c #general] }
+      let(:stdin) { instance_double(IO, tty?: false, read: "message") }
+
+      before { $stdin = stdin }
+      after { $stdin = STDIN }
+
+      it { is_expected.to have_attributes(channel: "#general", subject: nil, mention: nil, message: "message") }
+    end
   end
 
   describe "#validate_options" do
