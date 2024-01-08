@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+- fix: Not implemented to username specified
+
 ## [v1.2.0] - 2024-01-08
 
 - feat: Add --username option
