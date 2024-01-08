@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [v1.1.0] - 2024-01-08
+
 - test: reset SLACK_API_TOKEN env var
 - feat: Message can be set from stdin
 
