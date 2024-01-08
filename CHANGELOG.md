@@ -2,6 +2,7 @@
 
 - chore: Improved description of username option
 - feat: Add --icon-url option
+- refactor: Remove `Slkecho::Options` initialize method
 
 ## [v1.2.1] - 2024-01-08
 
