@@ -4,6 +4,7 @@
 - feat: Add --icon-url option
 - refactor: Remove `Slkecho::Options` initialize method
 - refactor: Summarize arguments of `Slkecho::SlackRequest::PostMessage#request` to params
+- refactor: Summarize arguments of `Slkecho::SlackClient#post_message` to params
 
 ## [v1.2.1] - 2024-01-08
 
