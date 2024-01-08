@@ -11,6 +11,7 @@ module Slkecho
         o.on("-s", "--subject SUBJECT", "Subject of message") { @options.subject = _1 }
         o.on("-m", "--mention EMAIL", "Mention to user by email") { @options.mention = _1 }
         o.on("--username USERNAME", "Set your bot's user name") { @options.username = _1 }
+        o.on("--icon-url ICON_URL", "URL to an image to use as the icon for this message") { @options.icon_url = _1 }
       end
     end
 
