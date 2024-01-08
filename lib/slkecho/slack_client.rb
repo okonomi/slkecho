@@ -9,6 +9,8 @@ require_relative "slack_request/post_message"
 
 module Slkecho
   class SlackClient
+    PostMessageParams = Slkecho::SlackRequest::PostMessage::Params
+
     def initialize(slack_api_token:)
       @slack_api_token = slack_api_token
 
@@ -26,10 +28,7 @@ module Slkecho
                                               .request(email: email)
     end
 
-    def post_message(channel:, message:, subject: nil, user_id: nil, username: nil, icon_url: nil) # rubocop:disable Metrics/ParameterLists
-      params = Slkecho::SlackRequest::PostMessage::Params.new(
-        channel: channel, message: message, subject: subject, user_id: user_id, username: username, icon_url: icon_url
-      )
+    def post_message(params)
       Slkecho::SlackRequest::PostMessage.new(slack_api_token: @slack_api_token)
                                         .request(params)
     end

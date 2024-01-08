@@ -9,21 +9,14 @@ module Slkecho
       @slack_client = slack_client
     end
 
-    def run(argv) # rubocop:disable Metrics/MethodLength
+    def run(argv)
       options = @option_parser.parse(argv)
 
       Slkecho.configuration.validate
 
       user_id = mention_to_user_id(options.mention)
 
-      @slack_client.post_message(
-        channel: options.channel,
-        message: options.message,
-        subject: options.subject,
-        user_id: user_id,
-        username: options.username,
-        icon_url: options.icon_url
-      )
+      @slack_client.post_message(post_message_params_from(options, user_id))
     end
 
     def mention_to_user_id(mention)
@@ -34,6 +27,17 @@ module Slkecho
 
       user = @slack_client.lookup_user_by_email(email: mention)
       user["id"]
+    end
+
+    def post_message_params_from(options, user_id)
+      Slkecho::SlackClient::PostMessageParams.new(
+        channel: options.channel,
+        message: options.message,
+        subject: options.subject,
+        user_id: user_id,
+        username: options.username,
+        icon_url: options.icon_url
+      )
     end
 
     def self.run(argv)
