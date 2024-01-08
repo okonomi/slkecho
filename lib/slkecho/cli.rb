@@ -20,7 +20,8 @@ module Slkecho
         channel: options.channel,
         message: options.message,
         subject: options.subject,
-        user_id: user_id
+        user_id: user_id,
+        username: options.username
       )
     end
 
