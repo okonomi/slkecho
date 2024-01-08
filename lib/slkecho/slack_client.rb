@@ -26,10 +26,10 @@ module Slkecho
                                               .request(email: email)
     end
 
-    def post_message(channel:, message:, subject: nil, user_id: nil, username: nil)
+    def post_message(channel:, message:, subject: nil, user_id: nil, username: nil, icon_url: nil)
       Slkecho::SlackRequest::PostMessage.new(slack_api_token: @slack_api_token)
                                         .request(channel: channel, message: message, subject: subject, user_id: user_id,
-                                                 username: username)
+                                                 username: username, icon_url: icon_url)
     end
   end
 end

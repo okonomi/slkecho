@@ -15,11 +15,11 @@ module Slkecho
         }
       end
 
-      def request(channel:, message:, subject: nil, user_id: nil, username: nil)
+      def request(channel:, message:, subject: nil, user_id: nil, username: nil, icon_url: nil)
         response = @http.post(
           @uri.path,
           request_body(channel: channel, message: message, subject: subject, user_id: user_id,
-                       username: username).to_json,
+                       username: username, icon_url: icon_url).to_json,
           @headers
         )
         raise Slkecho::SlackRequestError, response.body unless response.is_a?(Net::HTTPSuccess)
@@ -30,11 +30,12 @@ module Slkecho
         true
       end
 
-      def request_body(channel:, message:, subject: nil, user_id: nil, username: nil)
+      def request_body(channel:, message:, subject: nil, user_id: nil, username: nil, icon_url: nil)
         body = {
           "channel" => channel,
           "blocks" => [],
-          "username" => username
+          "username" => username,
+          "icon_url" => icon_url
         }
         body["blocks"] << header_block(subject) unless subject.nil?
         body["blocks"] << section_block(message, user_id: user_id)

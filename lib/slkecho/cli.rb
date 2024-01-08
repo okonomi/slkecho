@@ -21,7 +21,8 @@ module Slkecho
         message: options.message,
         subject: options.subject,
         user_id: user_id,
-        username: options.username
+        username: options.username,
+        icon_url: options.icon_url
       )
     end
 

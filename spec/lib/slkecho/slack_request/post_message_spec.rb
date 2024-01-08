@@ -93,5 +93,11 @@ RSpec.describe Slkecho::SlackRequest::PostMessage do
 
       it { is_expected.to include("username" => "My Bot") }
     end
+
+    context "when icon_url is given" do
+      let(:params) { { channel: "#general", message: "message", icon_url: "https://example.com/icon.png" } }
+
+      it { is_expected.to include("icon_url" => "https://example.com/icon.png") }
+    end
   end
 end
