@@ -11,6 +11,9 @@ module Slkecho
 
     def run(argv)
       options = @option_parser.parse(argv)
+
+      Slkecho.configuration.validate
+
       user_id = mention_to_user_id(options.mention)
 
       @slack_client.post_message(
@@ -32,8 +35,6 @@ module Slkecho
     end
 
     def self.run(argv)
-      Slkecho.configuration.validate
-
       cli = new(
         option_parser: Slkecho::OptionParser.new,
         slack_client: Slkecho::SlackClient.new(slack_api_token: Slkecho.configuration.slack_api_token)

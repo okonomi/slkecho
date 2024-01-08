@@ -5,7 +5,9 @@ module Slkecho
     attr_accessor :slack_api_token
 
     def validate
-      raise Slkecho::InvalidConfigurationError, "slack_api_token is required." if slack_api_token.nil?
+      if slack_api_token.nil?
+        raise Slkecho::InvalidConfigurationError.new("slack_api_token is required.", :slack_api_token)
+      end
 
       true
     end

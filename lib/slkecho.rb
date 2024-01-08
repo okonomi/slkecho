@@ -8,7 +8,15 @@ require_relative "slkecho/option_parser"
 require_relative "slkecho/slack_client"
 
 module Slkecho
-  class InvalidConfigurationError < StandardError; end
+  class InvalidConfigurationError < StandardError
+    attr_reader :item
+
+    def initialize(message, item = nil)
+      @item = item
+      super(message)
+    end
+  end
+
   class InvalidOptionError < StandardError; end
   class SlackRequestError < StandardError; end
   class SlackResponseError < StandardError; end
