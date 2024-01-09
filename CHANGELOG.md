@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+- feat: Remove --subject option
+
 ## [v1.4.0] - 2024-01-09
 
 - feat: Add --icon-emoji option

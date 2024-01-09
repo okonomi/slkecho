@@ -33,7 +33,6 @@ module Slkecho
       Slkecho::SlackClient::PostMessageParams.new(
         channel: options.channel,
         message: options.message,
-        subject: options.subject,
         user_id: user_id,
         username: options.username,
         icon_url: options.icon_url,

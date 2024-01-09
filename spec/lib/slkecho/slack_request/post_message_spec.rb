@@ -7,8 +7,7 @@ RSpec.describe Slkecho::SlackRequest::PostMessage do
     subject do
       described_class.new(slack_api_token: slack_api_token)
                      .request(
-                       Slkecho::SlackRequest::PostMessage::Params.new(channel: "#general", message: "message",
-                                                                      subject: "subject")
+                       Slkecho::SlackRequest::PostMessage::Params.new(channel: "#general", message: "message")
                      )
     end
 
@@ -49,46 +48,16 @@ RSpec.describe Slkecho::SlackRequest::PostMessage do
                      .request_body(Slkecho::SlackRequest::PostMessage::Params.new(**params))
     end
 
-    context "when subject is given" do
-      let(:params) { { channel: "#general", message: "message", subject: "subject" } }
-      let(:blocks) do
-        [
-          {
-            "type" => "header",
-            "text" => {
-              "type" => "plain_text",
-              "text" => "subject",
-              "emoji" => true
-            }
-          },
-          {
-            "type" => "section",
-            "text" => {
-              "type" => "mrkdwn",
-              "text" => "message"
-            }
-          }
-        ]
-      end
+    context "when message is given" do
+      let(:params) { { channel: "#general", message: "message" } }
 
-      it { is_expected.to include("blocks" => blocks) }
+      it { is_expected.to include("text" => "message") }
     end
 
-    context "when subject is not given" do
-      let(:params) { { channel: "#general", message: "message" } }
-      let(:blocks) do
-        [
-          {
-            "type" => "section",
-            "text" => {
-              "type" => "mrkdwn",
-              "text" => "message"
-            }
-          }
-        ]
-      end
+    context "when user_id is given" do
+      let(:params) { { channel: "#general", message: "message", user_id: "U123ABC456" } }
 
-      it { is_expected.to include("blocks" => blocks) }
+      it { is_expected.to include("text" => "<@U123ABC456> message") }
     end
 
     context "when username is given" do

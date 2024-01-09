@@ -23,13 +23,13 @@ More details: [Working with the RubyGems registry - GitHub Docs](https://docs.gi
 ## Usage
 
 ```
-slkecho -c <channel> -s <subject> -m <mention> message
+slkecho -c <channel> -m <mention> message
 ```
 
 or message from stdin:
 
 ```
-cat message.txt | slkecho -c <channel> -s <subject> -m <mention>
+cat message.txt | slkecho -c <channel> -m <mention>
 ```
 
 ### Options
@@ -37,10 +37,6 @@ cat message.txt | slkecho -c <channel> -s <subject> -m <mention>
 #### -c, --channel <channel> (required)
 
 Specify channel to post message. Channel name (starts `#`) or channel id (starts `C`).
-
-#### -s, --subject <subject> (optional)
-
-Specify subject to post message.
 
 #### -m, --mention <mention> (optional)
 

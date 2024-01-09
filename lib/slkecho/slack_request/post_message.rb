@@ -3,7 +3,7 @@
 module Slkecho
   module SlackRequest
     class PostMessage
-      Params = Struct.new(:channel, :message, :subject, :user_id, :username, :icon_url, :icon_emoji, keyword_init: true)
+      Params = Struct.new(:channel, :message, :user_id, :username, :icon_url, :icon_emoji, keyword_init: true)
 
       def initialize(slack_api_token:)
         @slack_api_token = slack_api_token
@@ -32,38 +32,17 @@ module Slkecho
       end
 
       def request_body(params)
-        body = {
+        {
           "channel" => params.channel,
-          "blocks" => [],
+          "text" => text_from(params.message, params.user_id),
           "username" => params.username,
           "icon_url" => params.icon_url,
           "icon_emoji" => params.icon_emoji
         }
-        body["blocks"] << header_block(params.subject) unless params.subject.nil?
-        body["blocks"] << section_block(params.message, user_id: params.user_id)
-
-        body
       end
 
-      def header_block(text)
-        {
-          "type" => "header",
-          "text" => {
-            "type" => "plain_text",
-            "text" => text,
-            "emoji" => true
-          }
-        }
-      end
-
-      def section_block(text, user_id: nil)
-        {
-          "type" => "section",
-          "text" => {
-            "type" => "mrkdwn",
-            "text" => user_id.nil? ? text : "<@#{user_id}> #{text}"
-          }
-        }
+      def text_from(message, user_id = nil)
+        user_id.nil? ? message : "<@#{user_id}> #{message}"
       end
     end
   end
