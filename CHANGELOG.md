@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [v1.4.0] - 2024-01-09
+
 - feat: Add --icon-emoji option
 
 ## [v1.3.0] - 2024-01-08
