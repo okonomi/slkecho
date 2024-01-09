@@ -50,6 +50,10 @@ Specify mention to post message. user email or user id (starts `U`).
 
 Specify the username for the published message.
 
+#### --icon-emoji <emoji> (optional)
+
+Specify an emoji for the speaker's icon. e.g.) `:smile:`
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/okonomi/slkecho.

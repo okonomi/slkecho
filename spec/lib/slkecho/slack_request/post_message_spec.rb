@@ -102,5 +102,11 @@ RSpec.describe Slkecho::SlackRequest::PostMessage do
 
       it { is_expected.to include("icon_url" => "https://example.com/icon.png") }
     end
+
+    context "when icon_emoji is given" do
+      let(:params) { { channel: "#general", message: "message", icon_emoji: ":smile:" } }
+
+      it { is_expected.to include("icon_emoji" => ":smile:") }
+    end
   end
 end
