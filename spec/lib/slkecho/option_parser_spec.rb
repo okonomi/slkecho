@@ -63,10 +63,16 @@ RSpec.describe Slkecho::OptionParser do
       it { is_expected.to have_attributes(username: "My Bot") }
     end
 
-    context "when version icon-url is given" do
+    context "when icon-url is given" do
       let(:argv) { %w[--icon-url https://example.com/icon.png] }
 
       it { is_expected.to have_attributes(icon_url: "https://example.com/icon.png") }
+    end
+
+    context "when icon-emoji is given" do
+      let(:argv) { %w[--icon-emoji :smile:] }
+
+      it { is_expected.to have_attributes(icon_emoji: ":smile:") }
     end
   end
 

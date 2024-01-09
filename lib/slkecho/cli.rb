@@ -36,7 +36,8 @@ module Slkecho
         subject: options.subject,
         user_id: user_id,
         username: options.username,
-        icon_url: options.icon_url
+        icon_url: options.icon_url,
+        icon_emoji: options.icon_emoji
       )
     end
 
