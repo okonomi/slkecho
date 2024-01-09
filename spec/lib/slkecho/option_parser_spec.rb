@@ -7,34 +7,25 @@ RSpec.describe Slkecho::OptionParser do
     context "when no arguments" do
       let(:argv) { %w[] }
 
-      it { is_expected.to have_attributes(channel: nil, subject: nil, mention: nil, message: nil) }
+      it { is_expected.to have_attributes(channel: nil, mention: nil, message: nil) }
     end
 
     context "when channel option is given" do
       let(:argv) { %w[-c #general] }
 
-      it { is_expected.to have_attributes(channel: "#general", subject: nil, mention: nil, message: nil) }
+      it { is_expected.to have_attributes(channel: "#general", mention: nil, message: nil) }
     end
 
-    context "when channel and subject option is given" do
-      let(:argv) { %w[-c #general -s subject] }
+    context "when channel and message option is given" do
+      let(:argv) { %w[-c #general message] }
 
-      it { is_expected.to have_attributes(channel: "#general", subject: "subject", mention: nil, message: nil) }
+      it { is_expected.to have_attributes(channel: "#general", mention: nil, message: "message") }
     end
 
-    context "when channel and subject and message option is given" do
-      let(:argv) { %w[-c #general -s subject message] }
+    context "when channel and message and to option is given" do
+      let(:argv) { %w[-c #general -m user1@example.com message] }
 
-      it { is_expected.to have_attributes(channel: "#general", subject: "subject", mention: nil, message: "message") }
-    end
-
-    context "when channel and subject and message and to option is given" do
-      let(:argv) { %w[-c #general -s subject -m user1@example.com message] }
-
-      it {
-        expect(subject).to have_attributes(channel: "#general", subject: "subject", mention: "user1@example.com",
-                                           message: "message")
-      }
+      it { is_expected.to have_attributes(channel: "#general", mention: "user1@example.com", message: "message") }
     end
 
     context "when message is from stdin" do
@@ -44,7 +35,7 @@ RSpec.describe Slkecho::OptionParser do
       before { $stdin = stdin }
       after { $stdin = STDIN }
 
-      it { is_expected.to have_attributes(channel: "#general", subject: nil, mention: nil, message: "message") }
+      it { is_expected.to have_attributes(channel: "#general", mention: nil, message: "message") }
     end
 
     context "when message is nothing" do
@@ -109,18 +100,6 @@ RSpec.describe Slkecho::OptionParser do
 
     context "when channel starts with C" do
       let(:option_values) { { channel: "C123ABC456", message: "" } }
-
-      it { is_expected.to be_truthy }
-    end
-
-    context "when subject is not given" do
-      let(:option_values) { { channel: "#general", subject: nil, message: "" } }
-
-      it { is_expected.to be_truthy }
-    end
-
-    context "when subject is given" do
-      let(:option_values) { { channel: "#general", subject: "subject", message: "" } }
 
       it { is_expected.to be_truthy }
     end
