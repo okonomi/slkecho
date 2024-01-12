@@ -2,6 +2,9 @@
 
 - feat: Remove --subject option
 - feat: Rename --mention option to --mention-by-email option
+- feat: Rename errors
+  - `Slkecho::SlackApiRequestError` to `Slkecho::SlackApiHttpError`
+  - `Slkecho::SlackApiResponseErorr` to `Slkecho::SlackApiResultError`
 
 ## [v1.4.0] - 2024-01-09
 
