@@ -6,6 +6,7 @@
   - `Slkecho::SlackApiRequestError` to `Slkecho::SlackApiHttpError`
   - `Slkecho::SlackApiResponseErorr` to `Slkecho::SlackApiResultError`
 - feat: Improve error message of Slack API request
+- feat: Remove channel validation
 
 ## [v1.4.0] - 2024-01-09
 
