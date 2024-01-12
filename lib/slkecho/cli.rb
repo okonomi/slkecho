@@ -14,7 +14,7 @@ module Slkecho
 
       Slkecho.configuration.validate
 
-      user_id = mention_to_user_id(options.mention)
+      user_id = mention_to_user_id(options.mention_by_email)
 
       @slack_client.post_message(post_message_params_from(options, user_id))
     end

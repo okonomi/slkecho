@@ -8,7 +8,7 @@ module Slkecho
         o.program_name = "slkecho"
         o.version = Slkecho::VERSION
         o.on("-c", "--channel CHANNEL", "Slack channel to post the message") { @options.channel = _1 }
-        o.on("-m", "--mention EMAIL", "Mention to user by email") { @options.mention = _1 }
+        o.on("-m", "--mention-by-email EMAIL", "Mention to user by email") { @options.mention_by_email = _1 }
         o.on("--username USERNAME", "Set your bot's user name") { @options.username = _1 }
         o.on("--icon-url ICON_URL", "URL to an image to use as the icon for this message") { @options.icon_url = _1 }
         o.on("--icon-emoji ICON_EMOJI", "Emoji to use as the icon for this message") { @options.icon_emoji = _1 }
