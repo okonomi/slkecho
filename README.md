@@ -36,19 +36,32 @@ cat message.txt | slkecho -c <channel> -m <mention>
 
 #### -c, --channel <channel> (required)
 
-Specify channel to post message. Channel name (starts `#`) or channel id (starts `C`).
+Slack channel to post message.
 
-#### -m, --mention <mention> (optional)
+See below: https://api.slack.com/methods/chat.postMessage#arg_channel
 
-Specify mention to post message. user email or user id (starts `U`).
+#### -m, --mention-by-email <mention> (optional)
+
+Search for the target member by email address and adds a mentions to the message.
+Mention is only valid for members of the channel to which you are posting.
 
 #### --username <username> (optional)
 
-Specify the username for the published message.
+Set user name for message.
+
+See below: https://api.slack.com/methods/chat.postMessage#arg_username
+
+#### --icon-url <url> (optional)
+
+Set user icon image for message by URL.
+
+See below: https://api.slack.com/methods/chat.postMessage#arg_icon_url
 
 #### --icon-emoji <emoji> (optional)
 
-Specify an emoji for the speaker's icon. e.g.) `:smile:`
+Set user image for message by emoji.
+
+See below: https://api.slack.com/methods/chat.postMessage#arg_icon_emoji
 
 ## Contributing
 
