@@ -14,12 +14,12 @@ module Slkecho
 
       Slkecho.configuration.validate
 
-      user_id = mention_to_user_id(options.mention_by_email)
+      user_id = email_to_user_id(options.mention_by_email)
 
       @slack_client.post_message(post_message_params_from(options, user_id))
     end
 
-    def mention_to_user_id(mention)
+    def email_to_user_id(mention)
       return nil if mention.nil?
 
       return mention unless mention.include?("@")

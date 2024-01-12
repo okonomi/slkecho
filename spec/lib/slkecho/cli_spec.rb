@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 RSpec.describe Slkecho::CLI do
-  describe "#mention_to_user_id" do
+  describe "#email_to_user_id" do
     subject do
       described_class.new(option_parser: option_parser, slack_client: slack_client)
-                     .mention_to_user_id(mention)
+                     .email_to_user_id(mention)
     end
 
     let(:option_parser) { instance_double(Slkecho::OptionParser) }
