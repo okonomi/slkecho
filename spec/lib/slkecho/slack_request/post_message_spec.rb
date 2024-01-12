@@ -54,12 +54,6 @@ RSpec.describe Slkecho::SlackRequest::PostMessage do
       it { is_expected.to include("text" => "message") }
     end
 
-    context "when user_id is given" do
-      let(:params) { { channel: "#general", message: "message", user_id: "U123ABC456" } }
-
-      it { is_expected.to include("text" => "<@U123ABC456> message") }
-    end
-
     context "when username is given" do
       let(:params) { { channel: "#general", message: "message", username: "My Bot" } }
 

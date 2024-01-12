@@ -3,7 +3,7 @@
 module Slkecho
   module SlackRequest
     class PostMessage
-      Params = Struct.new(:channel, :message, :user_id, :username, :icon_url, :icon_emoji, keyword_init: true)
+      Params = Struct.new(:channel, :message, :username, :icon_url, :icon_emoji, keyword_init: true)
 
       def initialize(slack_api_token:)
         @slack_api_token = slack_api_token
@@ -34,7 +34,7 @@ module Slkecho
       def request_body(params)
         {
           "channel" => params.channel,
-          "text" => text_from(params.message, params.user_id),
+          "text" => params.message,
           "username" => params.username,
           "icon_url" => params.icon_url,
           "icon_emoji" => params.icon_emoji

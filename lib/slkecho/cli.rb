@@ -27,8 +27,7 @@ module Slkecho
     def post_message_params_from(options, user_id)
       Slkecho::SlackClient::PostMessageParams.new(
         channel: options.channel,
-        message: options.message,
-        user_id: user_id,
+        message: user_id.nil? ? options.message : "<@#{user_id}> #{options.message}",
         username: options.username,
         icon_url: options.icon_url,
         icon_emoji: options.icon_emoji
