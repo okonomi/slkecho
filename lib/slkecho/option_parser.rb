@@ -37,11 +37,7 @@ module Slkecho
 
     def validate_options(options)
       # channel
-      channel = options.channel
-      raise Slkecho::InvalidOptionError, "channel is required." if channel.nil?
-      unless channel.start_with?("#") || channel.start_with?("C")
-        raise Slkecho::InvalidOptionError, "channel must start with # or C."
-      end
+      raise Slkecho::InvalidOptionError, "channel is required." if options.channel.nil?
 
       # message
       raise Slkecho::InvalidOptionError, "message is missing." if options.message.nil?

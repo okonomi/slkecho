@@ -24,12 +24,6 @@ RSpec.describe Slkecho do
       it { expect { subject }.to output(/channel is required./).to_stderr_from_any_process }
     end
 
-    context "when --channel is invalid" do
-      let(:args) { "--channel 'invalid'" }
-
-      it { expect { subject }.to output(/channel must start with # or C./).to_stderr_from_any_process }
-    end
-
     context "when message is missing" do
       let(:args) { "--channel '#general'" }
 
