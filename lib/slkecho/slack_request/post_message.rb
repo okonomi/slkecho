@@ -23,7 +23,7 @@ module Slkecho
           request_body(params).to_json,
           @headers
         )
-        raise Slkecho::SlackRequestError, response.body unless response.is_a?(Net::HTTPSuccess)
+        raise Slkecho::SlackApiHttpError, response.body unless response.is_a?(Net::HTTPSuccess)
 
         result = JSON.parse(response.body)
         raise Slkecho::SlackResponseError, result["error"] unless result["ok"]

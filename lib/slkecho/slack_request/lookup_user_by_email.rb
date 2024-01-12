@@ -23,9 +23,9 @@ module Slkecho
         begin
           response = @http.get(uri_with_query(@uri, { email: email }), @headers)
         rescue StandardError => e
-          raise Slkecho::SlackRequestError, e.message
+          raise Slkecho::SlackApiHttpError, e.message
         end
-        raise Slkecho::SlackRequestError, response.body unless response.is_a?(Net::HTTPSuccess)
+        raise Slkecho::SlackApiHttpError, response.body unless response.is_a?(Net::HTTPSuccess)
 
         user_info = JSON.parse(response.body)
         raise Slkecho::SlackResponseError, "user not found. (#{email})" if user_info["error"] == "users_not_found"

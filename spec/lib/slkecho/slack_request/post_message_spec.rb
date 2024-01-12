@@ -36,8 +36,8 @@ RSpec.describe Slkecho::SlackRequest::PostMessage do
       let(:status_code) { 400 }
       let(:response_body) { "Bad Request" }
 
-      it "raises SlackRequestError" do
-        expect { subject }.to raise_error(Slkecho::SlackRequestError, "Bad Request")
+      it "raises SlackApiHttpError" do
+        expect { subject }.to raise_error(Slkecho::SlackApiHttpError, "Bad Request")
       end
     end
   end

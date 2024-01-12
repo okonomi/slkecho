@@ -18,7 +18,7 @@ module Slkecho
   end
 
   class InvalidOptionError < StandardError; end
-  class SlackRequestError < StandardError; end
+  class SlackApiHttpError < StandardError; end
   class SlackResponseError < StandardError; end
 
   class << self
