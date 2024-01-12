@@ -14,26 +14,20 @@ module Slkecho
 
       Slkecho.configuration.validate
 
-      user_id = mention_to_user_id(options.mention)
+      user_id = options.mention_by_email.nil? ? nil : email_to_user_id(options.mention_by_email)
 
       @slack_client.post_message(post_message_params_from(options, user_id))
     end
 
-    def mention_to_user_id(mention)
-      return nil if mention.nil?
-
-      return mention unless mention.include?("@")
-      return mention if mention.start_with?("U")
-
-      user = @slack_client.lookup_user_by_email(email: mention)
+    def email_to_user_id(email)
+      user = @slack_client.lookup_user_by_email(email: email)
       user["id"]
     end
 
     def post_message_params_from(options, user_id)
       Slkecho::SlackClient::PostMessageParams.new(
         channel: options.channel,
-        message: options.message,
-        user_id: user_id,
+        message: user_id.nil? ? options.message : "<@#{user_id}> #{options.message}",
         username: options.username,
         icon_url: options.icon_url,
         icon_emoji: options.icon_emoji

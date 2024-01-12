@@ -1,6 +1,7 @@
 ## [Unreleased]
 
 - feat: Remove --subject option
+- feat: Rename --mention option to --mention-by-email option
 
 ## [v1.4.0] - 2024-01-09
 
