@@ -21,13 +21,13 @@ RSpec.describe Slkecho::CLI do
       let(:email) { "notmember@example.com" }
       let(:slack_client) do
         client = instance_double(Slkecho::SlackClient)
-        allow(client).to receive(:lookup_user_by_email).and_raise(Slkecho::SlackResponseError,
+        allow(client).to receive(:lookup_user_by_email).and_raise(Slkecho::SlackApiResultError,
                                                                   "user not found. (#{email})")
         client
       end
 
-      it "raises SlackResponseError" do
-        expect { subject }.to raise_error(Slkecho::SlackResponseError, "user not found. (#{email})")
+      it "raises SlackApiResultError" do
+        expect { subject }.to raise_error(Slkecho::SlackApiResultError, "user not found. (#{email})")
       end
     end
   end

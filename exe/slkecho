@@ -17,6 +17,6 @@ rescue Slkecho::InvalidOptionError => e
   abort e.message
 rescue Slkecho::SlackApiHttpError => e
   abort "Request failed: #{e.message}"
-rescue Slkecho::SlackResponseError => e
+rescue Slkecho::SlackApiResultError => e
   abort "Error responsed: #{e.message}"
 end

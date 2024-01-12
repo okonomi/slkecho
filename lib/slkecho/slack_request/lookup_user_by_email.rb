@@ -28,8 +28,8 @@ module Slkecho
         raise Slkecho::SlackApiHttpError, response.body unless response.is_a?(Net::HTTPSuccess)
 
         user_info = JSON.parse(response.body)
-        raise Slkecho::SlackResponseError, "user not found. (#{email})" if user_info["error"] == "users_not_found"
-        raise Slkecho::SlackResponseError, user_info["error"] unless user_info["ok"]
+        raise Slkecho::SlackApiResultError, "user not found. (#{email})" if user_info["error"] == "users_not_found"
+        raise Slkecho::SlackApiResultError, user_info["error"] unless user_info["ok"]
 
         user_info["user"]
       end

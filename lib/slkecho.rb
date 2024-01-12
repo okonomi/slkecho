@@ -19,7 +19,7 @@ module Slkecho
 
   class InvalidOptionError < StandardError; end
   class SlackApiHttpError < StandardError; end
-  class SlackResponseError < StandardError; end
+  class SlackApiResultError < StandardError; end
 
   class << self
     def configure
