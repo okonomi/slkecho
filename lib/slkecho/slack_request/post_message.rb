@@ -34,15 +34,23 @@ module Slkecho
       def request_body(params)
         {
           "channel" => params.channel,
-          "text" => params.message,
+          "blocks" => blocks_from(params.message),
           "username" => params.username,
           "icon_url" => params.icon_url,
           "icon_emoji" => params.icon_emoji
         }
       end
 
-      def text_from(message, user_id = nil)
-        user_id.nil? ? message : "<@#{user_id}> #{message}"
+      def blocks_from(message)
+        [
+          {
+            "type" => "section",
+            "text" => {
+              "type" => "mrkdwn",
+              "text" => message
+            }
+          }
+        ]
       end
     end
   end

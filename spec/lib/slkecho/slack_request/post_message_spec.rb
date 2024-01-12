@@ -50,8 +50,9 @@ RSpec.describe Slkecho::SlackRequest::PostMessage do
 
     context "when message is given" do
       let(:params) { { channel: "#general", message: "message" } }
+      let(:blocks) { [{ "type" => "section", "text" => { "type" => "mrkdwn", "text" => "message" } }] }
 
-      it { is_expected.to include("text" => "message") }
+      it { is_expected.to include("blocks" => blocks) }
     end
 
     context "when username is given" do
