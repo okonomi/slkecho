@@ -19,13 +19,8 @@ module Slkecho
       @slack_client.post_message(post_message_params_from(options, user_id))
     end
 
-    def email_to_user_id(mention)
-      return nil if mention.nil?
-
-      return mention unless mention.include?("@")
-      return mention if mention.start_with?("U")
-
-      user = @slack_client.lookup_user_by_email(email: mention)
+    def email_to_user_id(email)
+      user = @slack_client.lookup_user_by_email(email: email)
       user["id"]
     end
 
