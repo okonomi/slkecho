@@ -1,6 +1,8 @@
 ## [Unreleased]
 
 - feat: Add Dockerfile
+- ci: Add release gem workflow
+- ci: Add release container image workflow
 
 ## [v2.0.0] - 2024-01-12
 
