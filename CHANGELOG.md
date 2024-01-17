@@ -3,6 +3,7 @@
 - feat: Add Dockerfile
 - ci: Add release gem workflow
 - ci: Add release container image workflow
+- fix: Exclude unnecessary files from the .gem
 
 ## [v2.0.0] - 2024-01-12
 
