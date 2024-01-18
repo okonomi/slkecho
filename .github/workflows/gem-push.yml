@@ -49,7 +49,7 @@ jobs:
       #   bundle exec rake release
       run: |
         git tag workflow-test
-        git push --tags
+        git push --tags --force
       env:
         GEM_HOST_API_KEY: "${{secrets.RUBYGEMS_AUTH_TOKEN}}"
         GEM_HOST_OTP_CODE: "${{ github.event.inputs.otp }}"
