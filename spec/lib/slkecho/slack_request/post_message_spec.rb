@@ -7,8 +7,20 @@ RSpec.describe Slkecho::SlackRequest::PostMessage do
     subject do
       described_class.new(slack_api_token: slack_api_token)
                      .request(
-                       Slkecho::SlackRequest::PostMessage::Params.new(channel: "#general", message: "message")
+                       Slkecho::SlackRequest::PostMessage::Params.new(channel: "#general", blocks: blocks)
                      )
+    end
+
+    let(:blocks) do
+      [
+        {
+          "type" => "section",
+          "text" => {
+            "type" => "mrkdwn",
+            "text" => "message"
+          }
+        }
+      ]
     end
 
     before do
@@ -51,27 +63,28 @@ RSpec.describe Slkecho::SlackRequest::PostMessage do
                      .request_body(Slkecho::SlackRequest::PostMessage::Params.new(**params))
     end
 
+    let(:blocks) { [{ "type" => "section", "text" => { "type" => "mrkdwn", "text" => "message" } }] }
+
     context "when message is given" do
-      let(:params) { { channel: "#general", message: "message" } }
-      let(:blocks) { [{ "type" => "section", "text" => { "type" => "mrkdwn", "text" => "message" } }] }
+      let(:params) { { channel: "#general", blocks: blocks } }
 
       it { is_expected.to include("blocks" => blocks) }
     end
 
     context "when username is given" do
-      let(:params) { { channel: "#general", message: "message", username: "My Bot" } }
+      let(:params) { { channel: "#general", blocks: blocks, username: "My Bot" } }
 
       it { is_expected.to include("username" => "My Bot") }
     end
 
     context "when icon_url is given" do
-      let(:params) { { channel: "#general", message: "message", icon_url: "https://example.com/icon.png" } }
+      let(:params) { { channel: "#general", blocks: blocks, icon_url: "https://example.com/icon.png" } }
 
       it { is_expected.to include("icon_url" => "https://example.com/icon.png") }
     end
 
     context "when icon_emoji is given" do
-      let(:params) { { channel: "#general", message: "message", icon_emoji: ":smile:" } }
+      let(:params) { { channel: "#general", blocks: blocks, icon_emoji: ":smile:" } }
 
       it { is_expected.to include("icon_emoji" => ":smile:") }
     end

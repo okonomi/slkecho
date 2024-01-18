@@ -68,6 +68,12 @@ RSpec.describe Slkecho::OptionParser do
 
       it { is_expected.to have_attributes(icon_emoji: ":smile:") }
     end
+
+    context "when blocks is given" do
+      let(:argv) { %w[--blocks] }
+
+      it { is_expected.to have_attributes(blocks: true) }
+    end
   end
 
   describe "#validate_options" do

@@ -56,7 +56,59 @@ RSpec.describe Slkecho::CLI do
       let(:params) do
         Slkecho::SlackClient::PostMessageParams.new(
           channel: "#general",
-          message: "<@U012A3CDE> message",
+          blocks: [
+            {
+              "type" => "section",
+              "text" => {
+                "type" => "mrkdwn",
+                "text" => "<@#{user_id}> message"
+              }
+            }
+          ],
+          username: "My Bot",
+          icon_url: "https://example.com/icon.png",
+          icon_emoji: ":smile:"
+        )
+      end
+
+      it { is_expected.to eq(params) }
+    end
+
+    context "when blocks is given" do
+      let(:options) do
+        Slkecho::Options.new.tap do
+          _1.channel = "#general"
+          _1.mention_by_email = "user1@example.com"
+          _1.message = <<~BLOCKS
+            [
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "<mention> message"
+                }
+              }
+            ]
+          BLOCKS
+          _1.username = "My Bot"
+          _1.icon_url = "https://example.com/icon.png"
+          _1.icon_emoji = ":smile:"
+          _1.blocks = true
+        end
+      end
+      let(:user_id) { "U012A3CDE" }
+      let(:params) do
+        Slkecho::SlackClient::PostMessageParams.new(
+          channel: "#general",
+          blocks: [
+            {
+              "type" => "section",
+              "text" => {
+                "type" => "mrkdwn",
+                "text" => "<@#{user_id}> message"
+              }
+            }
+          ],
           username: "My Bot",
           icon_url: "https://example.com/icon.png",
           icon_emoji: ":smile:"
