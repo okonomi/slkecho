@@ -51,8 +51,7 @@ jobs:
         GEM_HOST_API_KEY: "${{secrets.RUBYGEMS_AUTH_TOKEN}}"
         GEM_HOST_OTP_CODE: "${{ github.event.inputs.otp }}"
 
-    - name: Push tag
+    - name: Latest tag
       run: |
-        git push --follow-tags
         echo "name=$(git describe --abbrev=0)" >> "$GITHUB_OUTPUT"
       id: tag
