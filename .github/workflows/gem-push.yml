@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       otp:
-        description: 'One-time password for rubygems.org'
+        description: 'One-time password for RubyGems'
         required: true
 
 jobs:
