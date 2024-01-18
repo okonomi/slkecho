@@ -47,7 +47,9 @@ jobs:
     - name: Publish to RubyGems
       # run: |
       #   bundle exec rake release
-      run: git tag workflow-test
+      run: |
+        git tag workflow-test
+        git push --follow-tags
       env:
         GEM_HOST_API_KEY: "${{secrets.RUBYGEMS_AUTH_TOKEN}}"
         GEM_HOST_OTP_CODE: "${{ github.event.inputs.otp }}"
@@ -58,7 +60,7 @@ jobs:
       id: tag
 
     - name: Create GitHub release
-      run: gh release create "${RELEASE_NAME}" --draft
+      run: gh release create "${TAG_NAME}" --draft
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        RELEASE_NAME: ${{ steps.tag.outputs.name }}
+        TAG_NAME: ${{ steps.tag.outputs.name }}
