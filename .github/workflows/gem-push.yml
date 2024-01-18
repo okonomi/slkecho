@@ -45,8 +45,9 @@ jobs:
         OWNER: ${{ github.repository_owner }}
 
     - name: Publish to RubyGems
-      run: |
-        bundle exec rake release || true
+      # run: |
+      #   bundle exec rake release
+      run: git tag v2.0.1
       env:
         GEM_HOST_API_KEY: "${{secrets.RUBYGEMS_AUTH_TOKEN}}"
         GEM_HOST_OTP_CODE: "${{ github.event.inputs.otp }}"
