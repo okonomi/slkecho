@@ -1,6 +1,8 @@
 name: Release Ruby Gem
 
 on:
+  workflow_dispatch:
+
   push:
     # Publish semver tags as releases.
     tags: [ 'v*.*.*' ]
