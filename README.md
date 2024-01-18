@@ -1,5 +1,7 @@
 # Slkecho
 
+[![Gem Version](https://badge.fury.io/rb/slkecho.svg)](https://badge.fury.io/rb/slkecho)
+
 Slkecho is a CLI tool to post message to Slack like echo command.
 
 ## Installation
