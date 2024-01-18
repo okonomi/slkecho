@@ -56,7 +56,7 @@ jobs:
 
     - name: Latest tag
       run: |
-        echo "name=$(git describe --abbrev=0)" >> "$GITHUB_OUTPUT"
+        echo "name=$(git describe --tags --abbrev=0)" >> "$GITHUB_OUTPUT"
       id: tag
 
     - name: Create GitHub release
