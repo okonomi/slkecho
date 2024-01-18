@@ -56,3 +56,8 @@ jobs:
       run: |
         echo "name=$(git describe --abbrev=0)" >> "$GITHUB_OUTPUT"
       id: tag
+
+    - name: Create GitHub release
+      run: gh release create "${TAG_NAME}" --draft
+      env:
+        TAG_NAME: ${{ steps.tag.outputs.name }}
