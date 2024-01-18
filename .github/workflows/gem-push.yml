@@ -2,10 +2,10 @@ name: Release Ruby Gem
 
 on:
   workflow_dispatch:
-
-  push:
-    # Publish semver tags as releases.
-    tags: [ 'v*.*.*' ]
+    inputs:
+      otp:
+        description: 'One-time password for rubygems.org'
+        required: true
 
 jobs:
   build:
