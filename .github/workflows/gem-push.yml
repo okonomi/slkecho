@@ -60,7 +60,7 @@ jobs:
       id: tag
 
     - name: Create GitHub release
-      run: gh release create "${TAG_NAME}" --draft
+      run: echo gh release create "${TAG_NAME}" --draft
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         TAG_NAME: ${{ steps.tag.outputs.name }}
