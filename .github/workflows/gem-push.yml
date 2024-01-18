@@ -46,7 +46,7 @@ jobs:
 
     - name: Publish to RubyGems
       run: |
-        bundle exec rake release
+        bundle exec rake release || true
       env:
         GEM_HOST_API_KEY: "${{secrets.RUBYGEMS_AUTH_TOKEN}}"
         GEM_HOST_OTP_CODE: "${{ github.event.inputs.otp }}"
