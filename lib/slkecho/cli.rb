@@ -4,9 +4,10 @@ require "optparse"
 
 module Slkecho
   class CLI
-    def initialize(option_parser:, slack_client:)
+    def initialize(option_parser:, slack_client:, blocks_builder:)
       @option_parser = option_parser
       @slack_client = slack_client
+      @blocks_builder = blocks_builder
     end
 
     def run(argv)
@@ -26,12 +27,9 @@ module Slkecho
 
     def post_message_params_from(options, user_id)
       blocks = if options.blocks
-                 Slkecho::BlocksBuilder.new.build_from_blocks(options.message,
-                                                              user_id)
+                 @blocks_builder.build_from_blocks(options.message, user_id)
                else
-                 Slkecho::BlocksBuilder.new.build_from_message(
-                   options.message, user_id
-                 )
+                 @blocks_builder.build_from_message(options.message, user_id)
                end
 
       Slkecho::SlackClient::PostMessageParams.new(
@@ -46,7 +44,8 @@ module Slkecho
     def self.run(argv)
       cli = new(
         option_parser: Slkecho::OptionParser.new,
-        slack_client: Slkecho::SlackClient.new(slack_api_token: Slkecho.configuration.slack_api_token)
+        slack_client: Slkecho::SlackClient.new(slack_api_token: Slkecho.configuration.slack_api_token),
+        blocks_builder: Slkecho::BlocksBuilder.new
       )
       cli.run(argv)
     end

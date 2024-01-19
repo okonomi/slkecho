@@ -3,11 +3,12 @@
 RSpec.describe Slkecho::CLI do
   describe "#email_to_user_id" do
     subject do
-      described_class.new(option_parser: option_parser, slack_client: slack_client)
-                     .email_to_user_id(email)
+      described_class.new(
+        option_parser: instance_double(Slkecho::OptionParser),
+        slack_client: slack_client,
+        blocks_builder: instance_double(Slkecho::BlocksBuilder)
+      ).email_to_user_id(email)
     end
-
-    let(:option_parser) { instance_double(Slkecho::OptionParser) }
 
     context "when email is member" do
       let(:email) { "user1@example.com" }
@@ -34,14 +35,25 @@ RSpec.describe Slkecho::CLI do
 
   describe "#post_message_params_from" do
     subject do
-      described_class.new(option_parser: option_parser, slack_client: slack_client)
-                     .post_message_params_from(options, user_id)
+      described_class.new(
+        option_parser: instance_double(Slkecho::OptionParser),
+        slack_client: instance_double(Slkecho::SlackClient),
+        blocks_builder: blocks_builder
+      ).post_message_params_from(options, user_id)
     end
 
-    let(:option_parser) { instance_double(Slkecho::OptionParser) }
-    let(:slack_client) { instance_double(Slkecho::SlackClient) }
-
     context "when valid options" do
+      let(:blocks_builder) do
+        instance_double(Slkecho::BlocksBuilder, build_from_message: [
+                          {
+                            "type" => "section",
+                            "text" => {
+                              "type" => "mrkdwn",
+                              "text" => "<@#{user_id}> message"
+                            }
+                          }
+                        ])
+      end
       let(:options) do
         Slkecho::Options.new.tap do
           _1.channel = "#general"
@@ -75,6 +87,17 @@ RSpec.describe Slkecho::CLI do
     end
 
     context "when blocks is given" do
+      let(:blocks_builder) do
+        instance_double(Slkecho::BlocksBuilder, build_from_blocks: [
+                          {
+                            "type" => "section",
+                            "text" => {
+                              "type" => "mrkdwn",
+                              "text" => "<@#{user_id}> message"
+                            }
+                          }
+                        ])
+      end
       let(:options) do
         Slkecho::Options.new.tap do
           _1.channel = "#general"
