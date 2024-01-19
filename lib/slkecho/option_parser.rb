@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "optparse"
+
 module Slkecho
   class OptionParser
     def option_parser # rubocop:disable Metrics/AbcSize,Metrics/MethodLength

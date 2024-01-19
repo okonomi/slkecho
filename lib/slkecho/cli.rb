@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "optparse"
-
 module Slkecho
   class CLI
     def initialize(option_parser:, slack_client:, blocks_builder:)
