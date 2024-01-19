@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 RSpec.describe Slkecho::MessageBuilder do
-  describe "#build" do
-    subject { described_class.new.build(message, user_id) }
+  describe "#build_from_message" do
+    subject { described_class.new.build_from_message(message, user_id) }
 
     let(:message) do
       "message"
@@ -23,22 +23,26 @@ RSpec.describe Slkecho::MessageBuilder do
                               ])
       }
     end
+  end
+
+  describe "#build_from_blocks" do
+    subject { described_class.new.build_from_blocks(blocks, user_id) }
+
+    let(:blocks) do
+      <<~JSON
+        [
+          {
+            "type": "section",
+            "text": {
+              "type": "mrkdwn",
+              "text": "<mention> message"
+            }
+          }
+        ]
+      JSON
+    end
 
     context "when blocks are given" do
-      subject do
-        described_class.new.build(<<~BLOCKS, user_id, payload: true)
-          [
-            {
-              "type": "section",
-              "text": {
-                "type": "mrkdwn",
-                "text": "<mention> message"
-              }
-            }
-          ]
-        BLOCKS
-      end
-
       let(:user_id) { "U012A3CDE" }
 
       it do

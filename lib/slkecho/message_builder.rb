@@ -2,20 +2,20 @@
 
 module Slkecho
   class MessageBuilder
-    def build(message, user_id = nil, payload: false)
-      if payload
-        JSON.parse(message.gsub("<mention>", "<@#{user_id}>"))
-      else
-        [
-          {
-            "type" => "section",
-            "text" => {
-              "type" => "mrkdwn",
-              "text" => user_id.nil? ? message : "<@#{user_id}> #{message}"
-            }
+    def build_from_message(message, user_id = nil)
+      [
+        {
+          "type" => "section",
+          "text" => {
+            "type" => "mrkdwn",
+            "text" => user_id.nil? ? message : "<@#{user_id}> #{message}"
           }
-        ]
-      end
+        }
+      ]
+    end
+
+    def build_from_blocks(blocks, user_id = nil)
+      JSON.parse(blocks.gsub("<mention>", "<@#{user_id}>"))
     end
   end
 end
