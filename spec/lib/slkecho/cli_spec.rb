@@ -55,13 +55,13 @@ RSpec.describe Slkecho::CLI do
                         ])
       end
       let(:options) do
-        Slkecho::Options.new.tap do
-          _1.channel = "#general"
-          _1.mention_by_email = "user1@example.com"
-          _1.message = "message"
-          _1.username = "My Bot"
-          _1.icon_url = "https://example.com/icon.png"
-          _1.icon_emoji = ":smile:"
+        Slkecho::Options.new.tap do |o|
+          o.channel = "#general"
+          o.mention_by_email = "user1@example.com"
+          o.message = "message"
+          o.username = "My Bot"
+          o.icon_url = "https://example.com/icon.png"
+          o.icon_emoji = ":smile:"
         end
       end
       let(:user_id) { "U012A3CDE" }
@@ -99,10 +99,10 @@ RSpec.describe Slkecho::CLI do
                         ])
       end
       let(:options) do
-        Slkecho::Options.new.tap do
-          _1.channel = "#general"
-          _1.mention_by_email = "user1@example.com"
-          _1.message = <<~BLOCKS
+        Slkecho::Options.new.tap do |o|
+          o.channel = "#general"
+          o.mention_by_email = "user1@example.com"
+          o.message = <<~BLOCKS
             [
               {
                 "type": "section",
@@ -113,10 +113,10 @@ RSpec.describe Slkecho::CLI do
               }
             ]
           BLOCKS
-          _1.username = "My Bot"
-          _1.icon_url = "https://example.com/icon.png"
-          _1.icon_emoji = ":smile:"
-          _1.message_as_blocks = true
+          o.username = "My Bot"
+          o.icon_url = "https://example.com/icon.png"
+          o.icon_emoji = ":smile:"
+          o.message_as_blocks = true
         end
       end
       let(:user_id) { "U012A3CDE" }
