@@ -3,6 +3,7 @@
 - feat: Add --message-as-blocks option
 - fix: Require libraries
 - style: Enable RuboCop new cops and fix offenses
+- style: Add rubocop-performance and fix offenses
 
 ## [v2.0.1] - 2024-01-17
 

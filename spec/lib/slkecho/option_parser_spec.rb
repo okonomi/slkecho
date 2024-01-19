@@ -79,7 +79,7 @@ RSpec.describe Slkecho::OptionParser do
   describe "#validate_options" do
     def options_from(values)
       Slkecho::Options.new.tap do |opt|
-        values.each { |k, v| opt.send("#{k}=", v) }
+        values.each { |k, v| opt.send(:"#{k}=", v) }
       end
     end
 

@@ -15,7 +15,7 @@ RSpec.describe Slkecho do
     context "with --version" do
       let(:args) { "--version" }
 
-      it { expect { subject }.to output(/#{Slkecho::VERSION}/).to_stdout_from_any_process }
+      it { expect { subject }.to output(/#{Slkecho::VERSION}/o).to_stdout_from_any_process }
     end
 
     context "when --channel is missing" do
