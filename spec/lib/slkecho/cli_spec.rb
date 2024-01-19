@@ -116,7 +116,7 @@ RSpec.describe Slkecho::CLI do
           _1.username = "My Bot"
           _1.icon_url = "https://example.com/icon.png"
           _1.icon_emoji = ":smile:"
-          _1.blocks = true
+          _1.message_as_blocks = true
         end
       end
       let(:user_id) { "U012A3CDE" }

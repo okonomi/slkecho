@@ -12,7 +12,7 @@ module Slkecho
         o.on("--username USERNAME", "Set user name for message.") { @options.username = _1 }
         o.on("--icon-url ICON_URL", "Set user icon image for message by URL.") { @options.icon_url = _1 }
         o.on("--icon-emoji ICON_EMOJI", "Set user image for message by emoji.") { @options.icon_emoji = _1 }
-        o.on("--blocks", "Post message as blocks.") { @options.blocks = true }
+        o.on("--message-as-blocks", "Post message as blocks.") { @options.message_as_blocks = true }
       end
     end
 
