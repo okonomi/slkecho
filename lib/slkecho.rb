@@ -6,6 +6,7 @@ require_relative "slkecho/cli"
 require_relative "slkecho/options"
 require_relative "slkecho/option_parser"
 require_relative "slkecho/slack_client"
+require_relative "slkecho/blocks_builder"
 
 module Slkecho
   class InvalidConfigurationError < StandardError

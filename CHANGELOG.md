@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+- feat: Add --message-as-blocks option
+
 ## [v2.0.1] - 2024-01-17
 
 - feat: Add Dockerfile

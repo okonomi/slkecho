@@ -3,11 +3,12 @@
 RSpec.describe Slkecho::CLI do
   describe "#email_to_user_id" do
     subject do
-      described_class.new(option_parser: option_parser, slack_client: slack_client)
-                     .email_to_user_id(email)
+      described_class.new(
+        option_parser: instance_double(Slkecho::OptionParser),
+        slack_client: slack_client,
+        blocks_builder: instance_double(Slkecho::BlocksBuilder)
+      ).email_to_user_id(email)
     end
-
-    let(:option_parser) { instance_double(Slkecho::OptionParser) }
 
     context "when email is member" do
       let(:email) { "user1@example.com" }
@@ -34,14 +35,25 @@ RSpec.describe Slkecho::CLI do
 
   describe "#post_message_params_from" do
     subject do
-      described_class.new(option_parser: option_parser, slack_client: slack_client)
-                     .post_message_params_from(options, user_id)
+      described_class.new(
+        option_parser: instance_double(Slkecho::OptionParser),
+        slack_client: instance_double(Slkecho::SlackClient),
+        blocks_builder: blocks_builder
+      ).post_message_params_from(options, user_id)
     end
 
-    let(:option_parser) { instance_double(Slkecho::OptionParser) }
-    let(:slack_client) { instance_double(Slkecho::SlackClient) }
-
     context "when valid options" do
+      let(:blocks_builder) do
+        instance_double(Slkecho::BlocksBuilder, build_from_message: [
+                          {
+                            "type" => "section",
+                            "text" => {
+                              "type" => "mrkdwn",
+                              "text" => "<@#{user_id}> message"
+                            }
+                          }
+                        ])
+      end
       let(:options) do
         Slkecho::Options.new.tap do
           _1.channel = "#general"
@@ -56,7 +68,70 @@ RSpec.describe Slkecho::CLI do
       let(:params) do
         Slkecho::SlackClient::PostMessageParams.new(
           channel: "#general",
-          message: "<@U012A3CDE> message",
+          blocks: [
+            {
+              "type" => "section",
+              "text" => {
+                "type" => "mrkdwn",
+                "text" => "<@#{user_id}> message"
+              }
+            }
+          ],
+          username: "My Bot",
+          icon_url: "https://example.com/icon.png",
+          icon_emoji: ":smile:"
+        )
+      end
+
+      it { is_expected.to eq(params) }
+    end
+
+    context "when blocks is given" do
+      let(:blocks_builder) do
+        instance_double(Slkecho::BlocksBuilder, build_from_json: [
+                          {
+                            "type" => "section",
+                            "text" => {
+                              "type" => "mrkdwn",
+                              "text" => "<@#{user_id}> message"
+                            }
+                          }
+                        ])
+      end
+      let(:options) do
+        Slkecho::Options.new.tap do
+          _1.channel = "#general"
+          _1.mention_by_email = "user1@example.com"
+          _1.message = <<~BLOCKS
+            [
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "<mention> message"
+                }
+              }
+            ]
+          BLOCKS
+          _1.username = "My Bot"
+          _1.icon_url = "https://example.com/icon.png"
+          _1.icon_emoji = ":smile:"
+          _1.message_as_blocks = true
+        end
+      end
+      let(:user_id) { "U012A3CDE" }
+      let(:params) do
+        Slkecho::SlackClient::PostMessageParams.new(
+          channel: "#general",
+          blocks: [
+            {
+              "type" => "section",
+              "text" => {
+                "type" => "mrkdwn",
+                "text" => "<@#{user_id}> message"
+              }
+            }
+          ],
           username: "My Bot",
           icon_url: "https://example.com/icon.png",
           icon_emoji: ":smile:"
