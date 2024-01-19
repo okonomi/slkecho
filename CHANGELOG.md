@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [v2.1.0] - 2024-01-19
+
 - feat: Add --message-as-blocks option
 - fix: Require libraries
 - style: Enable RuboCop new cops and fix offenses
