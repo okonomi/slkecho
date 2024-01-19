@@ -1,6 +1,7 @@
 ## [Unreleased]
 
 - feat: Add --message-as-blocks option
+- fix: require libraries
 
 ## [v2.0.1] - 2024-01-17
 
