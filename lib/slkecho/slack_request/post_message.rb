@@ -40,18 +40,6 @@ module Slkecho
           "icon_emoji" => params.icon_emoji
         }
       end
-
-      def blocks_from(message)
-        [
-          {
-            "type" => "section",
-            "text" => {
-              "type" => "mrkdwn",
-              "text" => message
-            }
-          }
-        ]
-      end
     end
   end
 end
