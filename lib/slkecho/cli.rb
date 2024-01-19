@@ -26,10 +26,10 @@ module Slkecho
 
     def post_message_params_from(options, user_id)
       blocks = if options.blocks
-                 Slkecho::MessageBuilder.new.build_from_blocks(options.message,
-                                                               user_id)
+                 Slkecho::BlocksBuilder.new.build_from_blocks(options.message,
+                                                              user_id)
                else
-                 Slkecho::MessageBuilder.new.build_from_message(
+                 Slkecho::BlocksBuilder.new.build_from_message(
                    options.message, user_id
                  )
                end

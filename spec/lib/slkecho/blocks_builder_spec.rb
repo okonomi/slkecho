@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Slkecho::MessageBuilder do
+RSpec.describe Slkecho::BlocksBuilder do
   describe "#build_from_message" do
     subject { described_class.new.build_from_message(message, user_id) }
 

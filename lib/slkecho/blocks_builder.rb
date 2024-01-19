@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Slkecho
-  class MessageBuilder
+  class BlocksBuilder
     def build_from_message(message, user_id = nil)
       [
         {
