@@ -27,7 +27,7 @@ module Slkecho
 
     def post_message_params_from(options, user_id)
       blocks = if options.blocks
-                 @blocks_builder.build_from_blocks(options.message, user_id)
+                 @blocks_builder.build_from_json(options.message, user_id)
                else
                  @blocks_builder.build_from_message(options.message, user_id)
                end

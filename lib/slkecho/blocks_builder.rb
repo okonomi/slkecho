@@ -14,8 +14,8 @@ module Slkecho
       ]
     end
 
-    def build_from_blocks(blocks, user_id = nil)
-      JSON.parse(blocks.gsub("<mention>", "<@#{user_id}>"))
+    def build_from_json(json, user_id = nil)
+      JSON.parse(json.gsub("<mention>", "<@#{user_id}>"))
     end
   end
 end

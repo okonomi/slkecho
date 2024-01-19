@@ -88,7 +88,7 @@ RSpec.describe Slkecho::CLI do
 
     context "when blocks is given" do
       let(:blocks_builder) do
-        instance_double(Slkecho::BlocksBuilder, build_from_blocks: [
+        instance_double(Slkecho::BlocksBuilder, build_from_json: [
                           {
                             "type" => "section",
                             "text" => {

@@ -25,10 +25,10 @@ RSpec.describe Slkecho::BlocksBuilder do
     end
   end
 
-  describe "#build_from_blocks" do
-    subject { described_class.new.build_from_blocks(blocks, user_id) }
+  describe "#build_from_json" do
+    subject { described_class.new.build_from_json(json, user_id) }
 
-    let(:blocks) do
+    let(:json) do
       <<~JSON
         [
           {
