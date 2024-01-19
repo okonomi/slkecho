@@ -65,6 +65,12 @@ Set user image for message by emoji.
 
 See below: https://api.slack.com/methods/chat.postMessage#arg_icon_emoji
 
+### --message-as-blocks (optional)
+
+Post message as blocks.
+
+See below: https://api.slack.com/methods/chat.postMessage#arg_blocks
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/okonomi/slkecho.
