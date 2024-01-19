@@ -26,19 +26,21 @@ module Slkecho
     end
 
     def post_message_params_from(options, user_id)
-      blocks = if options.message_as_blocks
-                 @blocks_builder.build_from_json(options.message, user_id)
-               else
-                 @blocks_builder.build_from_message(options.message, user_id)
-               end
-
       Slkecho::SlackClient::PostMessageParams.new(
         channel: options.channel,
-        blocks: blocks,
+        blocks: blocks_from(options.message, user_id, options.message_as_blocks),
         username: options.username,
         icon_url: options.icon_url,
         icon_emoji: options.icon_emoji
       )
+    end
+
+    def blocks_from(message, user_id, message_as_blocks)
+      if message_as_blocks
+        @blocks_builder.build_from_json(message, user_id)
+      else
+        @blocks_builder.build_from_message(message, user_id)
+      end
     end
 
     def self.run(argv)

@@ -2,34 +2,29 @@
 
 RSpec.describe Slkecho::BlocksBuilder do
   describe "#build_from_message" do
-    subject { described_class.new.build_from_message(message, user_id) }
-
-    let(:message) do
-      "message"
-    end
+    subject { described_class.new.build_from_message("message", user_id) }
 
     context "when user_id is nil" do
       let(:user_id) { nil }
+      let(:blocks) do
+        [
+          {
+            "type" => "section",
+            "text" => {
+              "type" => "mrkdwn",
+              "text" => "message"
+            }
+          }
+        ]
+      end
 
-      it {
-        expect(subject).to eq([
-                                {
-                                  "type" => "section",
-                                  "text" => {
-                                    "type" => "mrkdwn",
-                                    "text" => message
-                                  }
-                                }
-                              ])
-      }
+      it { is_expected.to eq(blocks) }
     end
   end
 
   describe "#build_from_json" do
-    subject { described_class.new.build_from_json(json, user_id) }
-
-    let(:json) do
-      <<~JSON
+    subject do
+      described_class.new.build_from_json(<<~JSON, user_id)
         [
           {
             "type": "section",
@@ -44,18 +39,19 @@ RSpec.describe Slkecho::BlocksBuilder do
 
     context "when blocks are given" do
       let(:user_id) { "U012A3CDE" }
-
-      it do
-        expect(subject).to eq([
-                                {
-                                  "type" => "section",
-                                  "text" => {
-                                    "type" => "mrkdwn",
-                                    "text" => "<@#{user_id}> message"
-                                  }
-                                }
-                              ])
+      let(:blocks) do
+        [
+          {
+            "type" => "section",
+            "text" => {
+              "type" => "mrkdwn",
+              "text" => "<@#{user_id}> message"
+            }
+          }
+        ]
       end
+
+      it { is_expected.to eq(blocks) }
     end
   end
 end
