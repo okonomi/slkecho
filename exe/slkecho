@@ -4,7 +4,7 @@
 require_relative "../lib/slkecho"
 
 Slkecho.configure do |config|
-  config.slack_api_token = ENV["SLACK_API_TOKEN"]
+  config.slack_api_token = ENV.fetch("SLACK_API_TOKEN", nil)
 end
 
 begin
