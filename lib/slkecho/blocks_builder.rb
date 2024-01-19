@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "json"
+
 module Slkecho
   class BlocksBuilder
     def build_from_message(message, user_id = nil)
