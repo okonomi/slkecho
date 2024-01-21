@@ -1,6 +1,9 @@
 {
     "recommendations": [
         "dotenv.dotenv-vscode",
-        "shopify.ruby-extensions-pack"
+        "mame.ruby-typeprof",
+        "shopify.ruby-extensions-pack",
+        "soutaro.rbs-syntax",
+        "soutaro.steep-vscode"
     ]
 }
