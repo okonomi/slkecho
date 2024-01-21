@@ -1,4 +1,112 @@
+# TypeProf 0.21.9
+
+# Classes
+class Object
+  private
+  def options_from: (untyped values) -> Slkecho::Options
+end
+
 module Slkecho
   VERSION: String
-  # See the writing guide of rbs: https://github.com/ruby/rbs#guides
+  self.@configuration: Configuration
+
+  def self.configure: -> untyped
+  def self.configuration: -> Configuration
+
+  class Configuration
+    attr_accessor slack_api_token: bot
+    def validate: -> true
+  end
+
+  class CLI
+    @option_parser: OptionParser
+    @slack_client: SlackClient
+    @blocks_builder: BlocksBuilder
+
+    def initialize: (option_parser: OptionParser, slack_client: SlackClient, blocks_builder: BlocksBuilder) -> void
+    def run: (untyped argv) -> true
+    def email_to_user_id: (String? email) -> untyped
+    def post_message_params_from: (Options? options, nil user_id) -> SlackClient::PostMessageParams
+    def blocks_from: (String? message, nil user_id, true message_as_blocks) -> ([Hash[String, Hash[String, untyped] | String]])
+    def self.run: (untyped argv) -> true
+  end
+
+  class Options
+    attr_accessor channel: String?
+    attr_accessor mention_by_email: String?
+    attr_accessor message: String?
+    attr_accessor username: String?
+    attr_accessor icon_url: String?
+    attr_accessor icon_emoji: String?
+    attr_accessor message_as_blocks: true
+  end
+
+  class OptionParser
+    @options: Options
+    @option_parser: OptionParser
+
+    def option_parser: -> OptionParser
+    def parse: (untyped argv) -> Options
+    def parse_options: (untyped argv) -> Options
+    def validate_options: (Options options) -> true
+  end
+
+  module SlackRequest
+    class LookupUserByEmail
+      @slack_api_token: nil
+      @uri: URI::Generic
+      @http: Net::HTTP
+      @headers: Hash[String, String]
+
+      def initialize: (slack_api_token: nil) -> void
+      def request: (email: String?) -> untyped
+      def uri_with_query: (URI::Generic uri, {email: String?} params) -> URI::Generic
+    end
+
+    class PostMessage
+      @slack_api_token: nil
+      @uri: URI::Generic
+      @http: Net::HTTP
+      @headers: Hash[String, String]
+
+      def initialize: (slack_api_token: nil) -> void
+      def request: (SlackClient::PostMessageParams params) -> true
+      def request_body: (SlackClient::PostMessageParams params) -> (Hash[String, (String | [Hash[String, String]])?])
+    end
+  end
+
+  class SlackClient
+    @slack_api_token: nil
+
+    def initialize: (slack_api_token: nil) -> void
+    def lookup_user_by_email: (email: String?) -> untyped
+    def post_message: (PostMessageParams params) -> true
+
+    class PostMessageParams < Struct[untyped]
+      attr_accessor channel(): String?
+      attr_accessor blocks(): [Hash[String, Hash[String, String] | String]]
+      attr_accessor username(): String?
+      attr_accessor icon_url(): String?
+      attr_accessor icon_emoji(): String?
+    end
+  end
+
+  class BlocksBuilder
+    def build_from_message: (String? message, ?nil user_id) -> ([Hash[String, Hash[String, String?] | String]])
+    def build_from_json: (String? json, ?nil user_id) -> untyped
+  end
+
+  class InvalidConfigurationError < StandardError
+    attr_reader item: :slack_api_token?
+    def initialize: (String message, ?:slack_api_token? item) -> void
+  end
+
+  class InvalidOptionError < StandardError
+  end
+
+  class SlackApiHttpError < StandardError
+  end
+
+  class SlackApiResultError < StandardError
+  end
 end
