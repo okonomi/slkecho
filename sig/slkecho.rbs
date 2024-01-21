@@ -14,7 +14,7 @@ module Slkecho
   def self.configuration: -> Configuration
 
   class Configuration
-    attr_accessor slack_api_token: bot
+    attr_accessor slack_api_token: String?
     def validate: -> true
   end
 
