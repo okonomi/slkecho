@@ -26,7 +26,7 @@ module Slkecho
     def initialize: (option_parser: OptionParser, slack_client: SlackClient, blocks_builder: BlocksBuilder) -> void
     def run: (untyped argv) -> true
     def email_to_user_id: (String? email) -> untyped
-    def post_message_params_from: (Options? options, nil user_id) -> SlackClient::PostMessageParams
+    def post_message_params_from: (Options options, nil user_id) -> SlackClient::PostMessageParams
     def blocks_from: (String? message, nil user_id, true message_as_blocks) -> ([Hash[String, Hash[String, untyped] | String]])
     def self.run: (untyped argv) -> true
   end
