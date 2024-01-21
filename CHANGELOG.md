@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+- chore: Add ruby-lsp gem
+
 ## [v2.1.0] - 2024-01-19
 
 - feat: Add --message-as-blocks option

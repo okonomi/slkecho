@@ -14,4 +14,5 @@ gem "rubocop-performance"
 gem "rubocop-rspec"
 
 gem "debug"
+gem "ruby-lsp"
 gem "webmock"
