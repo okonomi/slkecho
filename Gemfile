@@ -15,4 +15,5 @@ gem "rubocop-rspec"
 
 gem "debug"
 gem "ruby-lsp"
+gem "typeprof"
 gem "webmock"

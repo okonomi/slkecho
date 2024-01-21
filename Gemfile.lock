@@ -6,6 +6,7 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
+    abbrev (0.1.2)
     addressable (2.8.6)
       public_suffix (>= 2.0.2, < 6.0)
     ast (2.4.2)
@@ -33,6 +34,8 @@ GEM
     racc (1.7.3)
     rainbow (3.1.1)
     rake (13.1.0)
+    rbs (3.4.2)
+      abbrev
     rdoc (6.6.2)
       psych (>= 4.0.0)
     regexp_parser (2.9.0)
@@ -83,6 +86,8 @@ GEM
     ruby-progressbar (1.13.0)
     sorbet-runtime (0.5.11214)
     stringio (3.1.0)
+    typeprof (0.21.9)
+      rbs (>= 1.8.1)
     unicode-display_width (2.5.0)
     webmock (3.19.1)
       addressable (>= 2.8.0)
@@ -102,6 +107,7 @@ DEPENDENCIES
   rubocop-rspec
   ruby-lsp
   slkecho!
+  typeprof
   webmock
 
 BUNDLED WITH
