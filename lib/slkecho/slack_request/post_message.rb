@@ -29,8 +29,8 @@ module Slkecho
         )
         raise Slkecho::SlackApiHttpError, "#{response.code} #{response.message}" unless response.is_a?(Net::HTTPSuccess)
 
-        result = JSON.parse(response.body)
-        raise Slkecho::SlackApiResultError, result["error"] unless result["ok"]
+        result = JSON.parse(response.body, symbolize_names: true)
+        raise Slkecho::SlackApiResultError, result[:error] unless result[:ok]
 
         true
       end

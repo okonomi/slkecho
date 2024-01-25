@@ -17,7 +17,7 @@ RSpec.describe Slkecho::SlackRequest::LookupUserByEmail do
     context "when user is found" do
       let(:response_body) { { ok: true, user: { id: "W012A3CDE" } }.to_json }
 
-      it { is_expected.to include("id" => "W012A3CDE") }
+      it { is_expected.to include(id: "W012A3CDE") }
     end
 
     context "when user is not found" do
