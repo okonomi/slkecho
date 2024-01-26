@@ -68,25 +68,25 @@ RSpec.describe Slkecho::SlackRequest::PostMessage do
     context "when message is given" do
       let(:params) { { channel: "#general", blocks: blocks } }
 
-      it { is_expected.to include("blocks" => blocks) }
+      it { is_expected.to include(blocks: blocks) }
     end
 
     context "when username is given" do
       let(:params) { { channel: "#general", blocks: blocks, username: "My Bot" } }
 
-      it { is_expected.to include("username" => "My Bot") }
+      it { is_expected.to include(username: "My Bot") }
     end
 
     context "when icon_url is given" do
       let(:params) { { channel: "#general", blocks: blocks, icon_url: "https://example.com/icon.png" } }
 
-      it { is_expected.to include("icon_url" => "https://example.com/icon.png") }
+      it { is_expected.to include(icon_url: "https://example.com/icon.png") }
     end
 
     context "when icon_emoji is given" do
       let(:params) { { channel: "#general", blocks: blocks, icon_emoji: ":smile:" } }
 
-      it { is_expected.to include("icon_emoji" => ":smile:") }
+      it { is_expected.to include(icon_emoji: ":smile:") }
     end
   end
 end
