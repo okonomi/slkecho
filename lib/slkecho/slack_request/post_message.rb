@@ -37,11 +37,11 @@ module Slkecho
 
       def request_body(params)
         {
-          "channel" => params.channel,
-          "blocks" => params.blocks,
-          "username" => params.username,
-          "icon_url" => params.icon_url,
-          "icon_emoji" => params.icon_emoji
+          channel: params.channel,
+          blocks: params.blocks,
+          username: params.username,
+          icon_url: params.icon_url,
+          icon_emoji: params.icon_emoji
         }
       end
     end
