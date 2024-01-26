@@ -9,10 +9,10 @@ RSpec.describe Slkecho::BlocksBuilder do
       let(:blocks) do
         [
           {
-            "type" => "section",
-            "text" => {
-              "type" => "mrkdwn",
-              "text" => "message"
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: "message"
             }
           }
         ]

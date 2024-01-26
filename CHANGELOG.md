@@ -3,6 +3,7 @@
 - chore: Add ruby-lsp gem
 - refactor: Parse JSON with symbolize names
 - refactor: Make request body with symbolize keys
+- refactor: Make blocks with symbolize keys
 
 ## [v2.1.0] - 2024-01-19
 

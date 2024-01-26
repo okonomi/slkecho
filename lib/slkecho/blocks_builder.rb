@@ -7,10 +7,10 @@ module Slkecho
     def build_from_message(message, user_id = nil)
       [
         {
-          "type" => "section",
-          "text" => {
-            "type" => "mrkdwn",
-            "text" => user_id.nil? ? message : "<@#{user_id}> #{message}"
+          type: "section",
+          text: {
+            type: "mrkdwn",
+            text: user_id.nil? ? message : "<@#{user_id}> #{message}"
           }
         }
       ]
