@@ -4,6 +4,8 @@ require "net/http"
 require "uri"
 require "json"
 
+require_relative "../slack_request"
+
 module Slkecho
   module SlackRequest
     class PostMessage
@@ -22,14 +24,14 @@ module Slkecho
       end
 
       def request(params)
-        response = @http.post(
-          @uri.path,
-          request_body(params).to_json,
-          @headers
-        )
-        raise Slkecho::SlackApiHttpError, "#{response.code} #{response.message}" unless response.is_a?(Net::HTTPSuccess)
+        result = Slkecho::SlackRequest.send_request do
+          @http.post(
+            @uri.path,
+            request_body(params).to_json,
+            @headers
+          )
+        end
 
-        result = JSON.parse(response.body, symbolize_names: true)
         raise Slkecho::SlackApiResultError, result[:error] unless result[:ok]
 
         true
