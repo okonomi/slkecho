@@ -52,6 +52,9 @@ module Slkecho
   end
 
   module SlackRequest
+    def self.send_request: ?{ -> nil } -> nil
+                         | { -> nil } -> untyped
+
     class LookupUserByEmail
       @slack_api_token: String
       @uri: URI::Generic
@@ -102,6 +105,9 @@ module Slkecho
   end
 
   class InvalidOptionError < StandardError
+  end
+
+  class SlackApiError < StandardError
   end
 
   class SlackApiHttpError < StandardError
