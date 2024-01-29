@@ -4,6 +4,8 @@ require "net/http"
 require "uri"
 require "json"
 
+require_relative "../slack_request"
+
 module Slkecho
   module SlackRequest
     class LookupUserByEmail
@@ -20,14 +22,10 @@ module Slkecho
       end
 
       def request(email:)
-        begin
-          response = @http.get(uri_with_query(@uri, { email: email }), @headers)
-        rescue StandardError => e
-          raise Slkecho::SlackApiHttpError, e.message
+        user_info = Slkecho::SlackRequest.send_request do
+          @http.get(uri_with_query(@uri, { email: email }), @headers)
         end
-        raise Slkecho::SlackApiHttpError, response.body unless response.is_a?(Net::HTTPSuccess)
 
-        user_info = JSON.parse(response.body, symbolize_names: true)
         raise Slkecho::SlackApiResultError, "user not found. (#{email})" if user_info[:error] == "users_not_found"
         raise Slkecho::SlackApiResultError, user_info[:error] unless user_info[:ok]
 

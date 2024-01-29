@@ -27,9 +27,7 @@ RSpec.describe Slkecho::CLI do
         client
       end
 
-      it "raises SlackApiResultError" do
-        expect { subject }.to raise_error(Slkecho::SlackApiResultError, "user not found. (#{email})")
-      end
+      its_block { is_expected.to raise_error(Slkecho::SlackApiResultError, "user not found. (#{email})") }
     end
   end
 

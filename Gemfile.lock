@@ -51,7 +51,7 @@ GEM
     minitest (5.21.2)
     mutex_m (0.2.0)
     parallel (1.24.0)
-    parser (3.3.0.4)
+    parser (3.3.0.5)
       ast (~> 2.4.1)
       racc
     prism (0.19.0)
@@ -85,7 +85,7 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.12.0)
     rspec-support (3.12.1)
-    rubocop (1.60.1)
+    rubocop (1.60.2)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
       parallel (~> 1.10)
@@ -115,6 +115,8 @@ GEM
       sorbet-runtime (>= 0.5.10782)
     ruby-progressbar (1.13.0)
     ruby2_keywords (0.0.5)
+    saharspec (0.0.10)
+      ruby2_keywords
     securerandom (0.3.1)
     sorbet-runtime (0.5.11214)
     steep (1.6.0)
@@ -153,10 +155,11 @@ DEPENDENCIES
   debug
   rake (~> 13.0)
   rspec (~> 3.0)
-  rubocop (~> 1.21)
+  rubocop (~> 1.60)
   rubocop-performance
   rubocop-rspec
   ruby-lsp
+  saharspec
   slkecho!
   steep
   typeprof

@@ -88,9 +88,7 @@ RSpec.describe Slkecho::OptionParser do
     context "when channel is not given" do
       let(:option_values) { { channel: nil, message: "" } }
 
-      it "raises InvalidOptionError" do
-        expect { subject }.to raise_error(Slkecho::InvalidOptionError, "channel is required.")
-      end
+      its_block { is_expected.to raise_error(Slkecho::InvalidOptionError, "channel is required.") }
     end
 
     context "when channel starts with #" do
@@ -108,9 +106,7 @@ RSpec.describe Slkecho::OptionParser do
     context "when message is not given" do
       let(:option_values) { { channel: "#general", message: nil } }
 
-      it "raises InvalidOptionError" do
-        expect { subject }.to raise_error(Slkecho::InvalidOptionError, "message is missing.")
-      end
+      its_block { is_expected.to raise_error(Slkecho::InvalidOptionError, "message is missing.") }
     end
   end
 end
