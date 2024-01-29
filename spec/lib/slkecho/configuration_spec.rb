@@ -31,9 +31,7 @@ RSpec.describe Slkecho::Configuration do
     context "when slack_api_token is not given" do
       let(:slack_api_token) { nil }
 
-      it "raises InvalidConfigurationError" do
-        expect { subject }.to raise_error(Slkecho::InvalidConfigurationError, "slack_api_token is required.")
-      end
+      its_block { is_expected.to raise_error(Slkecho::InvalidConfigurationError, "slack_api_token is required.") }
     end
   end
 end
