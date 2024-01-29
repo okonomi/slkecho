@@ -8,11 +8,12 @@ RSpec.describe Slkecho::SlackRequest::LookupUserByEmail do
 
     before do
       stub_request(:get, "https://slack.com/api/users.lookupByEmail?#{URI.encode_www_form({ email: email })}")
-        .to_return(status: status_code, body: response_body)
+        .to_return(status: [status_code, status_message], body: response_body)
     end
 
     let(:email) { "user1@example.com" }
     let(:status_code) { 200 }
+    let(:status_message) { "OK" }
 
     context "when user is found" do
       let(:response_body) { { ok: true, user: { id: "W012A3CDE" } }.to_json }
@@ -38,10 +39,11 @@ RSpec.describe Slkecho::SlackRequest::LookupUserByEmail do
 
     context "when HTTP error respond" do
       let(:status_code) { 400 }
-      let(:response_body) { "Bad Request" }
+      let(:status_message) { "Bad Request" }
+      let(:response_body) { "" }
 
       it "raises SlackApiHttpError" do
-        expect { subject }.to raise_error(Slkecho::SlackApiHttpError, "Bad Request")
+        expect { subject }.to raise_error(Slkecho::SlackApiHttpError, "400 Bad Request")
       end
     end
   end
