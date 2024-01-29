@@ -19,7 +19,7 @@ RSpec.describe Slkecho::SlackRequest do
         end
       end
 
-      it { expect { subject }.to raise_error(Slkecho::SlackApiError, "API Response could not be retrieved.") }
+      its_block { is_expected.to raise_error(Slkecho::SlackApiError, "API Response could not be retrieved.") }
     end
 
     context "when response is not success" do
@@ -32,7 +32,7 @@ RSpec.describe Slkecho::SlackRequest do
         end
       end
 
-      it { expect { subject }.to raise_error(Slkecho::SlackApiHttpError, "400 Bad Request") }
+      its_block { is_expected.to raise_error(Slkecho::SlackApiHttpError, "400 Bad Request") }
     end
 
     context "when response is not JSON" do
@@ -45,7 +45,7 @@ RSpec.describe Slkecho::SlackRequest do
         end
       end
 
-      it { expect { subject }.to raise_error(Slkecho::SlackApiError, "API Response is not JSON.") }
+      its_block { is_expected.to raise_error(Slkecho::SlackApiError, "API Response is not JSON.") }
     end
 
     context "when response is valid" do

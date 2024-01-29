@@ -24,17 +24,13 @@ RSpec.describe Slkecho::SlackRequest::LookupUserByEmail do
     context "when user is not found" do
       let(:response_body) { { ok: false, error: "users_not_found" }.to_json }
 
-      it "raises SlackApiResultError" do
-        expect { subject }.to raise_error(Slkecho::SlackApiResultError, "user not found. (#{email})")
-      end
+      its_block { is_expected.to raise_error(Slkecho::SlackApiResultError, "user not found. (#{email})") }
     end
 
     context "when some error responsed" do
       let(:response_body) { { ok: false, error: "some_error" }.to_json }
 
-      it "raises SlackApiResultError" do
-        expect { subject }.to raise_error(Slkecho::SlackApiResultError, "some_error")
-      end
+      its_block { is_expected.to raise_error(Slkecho::SlackApiResultError, "some_error") }
     end
 
     context "when HTTP error respond" do
@@ -42,9 +38,7 @@ RSpec.describe Slkecho::SlackRequest::LookupUserByEmail do
       let(:status_message) { "Bad Request" }
       let(:response_body) { "" }
 
-      it "raises SlackApiHttpError" do
-        expect { subject }.to raise_error(Slkecho::SlackApiHttpError, "400 Bad Request")
-      end
+      its_block { is_expected.to raise_error(Slkecho::SlackApiHttpError, "400 Bad Request") }
     end
   end
 end

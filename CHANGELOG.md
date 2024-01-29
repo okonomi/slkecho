@@ -5,6 +5,7 @@
 - refactor: Make request body with symbolize keys
 - refactor: Make blocks with symbolize keys
 - refactor: Extract http response checking
+- test: Introduce saharspec gem
 
 ## [v2.1.0] - 2024-01-19
 

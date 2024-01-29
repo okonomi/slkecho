@@ -2,6 +2,7 @@
 
 require "slkecho"
 
+require "saharspec"
 require "webmock/rspec"
 
 RSpec.configure do |config|

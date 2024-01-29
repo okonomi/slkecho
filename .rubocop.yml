@@ -22,3 +22,20 @@ Layout/LineLength:
 
 RSpec/NamedSubject:
   Enabled: false
+
+# https://github.com/zverok/saharspec/pull/7
+RSpec:
+  Language:
+    Examples:
+      Regular:
+        - its_block
+        - its_call
+        - its_map
+      Skipped:
+        - xits_block
+        - xits_call
+        - xits_map
+      Focused:
+        - fits_block
+        - fits_call
+        - fits_map
