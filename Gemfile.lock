@@ -9,7 +9,9 @@ GEM
     addressable (2.8.6)
       public_suffix (>= 2.0.2, < 6.0)
     ast (2.4.2)
-    crack (0.4.5)
+    bigdecimal (3.1.6)
+    crack (1.0.0)
+      bigdecimal
       rexml
     debug (1.9.1)
       irb (~> 1.10)
@@ -87,7 +89,7 @@ GEM
     sorbet-runtime (0.5.11214)
     stringio (3.1.0)
     unicode-display_width (2.5.0)
-    webmock (3.19.1)
+    webmock (3.20.0)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
