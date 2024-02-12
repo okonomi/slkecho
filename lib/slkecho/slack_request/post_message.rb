@@ -25,16 +25,15 @@ module Slkecho
 
       def request(params)
         result = Slkecho::SlackRequest.send_request do
-          @http.post(
-            @uri.path,
-            request_body(params).to_json,
-            @headers
-          )
+          @http.post(@uri.path, request_body(params).to_json, @headers)
         end
 
-        raise Slkecho::SlackApiResultError, result[:error] unless result[:ok]
-
-        true
+        case result
+        in { ok: true }
+          true
+        in { ok: false, error: error }
+          raise Slkecho::SlackApiResultError, error
+        end
       end
 
       def request_body(params)
