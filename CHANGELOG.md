@@ -1,6 +1,7 @@
 ## [Unreleased]
 
 - refactor: Use pattern matching
+- chore: Add rubocop-rake
 
 ## [v2.1.1] - 2024-02-12
 
