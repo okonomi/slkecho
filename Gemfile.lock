@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    slkecho (2.1.0)
+    slkecho (2.1.1)
 
 GEM
   remote: https://rubygems.org/
@@ -24,13 +24,14 @@ GEM
     bigdecimal (3.1.6)
     concurrent-ruby (1.2.3)
     connection_pool (2.4.1)
-    crack (0.4.5)
+    crack (1.0.0)
+      bigdecimal
       rexml
     csv (3.2.8)
     debug (1.9.1)
       irb (~> 1.10)
       reline (>= 0.3.8)
-    diff-lcs (1.5.0)
+    diff-lcs (1.5.1)
     drb (2.2.0)
       ruby2_keywords
     ffi (1.16.3)
@@ -54,7 +55,7 @@ GEM
     parser (3.3.0.5)
       ast (~> 2.4.1)
       racc
-    prism (0.19.0)
+    prism (0.21.0)
     psych (5.1.2)
       stringio
     public_suffix (5.0.4)
@@ -72,19 +73,19 @@ GEM
     reline (0.4.1)
       io-console (~> 0.5)
     rexml (3.2.6)
-    rspec (3.12.0)
-      rspec-core (~> 3.12.0)
-      rspec-expectations (~> 3.12.0)
-      rspec-mocks (~> 3.12.0)
-    rspec-core (3.12.2)
-      rspec-support (~> 3.12.0)
-    rspec-expectations (3.12.3)
+    rspec (3.13.0)
+      rspec-core (~> 3.13.0)
+      rspec-expectations (~> 3.13.0)
+      rspec-mocks (~> 3.13.0)
+    rspec-core (3.13.0)
+      rspec-support (~> 3.13.0)
+    rspec-expectations (3.13.0)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.12.0)
-    rspec-mocks (3.12.6)
+      rspec-support (~> 3.13.0)
+    rspec-mocks (3.13.0)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.12.0)
-    rspec-support (3.12.1)
+      rspec-support (~> 3.13.0)
+    rspec-support (3.13.0)
     rubocop (1.60.2)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
@@ -105,20 +106,22 @@ GEM
     rubocop-performance (1.20.2)
       rubocop (>= 1.48.1, < 2.0)
       rubocop-ast (>= 1.30.0, < 2.0)
+    rubocop-rake (0.6.0)
+      rubocop (~> 1.0)
     rubocop-rspec (2.26.1)
       rubocop (~> 1.40)
       rubocop-capybara (~> 2.17)
       rubocop-factory_bot (~> 2.22)
-    ruby-lsp (0.13.4)
+    ruby-lsp (0.14.0)
       language_server-protocol (~> 3.17.0)
-      prism (>= 0.19.0, < 0.20)
+      prism (>= 0.19.0, < 0.22)
       sorbet-runtime (>= 0.5.10782)
     ruby-progressbar (1.13.0)
     ruby2_keywords (0.0.5)
     saharspec (0.0.10)
       ruby2_keywords
     securerandom (0.3.1)
-    sorbet-runtime (0.5.11214)
+    sorbet-runtime (0.5.11247)
     steep (1.6.0)
       activesupport (>= 5.1)
       concurrent-ruby (>= 1.1.10)
@@ -143,7 +146,7 @@ GEM
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.5.0)
-    webmock (3.19.1)
+    webmock (3.20.0)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
@@ -155,9 +158,10 @@ PLATFORMS
 DEPENDENCIES
   debug
   rake (~> 13.0)
-  rspec (~> 3.0)
+  rspec (~> 3.13)
   rubocop (~> 1.60)
   rubocop-performance
+  rubocop-rake
   rubocop-rspec
   ruby-lsp
   saharspec

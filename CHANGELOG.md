@@ -1,5 +1,10 @@
 ## [Unreleased]
 
+- refactor: Use pattern matching
+- chore: Add rubocop-rake
+
+## [v2.1.1] - 2024-02-12
+
 - chore: Add ruby-lsp gem
 - refactor: Parse JSON with symbolize names
 - refactor: Make request body with symbolize keys

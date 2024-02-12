@@ -26,10 +26,14 @@ module Slkecho
           @http.get(uri_with_query(@uri, { email: email }), @headers)
         end
 
-        raise Slkecho::SlackApiResultError, "user not found. (#{email})" if user_info[:error] == "users_not_found"
-        raise Slkecho::SlackApiResultError, user_info[:error] unless user_info[:ok]
+        case user_info
+        in { ok: true, user: user }
+          user
+        in { ok: false, error: error }
+          raise Slkecho::SlackApiResultError, "user not found. (#{email})" if error == "users_not_found"
 
-        user_info[:user]
+          raise Slkecho::SlackApiResultError, error
+        end
       end
 
       def uri_with_query(uri, params)
