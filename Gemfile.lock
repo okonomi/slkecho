@@ -26,7 +26,7 @@ GEM
     parser (3.3.0.5)
       ast (~> 2.4.1)
       racc
-    prism (0.19.0)
+    prism (0.21.0)
     psych (5.1.2)
       stringio
     public_suffix (5.0.4)
@@ -76,15 +76,15 @@ GEM
       rubocop (~> 1.40)
       rubocop-capybara (~> 2.17)
       rubocop-factory_bot (~> 2.22)
-    ruby-lsp (0.13.4)
+    ruby-lsp (0.14.0)
       language_server-protocol (~> 3.17.0)
-      prism (>= 0.19.0, < 0.20)
+      prism (>= 0.19.0, < 0.22)
       sorbet-runtime (>= 0.5.10782)
     ruby-progressbar (1.13.0)
     ruby2_keywords (0.0.5)
     saharspec (0.0.10)
       ruby2_keywords
-    sorbet-runtime (0.5.11214)
+    sorbet-runtime (0.5.11247)
     stringio (3.1.0)
     unicode-display_width (2.5.0)
     webmock (3.19.1)
