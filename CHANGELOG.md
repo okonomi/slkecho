@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+- refactor: Use pattern matching
+
 ## [v2.1.1] - 2024-02-12
 
 - chore: Add ruby-lsp gem
