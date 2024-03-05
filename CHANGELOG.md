@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [v2.1.2] - 2024-03-05
+
 - refactor: Use pattern matching
 - chore: Add rubocop-rake
 
