@@ -20,7 +20,7 @@ module Slkecho
 
     def email_to_user_id(email)
       user = @slack_client.lookup_user_by_email(email: email)
-      user["id"]
+      user[:id]
     end
 
     def post_message_params_from(options, user_id)

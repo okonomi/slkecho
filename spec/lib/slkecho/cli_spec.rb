@@ -13,7 +13,7 @@ RSpec.describe Slkecho::CLI do
     context "when email is member" do
       let(:email) { "user1@example.com" }
       let(:slack_client) { instance_double(Slkecho::SlackClient, lookup_user_by_email: user) }
-      let(:user) { { "id" => "U012A3CDE" } }
+      let(:user) { { id: "U012A3CDE" } }
 
       it { is_expected.to eq("U012A3CDE") }
     end
