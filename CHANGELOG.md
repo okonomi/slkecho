@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [v2.1.3] - 2024-03-15
+
 - fix: Broken mention by email
 
 ## [v2.1.2] - 2024-03-05
