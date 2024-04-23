@@ -83,7 +83,7 @@ GEM
       rubocop-rspec_rails (~> 2.28)
     rubocop-rspec_rails (2.28.2)
       rubocop (~> 1.40)
-    ruby-lsp (0.16.2)
+    ruby-lsp (0.16.4)
       language_server-protocol (~> 3.17.0)
       prism (>= 0.22.0, < 0.25)
       sorbet-runtime (>= 0.5.10782)
@@ -91,7 +91,7 @@ GEM
     ruby2_keywords (0.0.5)
     saharspec (0.0.10)
       ruby2_keywords
-    sorbet-runtime (0.5.11332)
+    sorbet-runtime (0.5.11346)
     stringio (3.1.0)
     unicode-display_width (2.5.0)
     webmock (3.23.0)
