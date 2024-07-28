@@ -27,3 +27,12 @@
 #
 #   # library "pathname"              # Standard libraries
 # end
+
+target :lib do
+  signature "sig"
+
+  library "net-http"
+  library "uri"
+
+  check "lib/slkecho/slack_request/lookup_user_by_email.rb"
+end

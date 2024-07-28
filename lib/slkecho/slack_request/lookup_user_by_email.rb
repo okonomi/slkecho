@@ -13,7 +13,8 @@ module Slkecho
         @slack_api_token = slack_api_token
 
         @uri = URI.parse("https://slack.com/api/users.lookupByEmail")
-        @http = Net::HTTP.new(@uri.host, @uri.port)
+        host = @uri.host
+        @http = Net::HTTP.new(host, @uri.port) unless host.nil?
         @http.use_ssl = true
         @headers = {
           "Authorization" => "Bearer #{slack_api_token}",

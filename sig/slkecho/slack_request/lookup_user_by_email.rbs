@@ -1,0 +1,13 @@
+module Slkecho
+  module SlackRequest
+    class LookupUserByEmail
+      @slack_api_token: String
+      @uri: URI::Generic
+      @http: Net::HTTP
+      @headers: Hash[String, String]
+
+      def initialize: (slack_api_token: String) -> void
+      def uri_with_query: (untyped, untyped) -> untyped
+    end
+  end
+end
