@@ -7,7 +7,7 @@ module Slkecho
       @headers: Hash[String, String]
 
       def initialize: (slack_api_token: String) -> void
-      def uri_with_query: (untyped, untyped) -> untyped
+      def uri_with_query: (URI::Generic, untyped) -> untyped
     end
   end
 end
