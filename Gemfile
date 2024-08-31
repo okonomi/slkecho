@@ -19,3 +19,7 @@ gem "ruby-lsp"
 gem "saharspec"
 gem "steep"
 gem "webmock"
+
+# activesupport is required by steep
+# activesupport 7.2 is drop support for Ruby 3.0
+gem "activesupport", "~> 7.1.0"
