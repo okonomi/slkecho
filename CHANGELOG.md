@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+- feat: Start type signature implementation
+
 ## [v2.1.4] - 2024-08-31
 
 - Only update dependencies
