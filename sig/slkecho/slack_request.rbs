@@ -1,0 +1,5 @@
+module Slkecho
+  module SlackRequest
+    def self.send_request: () { () -> void } -> void
+  end
+end
