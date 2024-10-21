@@ -6,7 +6,7 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (7.1.4)
+    activesupport (7.1.4.1)
       base64
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
@@ -36,7 +36,7 @@ GEM
     ffi (1.17.0-arm64-darwin)
     fileutils (1.7.2)
     hashdiff (1.1.1)
-    i18n (1.14.5)
+    i18n (1.14.6)
       concurrent-ruby (~> 1.0)
     io-console (0.7.2)
     irb (1.12.0)
@@ -147,7 +147,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activesupport (~> 7.1.0)
+  activesupport (~> 7.1.4)
   debug
   rake (~> 13.2)
   rspec (~> 3.13)
