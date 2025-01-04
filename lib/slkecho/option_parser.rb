@@ -31,13 +31,17 @@ module Slkecho
       argv = option_parser.parse(argv, into: option_values)
       option_values = option_values.transform_keys { _1.to_s.underscore }
 
-      options = Slkecho::Options.new(option_values)
-      options.message = if !argv.empty?
-                          argv.first
-                        elsif !$stdin.tty?
-                          $stdin.read.then { _1.empty? ? nil : _1 }
-                        end
-      options
+      Slkecho::Options.new(option_values).tap do |opt|
+        opt.message = fetch_message(argv)
+      end
+    end
+
+    def fetch_message(argv)
+      if !argv.empty?
+        argv.first
+      elsif !$stdin.tty?
+        $stdin.read.then { _1.empty? ? nil : _1 }
+      end
     end
 
     def validate_options(options)
