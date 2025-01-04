@@ -42,14 +42,13 @@ module Slkecho
       end
 
       def build_authorize_url(client_id)
-        authorize_url = URI("https://slack.com/oauth/v2/authorize")
-        authorize_url.query = URI.encode_www_form({
-                                                    user_scope: "users.profile:read",
-                                                    redirect_uri: "https://okonomi.github.io/slkecho/callback.html",
-                                                    client_id: client_id
-                                                  })
-
-        authorize_url
+        URI("https://slack.com/oauth/v2/authorize").tap do |uri|
+          uri.query = URI.encode_www_form({
+                                            user_scope: "users.profile:read",
+                                            redirect_uri: "https://okonomi.github.io/slkecho/callback.html",
+                                            client_id: client_id
+                                          })
+        end
       end
 
       def exchange_code_for_access_token(code, client_id, client_secret)
