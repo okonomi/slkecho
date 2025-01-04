@@ -9,6 +9,7 @@ module Slkecho
         o.banner = "Usage: slkecho [options] message"
         o.program_name = "slkecho"
         o.version = Slkecho::VERSION
+        o.on("--configure", "Configure Slack API token.")
         o.on("-c", "--channel CHANNEL", "Slack channel to post message.")
         o.on("-m", "--mention-by-email EMAIL", "Mention to user by email.")
         o.on("--username USERNAME", "Set user name for message.")
