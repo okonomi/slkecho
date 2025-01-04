@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require "active_support/inflector/methods"
 require "optparse"
 
 module Slkecho
@@ -29,7 +28,7 @@ module Slkecho
     def build_options(argv)
       option_values = {}
       argv = option_parser.parse(argv, into: option_values)
-      option_values = option_values.transform_keys { _1.to_s.underscore }
+      option_values = option_values.transform_keys { _1.to_s.tr("-", "_") }
 
       Slkecho::Options.new(option_values).tap do |opt|
         opt.message = fetch_message(argv)

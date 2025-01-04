@@ -3,7 +3,6 @@ PATH
   specs:
     slkecho (2.1.5)
       activemodel
-      activesupport
 
 GEM
   remote: https://rubygems.org/
