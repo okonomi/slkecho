@@ -2,6 +2,10 @@
 
 - feat: Start type signature implementation
 
+## [v2.1.5] - 2025-01-04
+
+- Only update dependencies
+
 ## [v2.1.4] - 2024-08-31
 
 - Only update dependencies
