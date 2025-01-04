@@ -74,6 +74,12 @@ RSpec.describe Slkecho::OptionParser do
 
       it { is_expected.to have_attributes(message_as_blocks: true) }
     end
+
+    context "when configure is given" do
+      let(:argv) { %w[--configure] }
+
+      it { is_expected.to have_attributes(configure: true) }
+    end
   end
 
   describe "#validate_options" do
