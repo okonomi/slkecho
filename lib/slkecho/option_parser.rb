@@ -19,13 +19,13 @@ module Slkecho
     end
 
     def parse(argv)
-      options = parse_options(argv)
+      options = build_options(argv)
       validate_options(options)
 
       options
     end
 
-    def parse_options(argv)
+    def build_options(argv)
       @options = Slkecho::Options.new
       argv = option_parser.parse(argv)
 

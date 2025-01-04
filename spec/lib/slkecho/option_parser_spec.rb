@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 RSpec.describe Slkecho::OptionParser do
-  describe "#parse_options" do
-    subject { described_class.new.parse_options(argv) }
+  describe "#build_options" do
+    subject { described_class.new.build_options(argv) }
 
     context "when no arguments" do
       let(:argv) { %w[] }
