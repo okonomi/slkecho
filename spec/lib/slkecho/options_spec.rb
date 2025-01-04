@@ -11,5 +11,11 @@ RSpec.describe Slkecho::Options do
 
       it { is_expected.to be_falsey }
     end
+
+    context "when message is blank" do
+      let(:values) { { channel: "foo", message: "" } }
+
+      it { is_expected.to be_truthy }
+    end
   end
 end
