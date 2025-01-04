@@ -17,5 +17,11 @@ RSpec.describe Slkecho::Options do
 
       it { is_expected.to be_truthy }
     end
+
+    context "when message is nil" do
+      let(:values) { { channel: "foo", message: nil } }
+
+      it { is_expected.to be_falsey }
+    end
   end
 end

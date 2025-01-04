@@ -16,6 +16,6 @@ module Slkecho
     attribute :message_as_blocks, :boolean
 
     validates :channel, presence: true
-    validates :message, presence: true, allow_blank: true
+    validates :message, presence: true, if: -> { message.nil? }
   end
 end
