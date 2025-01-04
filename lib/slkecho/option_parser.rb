@@ -45,6 +45,8 @@ module Slkecho
     end
 
     def validate_options(options)
+      return true if options.configure
+
       raise Slkecho::InvalidOptionError, options.error_message unless options.valid?
 
       true

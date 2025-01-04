@@ -114,5 +114,11 @@ RSpec.describe Slkecho::OptionParser do
 
       its_block { is_expected.to raise_error(Slkecho::InvalidOptionError, "message is missing.") }
     end
+
+    context "when configure is given" do
+      let(:option_values) { { configure: true } }
+
+      it { is_expected.to be_truthy }
+    end
   end
 end
