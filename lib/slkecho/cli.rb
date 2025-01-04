@@ -11,11 +11,15 @@ module Slkecho
     def run(argv)
       options = @option_parser.parse(argv)
 
-      Slkecho.configuration.validate
+      if options.configure
+        # configure authentication
+      else
+        Slkecho.configuration.validate
 
-      user_id = options.mention_by_email.nil? ? nil : email_to_user_id(options.mention_by_email)
+        user_id = options.mention_by_email.nil? ? nil : email_to_user_id(options.mention_by_email)
 
-      @slack_client.post_message(post_message_params_from(options, user_id))
+        @slack_client.post_message(post_message_params_from(options, user_id))
+      end
     end
 
     def email_to_user_id(email)
