@@ -3,6 +3,7 @@
 require "json"
 require "launchy"
 require "uri"
+require "xdg"
 
 require_relative "../http"
 
@@ -23,7 +24,9 @@ module Slkecho
 
         puts "Exchange the code for an access token..."
         token_info = exchange_code_for_access_token(code, client_id, client_secret)
-        pp token_info
+
+        puts "Save token_info to a file..."
+        save_token_info(token_info)
       end
 
       private
@@ -57,6 +60,18 @@ module Slkecho
                                         redirect_uri: "https://okonomi.github.io/slkecho/callback.html"
                                       })
         JSON.parse(response.body)
+      end
+
+      def save_token_info(token_info)
+        xdg_config = XDG::Config.new
+        config_dir = xdg_config.home.join("slkecho")
+        config_dir.mkpath
+        File.write(
+          config_dir.join("token.json"),
+          JSON.pretty_generate(
+            token_info.slice("app_id", "authed_user", "team")
+          )
+        )
       end
     end
   end
