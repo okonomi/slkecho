@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
+require "json"
 require "launchy"
+require "uri"
 
 require_relative "../http"
 
