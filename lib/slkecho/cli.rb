@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require_relative "commands/configure_authentication"
+require_relative "commands/post_message"
+
 module Slkecho
   class CLI
     def initialize(option_parser:, slack_client:, blocks_builder:)
@@ -12,16 +15,9 @@ module Slkecho
       options = @option_parser.parse(argv)
 
       if options.configure
-        puts "configure slack api authentification"
-        puts "to be implemented"
+        Slkecho::Commands::ConfigureAuthentication.new.execute
       else
-        Slkecho.configuration.validate
-
-        user_id = options.mention_by_email.nil? ? nil : email_to_user_id(options.mention_by_email)
-
-        @slack_client.post_message(post_message_params_from(options, user_id))
-
-        puts "Message sent successfully."
+        Slkecho::Commands::PostMessage.new(options).execute
       end
     end
 
