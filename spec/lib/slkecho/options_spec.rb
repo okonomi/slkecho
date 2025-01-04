@@ -24,4 +24,24 @@ RSpec.describe Slkecho::Options do
       it { is_expected.to be_falsey }
     end
   end
+
+  describe "#error_message" do
+    subject do
+      opt = described_class.new(option_values)
+      opt.validate
+      opt.error_message
+    end
+
+    context "when there is no error" do
+      let(:option_values) { { channel: "foo", message: "bar" } }
+
+      it { is_expected.to eq "" }
+    end
+
+    context "when there is an error" do
+      let(:option_values) { { channel: nil, message: "bar" } }
+
+      it { is_expected.to eq "channel is required." }
+    end
+  end
 end

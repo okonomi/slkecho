@@ -15,7 +15,11 @@ module Slkecho
     attribute :icon_emoji, :string
     attribute :message_as_blocks, :boolean
 
-    validates :channel, presence: true
-    validates :message, presence: true, if: -> { message.nil? }
+    validates :channel, presence: { message: "is required." }
+    validates :message, presence: { message: "is missing." }, if: -> { message.nil? }
+
+    def error_message
+      errors.full_messages.join(" ").downcase
+    end
   end
 end

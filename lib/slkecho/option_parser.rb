@@ -39,11 +39,7 @@ module Slkecho
     end
 
     def validate_options(options)
-      # channel
-      raise Slkecho::InvalidOptionError, "channel is required." if options.channel.nil?
-
-      # message
-      raise Slkecho::InvalidOptionError, "message is missing." if options.message.nil?
+      raise Slkecho::InvalidOptionError, options.error_message unless options.valid?
 
       true
     end
