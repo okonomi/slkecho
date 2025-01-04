@@ -2,6 +2,8 @@
 
 require "launchy"
 
+require_relative "../http"
+
 module Slkecho
   module Commands
     class ConfigureAuthentication
@@ -16,6 +18,10 @@ module Slkecho
         puts "Please enter the code from the URL:"
         print "code: "
         code = $stdin.gets.chomp
+
+        puts "Exchange the code for an access token..."
+        token_info = exchange_code_for_access_token(code, client_id, client_secret)
+        pp token_info
       end
 
       private
@@ -39,6 +45,16 @@ module Slkecho
                                                   })
 
         authorize_url
+      end
+
+      def exchange_code_for_access_token(code, client_id, client_secret)
+        response = Slkecho::HTTP.post("https://slack.com/api/oauth.v2.access", body: {
+                                        code: code,
+                                        client_id: client_id,
+                                        client_secret: client_secret,
+                                        redirect_uri: "https://okonomi.github.io/slkecho/callback.html"
+                                      })
+        JSON.parse(response.body)
       end
     end
   end
