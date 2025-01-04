@@ -12,7 +12,8 @@ module Slkecho
       options = @option_parser.parse(argv)
 
       if options.configure
-        # configure authentication
+        puts "configure slack api authentification"
+        puts "to be implemented"
       else
         Slkecho.configuration.validate
 
