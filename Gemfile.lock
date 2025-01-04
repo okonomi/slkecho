@@ -2,10 +2,13 @@ PATH
   remote: .
   specs:
     slkecho (2.1.5)
+      activemodel
 
 GEM
   remote: https://rubygems.org/
   specs:
+    activemodel (7.1.5.1)
+      activesupport (= 7.1.5.1)
     activesupport (7.1.5.1)
       base64
       benchmark (>= 0.3)
