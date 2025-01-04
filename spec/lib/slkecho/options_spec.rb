@@ -23,6 +23,12 @@ RSpec.describe Slkecho::Options do
 
       it { is_expected.to be_falsey }
     end
+
+    context "when configure is given" do
+      let(:values) { { configure: true } }
+
+      it { is_expected.to be_truthy }
+    end
   end
 
   describe "#error_message" do
