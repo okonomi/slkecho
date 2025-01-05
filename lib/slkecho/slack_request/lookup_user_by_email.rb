@@ -5,6 +5,7 @@ require "uri"
 require "json"
 
 require_relative "../slack_request"
+require_relative "../http"
 
 module Slkecho
   module SlackRequest
@@ -30,15 +31,11 @@ module Slkecho
       def send_request(email, token)
         Slkecho::SlackRequest.send_request do
           uri = uri_with_query("https://slack.com/api/users.lookupByEmail", { email: email })
-          host = uri.host
-          http = Net::HTTP.new(host, uri.port) unless host.nil?
-          http.use_ssl = true
           headers = {
             "Authorization" => "Bearer #{token}",
             "Content-Type" => "application/x-www-form-urlencoded"
           }
-
-          http.get(uri, headers)
+          Slkecho::HTTP.get(uri, headers: headers)
         end
       end
 
