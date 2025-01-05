@@ -1,0 +1,5 @@
+module Slkecho
+  class HTTP
+    def self.get: (URI::Generic, headers: Hash[String, String]) -> void
+  end
+end

@@ -2,12 +2,10 @@ module Slkecho
   module SlackRequest
     class LookupUserByEmail
       @slack_api_token: String
-      @uri: URI::Generic
-      @http: Net::HTTP
-      @headers: Hash[String, String]
 
       def initialize: (slack_api_token: String) -> void
-      def uri_with_query: (URI::Generic, untyped) -> untyped
+      def send_request: (String, String) -> untyped
+      def uri_with_query: (String, untyped) -> untyped
     end
   end
 end

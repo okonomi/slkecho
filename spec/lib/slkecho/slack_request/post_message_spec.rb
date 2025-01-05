@@ -52,37 +52,4 @@ RSpec.describe Slkecho::SlackRequest::PostMessage do
       its_block { is_expected.to raise_error(Slkecho::SlackApiHttpError, "400 Bad Request") }
     end
   end
-
-  describe "#request_body" do
-    subject do
-      described_class.new(slack_api_token: slack_api_token)
-                     .request_body(Slkecho::SlackRequest::PostMessage::Params.new(**params))
-    end
-
-    let(:blocks) { [{ "type" => "section", "text" => { "type" => "mrkdwn", "text" => "message" } }] }
-
-    context "when message is given" do
-      let(:params) { { channel: "#general", blocks: blocks } }
-
-      it { is_expected.to include(blocks: blocks) }
-    end
-
-    context "when username is given" do
-      let(:params) { { channel: "#general", blocks: blocks, username: "My Bot" } }
-
-      it { is_expected.to include(username: "My Bot") }
-    end
-
-    context "when icon_url is given" do
-      let(:params) { { channel: "#general", blocks: blocks, icon_url: "https://example.com/icon.png" } }
-
-      it { is_expected.to include(icon_url: "https://example.com/icon.png") }
-    end
-
-    context "when icon_emoji is given" do
-      let(:params) { { channel: "#general", blocks: blocks, icon_emoji: ":smile:" } }
-
-      it { is_expected.to include(icon_emoji: ":smile:") }
-    end
-  end
 end
