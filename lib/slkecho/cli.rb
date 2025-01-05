@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative "commands/configure_user_token"
+
 module Slkecho
   class CLI
     def initialize(option_parser:, blocks_builder:)
@@ -11,7 +13,7 @@ module Slkecho
       options = @option_parser.parse(argv)
 
       if options.configure
-        puts "Slkecho configuration"
+        Slkecho::Commands::ConfigureUserToken.new.execute
       else
         slack_client = Slkecho::SlackClient.new(slack_api_token: options.token)
         user_id = options.mention_by_email.nil? ? nil : email_to_user_id(slack_client, options.mention_by_email)
