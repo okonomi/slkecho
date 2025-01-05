@@ -74,6 +74,12 @@ RSpec.describe Slkecho::OptionParser do
 
       it { is_expected.to have_attributes(message_as_blocks: true) }
     end
+
+    context "when configure is given" do
+      let(:argv) { %w[--configure] }
+
+      it { is_expected.to have_attributes(configure: true) }
+    end
   end
 
   describe "#validate_options" do
@@ -107,6 +113,12 @@ RSpec.describe Slkecho::OptionParser do
       let(:option_values) { { channel: "#general", message: nil } }
 
       its_block { is_expected.to raise_error(Slkecho::InvalidOptionError, "message is missing.") }
+    end
+
+    context "when configure is given" do
+      let(:option_values) { { configure: true } }
+
+      it { is_expected.to be_truthy }
     end
   end
 end
