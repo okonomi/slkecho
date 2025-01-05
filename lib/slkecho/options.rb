@@ -7,6 +7,7 @@ module Slkecho
     include ActiveModel::Model
     include ActiveModel::Attributes
 
+    attribute :configure, :boolean
     attribute :channel, :string
     attribute :mention_by_email, :string
     attribute :message, :string
@@ -15,8 +16,8 @@ module Slkecho
     attribute :icon_emoji, :string
     attribute :message_as_blocks, :boolean
 
-    validates :channel, presence: { message: "is required." }
-    validates :message, presence: { message: "is missing." }, if: -> { message.nil? }
+    validates :channel, presence: { message: "is required." }, unless: -> { configure }
+    validates :message, presence: { message: "is missing." }, unless: -> { configure || !message.nil? }
 
     def error_message
       errors.full_messages.join(" ").downcase
