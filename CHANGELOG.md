@@ -1,14 +1,16 @@
 ## [Unreleased]
 
-- feat: Start type signature implementation
+- refactor: options building
+- refactor: slack request
 
 ## [v2.1.5] - 2025-01-04
 
-- Only update dependencies
+- feat: Start type signature implementation
+- chore: update dependencies
 
 ## [v2.1.4] - 2024-08-31
 
-- Only update dependencies
+- chore: update dependencies
 
 ## [v2.1.3] - 2024-03-15
 
