@@ -17,17 +17,7 @@ module Slkecho
       end
 
       def request(params)
-        result = Slkecho::SlackRequest.send_request do
-          uri = URI("https://slack.com/api/chat.postMessage")
-          headers = {
-            "Content-Type" => "application/json; charset=utf-8",
-            "Authorization" => "Bearer #{@slack_api_token}"
-          }
-          body = request_body(params).to_json
-
-          send_request(uri, headers, body)
-        end
-
+        result = send_request(@slack_api_token, params)
         case result
         in { ok: true }
           true
@@ -48,10 +38,17 @@ module Slkecho
 
       private
 
-      def send_request(uri, headers, body)
-        http = Net::HTTP.new(uri.host, uri.port)
-        http.use_ssl = true
-        http.post(uri.path, body, headers)
+      def send_request(token, params)
+        Slkecho::SlackRequest.send_request do
+          uri = URI("https://slack.com/api/chat.postMessage")
+          headers = {
+            "Content-Type" => "application/json; charset=utf-8",
+            "Authorization" => "Bearer #{token}"
+          }
+          body = request_body(params).to_json
+
+          Slkecho::HTTP.post(uri, headers: headers, body: body)
+        end
       end
     end
   end
