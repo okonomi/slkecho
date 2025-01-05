@@ -11,22 +11,10 @@ module Slkecho
     class LookupUserByEmail
       def initialize(slack_api_token:)
         @slack_api_token = slack_api_token
-
-        @uri = URI.parse("https://slack.com/api/users.lookupByEmail")
-        host = @uri.host
-        @http = Net::HTTP.new(host, @uri.port) unless host.nil?
-        @http.use_ssl = true
-        @headers = {
-          "Authorization" => "Bearer #{slack_api_token}",
-          "Content-Type" => "application/x-www-form-urlencoded"
-        }
       end
 
       def request(email:)
-        user_info = Slkecho::SlackRequest.send_request do
-          @http.get(uri_with_query(@uri, { email: email }), @headers)
-        end
-
+        user_info = send_request(email, @slack_api_token)
         case user_info
         in { ok: true, user: user }
           user
@@ -37,8 +25,25 @@ module Slkecho
         end
       end
 
+      private
+
+      def send_request(email, token)
+        Slkecho::SlackRequest.send_request do
+          uri = uri_with_query("https://slack.com/api/users.lookupByEmail", { email: email })
+          host = uri.host
+          http = Net::HTTP.new(host, uri.port) unless host.nil?
+          http.use_ssl = true
+          headers = {
+            "Authorization" => "Bearer #{token}",
+            "Content-Type" => "application/x-www-form-urlencoded"
+          }
+
+          http.get(uri, headers)
+        end
+      end
+
       def uri_with_query(uri, params)
-        uri.dup.tap { _1.query = URI.encode_www_form(params) }
+        URI(uri).tap { _1.query = URI.encode_www_form(params) }
       end
     end
   end
