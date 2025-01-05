@@ -10,7 +10,17 @@ require_relative "../slack_request"
 module Slkecho
   module SlackRequest
     class PostMessage
-      Params = Struct.new(:channel, :blocks, :username, :icon_url, :icon_emoji, keyword_init: true)
+      Params = Struct.new(:channel, :blocks, :username, :icon_url, :icon_emoji, keyword_init: true) do
+        def to_request_body
+          JSON.dump({
+                      channel: channel,
+                      blocks: blocks,
+                      username: username,
+                      icon_url: icon_url,
+                      icon_emoji: icon_emoji
+                    })
+        end
+      end
 
       def initialize(slack_api_token:)
         @slack_api_token = slack_api_token
@@ -26,16 +36,6 @@ module Slkecho
         end
       end
 
-      def request_body(params)
-        {
-          channel: params.channel,
-          blocks: params.blocks,
-          username: params.username,
-          icon_url: params.icon_url,
-          icon_emoji: params.icon_emoji
-        }
-      end
-
       private
 
       def send_request(token, params)
@@ -45,7 +45,7 @@ module Slkecho
             "Content-Type" => "application/json; charset=utf-8",
             "Authorization" => "Bearer #{token}"
           }
-          body = request_body(params).to_json
+          body = params.to_request_body
 
           Slkecho::HTTP.post(uri, headers: headers, body: body)
         end
