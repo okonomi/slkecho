@@ -4,6 +4,7 @@ require "net/http"
 require "uri"
 require "json"
 
+require_relative "../http"
 require_relative "../slack_request"
 
 module Slkecho
@@ -13,19 +14,18 @@ module Slkecho
 
       def initialize(slack_api_token:)
         @slack_api_token = slack_api_token
-
-        @uri = URI.parse("https://slack.com/api/chat.postMessage")
-        @http = Net::HTTP.new(@uri.host, @uri.port)
-        @http.use_ssl = true
-        @headers = {
-          "Content-Type" => "application/json; charset=utf-8",
-          "Authorization" => "Bearer #{slack_api_token}"
-        }
       end
 
       def request(params)
         result = Slkecho::SlackRequest.send_request do
-          @http.post(@uri.path, request_body(params).to_json, @headers)
+          uri = URI("https://slack.com/api/chat.postMessage")
+          headers = {
+            "Content-Type" => "application/json; charset=utf-8",
+            "Authorization" => "Bearer #{@slack_api_token}"
+          }
+          body = request_body(params).to_json
+
+          send_request(uri, headers, body)
         end
 
         case result
@@ -44,6 +44,14 @@ module Slkecho
           icon_url: params.icon_url,
           icon_emoji: params.icon_emoji
         }
+      end
+
+      private
+
+      def send_request(uri, headers, body)
+        http = Net::HTTP.new(uri.host, uri.port)
+        http.use_ssl = true
+        http.post(uri.path, body, headers)
       end
     end
   end
