@@ -9,7 +9,6 @@ end
 
 begin
   Slkecho::CLI.run(ARGV)
-  puts "Message sent successfully."
 rescue Slkecho::InvalidConfigurationError => e
   abort "#{e.message} Please set SLACK_API_TOKEN environment variable." if e.item == :slack_api_token
   abort e.message
