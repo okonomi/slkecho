@@ -10,7 +10,7 @@
 
 ## [v2.1.4] - 2024-08-31
 
-- Only update dependencies
+- chore: update dependencies
 
 ## [v2.1.3] - 2024-03-15
 
