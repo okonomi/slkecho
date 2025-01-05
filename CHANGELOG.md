@@ -1,5 +1,8 @@
 ## [Unreleased]
 
+- refactor: options building
+- refactor: slack request
+
 ## [v2.1.5] - 2025-01-04
 
 - feat: Start type signature implementation
