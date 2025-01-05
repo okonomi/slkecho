@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [v2.1.6] - 2025-01-05
+
 - refactor: options building
 - refactor: slack request
 

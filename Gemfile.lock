@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    slkecho (2.1.5)
+    slkecho (2.1.6)
       activemodel
 
 GEM
