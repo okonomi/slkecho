@@ -16,6 +16,7 @@ module Slkecho
         o.on("--icon-url ICON_URL", "Set user icon image for message by URL.")
         o.on("--icon-emoji ICON_EMOJI", "Set user image for message by emoji.")
         o.on("--message-as-blocks", "Post message as blocks.")
+        o.on("--token TOKEN", "Slack API token.")
       end
     end
 

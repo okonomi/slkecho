@@ -75,6 +75,12 @@ RSpec.describe Slkecho::OptionParser do
       it { is_expected.to have_attributes(message_as_blocks: true) }
     end
 
+    context "when token is given" do
+      let(:argv) { %w[--token token] }
+
+      it { is_expected.to have_attributes(token: "token") }
+    end
+
     context "when configure is given" do
       let(:argv) { %w[--configure] }
 
