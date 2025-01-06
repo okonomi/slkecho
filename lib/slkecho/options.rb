@@ -15,6 +15,7 @@ module Slkecho
     attribute :icon_url, :string
     attribute :icon_emoji, :string
     attribute :message_as_blocks, :boolean
+    attribute :token, :string
 
     validates :channel, presence: { message: "is required." }, unless: -> { configure }
     validates :message, presence: { message: "is missing." }, unless: -> { configure || !message.nil? }

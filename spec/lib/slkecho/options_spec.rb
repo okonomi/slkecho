@@ -24,6 +24,12 @@ RSpec.describe Slkecho::Options do
       it { is_expected.to be_falsey }
     end
 
+    context "when token is given" do
+      let(:values) { { channel: "foo", message: "bar", token: "xxx" } }
+
+      it { is_expected.to be_truthy }
+    end
+
     context "when configure is true" do
       let(:values) { { configure: true } }
 
