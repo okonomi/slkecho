@@ -13,7 +13,7 @@ RSpec.describe Slkecho::Options do
     end
 
     context "when message is blank" do
-      let(:values) { { channel: "foo", message: "" } }
+      let(:values) { { channel: "foo", message: "", token: "token" } }
 
       it { is_expected.to be_truthy }
     end
@@ -22,6 +22,12 @@ RSpec.describe Slkecho::Options do
       let(:values) { { channel: "foo", message: nil } }
 
       it { is_expected.to be_falsey }
+    end
+
+    context "when token is given" do
+      let(:values) { { channel: "foo", message: "bar", token: "token" } }
+
+      it { is_expected.to be_truthy }
     end
 
     context "when configure is true" do
@@ -39,15 +45,15 @@ RSpec.describe Slkecho::Options do
     end
 
     context "when there is no error" do
-      let(:option_values) { { channel: "foo", message: "bar" } }
+      let(:option_values) { { channel: "foo", message: "bar", token: "token" } }
 
       it { is_expected.to eq "" }
     end
 
     context "when there is an error" do
-      let(:option_values) { { channel: nil, message: "bar" } }
+      let(:option_values) { {} }
 
-      it { is_expected.to eq "channel is required." }
+      it { is_expected.not_to eq "" }
     end
   end
 end

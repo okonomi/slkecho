@@ -2,9 +2,8 @@
 
 module Slkecho
   class CLI
-    def initialize(option_parser:, slack_client:, blocks_builder:)
+    def initialize(option_parser:, blocks_builder:)
       @option_parser = option_parser
-      @slack_client = slack_client
       @blocks_builder = blocks_builder
     end
 
@@ -14,18 +13,16 @@ module Slkecho
       if options.configure
         puts "Slkecho configuration"
       else
-        Slkecho.configuration.validate
-
-        user_id = options.mention_by_email.nil? ? nil : email_to_user_id(options.mention_by_email)
-
-        @slack_client.post_message(post_message_params_from(options, user_id))
+        slack_client = Slkecho::SlackClient.new(slack_api_token: options.token)
+        user_id = options.mention_by_email.nil? ? nil : email_to_user_id(slack_client, options.mention_by_email)
+        slack_client.post_message(post_message_params_from(options, user_id))
 
         puts "Message sent successfully."
       end
     end
 
-    def email_to_user_id(email)
-      user = @slack_client.lookup_user_by_email(email: email)
+    def email_to_user_id(slack_client, email)
+      user = slack_client.lookup_user_by_email(email: email)
       user[:id]
     end
 
@@ -50,7 +47,6 @@ module Slkecho
     def self.run(argv)
       cli = new(
         option_parser: Slkecho::OptionParser.new,
-        slack_client: Slkecho::SlackClient.new(slack_api_token: Slkecho.configuration.slack_api_token),
         blocks_builder: Slkecho::BlocksBuilder.new
       )
       cli.run(argv)

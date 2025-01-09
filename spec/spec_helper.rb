@@ -4,6 +4,7 @@ require "slkecho"
 
 require "saharspec"
 require "webmock/rspec"
+require "climate_control"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

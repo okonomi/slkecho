@@ -75,6 +75,12 @@ RSpec.describe Slkecho::OptionParser do
       it { is_expected.to have_attributes(message_as_blocks: true) }
     end
 
+    context "when token is given" do
+      let(:argv) { %w[--token token] }
+
+      it { is_expected.to have_attributes(token: "token") }
+    end
+
     context "when configure is given" do
       let(:argv) { %w[--configure] }
 
@@ -83,42 +89,18 @@ RSpec.describe Slkecho::OptionParser do
   end
 
   describe "#validate_options" do
-    def options_from(values)
-      Slkecho::Options.new.tap do |opt|
-        values.each { |k, v| opt.send(:"#{k}=", v) }
-      end
-    end
+    subject { described_class.new.validate_options(options) }
 
-    subject { described_class.new.validate_options(options_from(option_values)) }
-
-    context "when channel is not given" do
-      let(:option_values) { { channel: nil, message: "" } }
-
-      its_block { is_expected.to raise_error(Slkecho::InvalidOptionError, "channel is required.") }
-    end
-
-    context "when channel starts with #" do
-      let(:option_values) { { channel: "#general", message: "" } }
+    context "when options is valid" do
+      let(:options) { instance_double(Slkecho::Options, valid?: true, error_message: "") }
 
       it { is_expected.to be_truthy }
     end
 
-    context "when channel starts with C" do
-      let(:option_values) { { channel: "C123ABC456", message: "" } }
+    context "when options is invalid" do
+      let(:options) { instance_double(Slkecho::Options, valid?: false, error_message: "error") }
 
-      it { is_expected.to be_truthy }
-    end
-
-    context "when message is not given" do
-      let(:option_values) { { channel: "#general", message: nil } }
-
-      its_block { is_expected.to raise_error(Slkecho::InvalidOptionError, "message is missing.") }
-    end
-
-    context "when configure is given" do
-      let(:option_values) { { configure: true } }
-
-      it { is_expected.to be_truthy }
+      it { expect { subject }.to raise_error(Slkecho::InvalidOptionError, "error") }
     end
   end
 end
