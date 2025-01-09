@@ -14,8 +14,6 @@ module Slkecho
       if options.configure
         puts "Slkecho configuration"
       else
-        Slkecho.configuration.validate
-
         user_id = options.mention_by_email.nil? ? nil : email_to_user_id(options.mention_by_email)
 
         @slack_client.post_message(post_message_params_from(options, user_id))
