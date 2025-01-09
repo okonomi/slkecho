@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [v2.2.0] - 2025-01-10
+
 - feat: add `--configure` option (to be implemented)
 - feat: add `--token` option
 - test: use `its_block` in rspec
