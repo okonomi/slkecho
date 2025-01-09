@@ -19,6 +19,7 @@ module Slkecho
 
     validates :channel, presence: { message: "is required." }, unless: -> { configure }
     validates :message, presence: { message: "is missing." }, unless: -> { configure || !message.nil? }
+    validates :token, presence: { message: "is required." }, unless: -> { configure }
 
     def error_message
       errors.full_messages.join(" ").downcase
