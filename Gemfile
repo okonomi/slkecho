@@ -14,6 +14,7 @@ gem "rubocop-performance"
 gem "rubocop-rake"
 gem "rubocop-rspec"
 
+gem "climate_control"
 gem "debug"
 gem "ruby-lsp"
 gem "saharspec"
