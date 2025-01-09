@@ -1,6 +1,6 @@
 ## [Unreleased]
 
-- feat: add `--configure` option
+- feat: add `--configure` option (to be implemented)
 - feat: add `--token` option
 
 ## [v2.1.6] - 2025-01-05
