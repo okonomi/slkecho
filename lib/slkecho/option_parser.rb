@@ -30,7 +30,8 @@ module Slkecho
     def build_options(argv)
       option_values = {}
       argv = option_parser.parse(argv, into: option_values)
-      option_values = option_values.transform_keys { _1.to_s.tr("-", "_") }
+      option_values = option_values.transform_keys { _1.to_s.tr("-", "_").to_sym }
+      option_values[:token] ||= ENV.fetch("SLACK_API_TOKEN", nil)
 
       Slkecho::Options.new(option_values).tap do |opt|
         opt.message = fetch_message(argv)
