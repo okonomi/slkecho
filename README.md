@@ -71,6 +71,10 @@ Post message as blocks.
 
 See below: https://api.slack.com/methods/chat.postMessage#arg_blocks
 
+### --token <token> (optional)
+
+Pass a token to authenticate with Slack.
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/okonomi/slkecho.
