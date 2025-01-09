@@ -100,7 +100,7 @@ RSpec.describe Slkecho::OptionParser do
     context "when options is invalid" do
       let(:options) { instance_double(Slkecho::Options, valid?: false, error_message: "error") }
 
-      it { expect { subject }.to raise_error(Slkecho::InvalidOptionError, "error") }
+      its_block { is_expected.to raise_error(Slkecho::InvalidOptionError, "error") }
     end
   end
 end
