@@ -1,142 +1,30 @@
 # frozen_string_literal: true
 
 RSpec.describe Slkecho::CLI do
-  describe "#email_to_user_id" do
+  describe "#run" do
     subject do
       described_class.new(
-        option_parser: instance_double(Slkecho::OptionParser),
-        slack_client: slack_client,
-        blocks_builder: instance_double(Slkecho::BlocksBuilder)
-      ).email_to_user_id(email)
+        option_parser: Slkecho::OptionParser.new,
+        blocks_builder: Slkecho::BlocksBuilder.new
+      ).run(argv)
     end
 
-    context "when email is member" do
-      let(:email) { "user1@example.com" }
-      let(:slack_client) { instance_double(Slkecho::SlackClient, lookup_user_by_email: user) }
-      let(:user) { { id: "U012A3CDE" } }
+    context "when configure is true" do
+      let(:argv) { %w[--configure] }
 
-      it { is_expected.to eq("U012A3CDE") }
+      its_block { is_expected.to output("Slkecho configuration\n").to_stdout }
     end
 
-    context "when email is not member" do
-      let(:email) { "notmember@example.com" }
-      let(:slack_client) do
-        client = instance_double(Slkecho::SlackClient)
-        allow(client).to receive(:lookup_user_by_email).and_raise(Slkecho::SlackApiResultError,
-                                                                  "user not found. (#{email})")
-        client
+    context "when configure is false" do
+      let(:argv) { %w[--channel #general --token token message] }
+
+      before do
+        slack_client = instance_double(Slkecho::SlackClient)
+        allow(Slkecho::SlackClient).to receive(:new).with(slack_api_token: "token").and_return(slack_client)
+        allow(slack_client).to receive(:post_message).and_return(nil)
       end
 
-      its_block { is_expected.to raise_error(Slkecho::SlackApiResultError, "user not found. (#{email})") }
-    end
-  end
-
-  describe "#post_message_params_from" do
-    subject do
-      described_class.new(
-        option_parser: instance_double(Slkecho::OptionParser),
-        slack_client: instance_double(Slkecho::SlackClient),
-        blocks_builder: blocks_builder
-      ).post_message_params_from(options, user_id)
-    end
-
-    context "when valid options" do
-      let(:blocks_builder) do
-        instance_double(Slkecho::BlocksBuilder, build_from_message: [
-                          {
-                            "type" => "section",
-                            "text" => {
-                              "type" => "mrkdwn",
-                              "text" => "<@#{user_id}> message"
-                            }
-                          }
-                        ])
-      end
-      let(:options) do
-        Slkecho::Options.new.tap do |o|
-          o.channel = "#general"
-          o.mention_by_email = "user1@example.com"
-          o.message = "message"
-          o.username = "My Bot"
-          o.icon_url = "https://example.com/icon.png"
-          o.icon_emoji = ":smile:"
-        end
-      end
-      let(:user_id) { "U012A3CDE" }
-      let(:params) do
-        Slkecho::SlackClient::PostMessageParams.new(
-          channel: "#general",
-          blocks: [
-            {
-              "type" => "section",
-              "text" => {
-                "type" => "mrkdwn",
-                "text" => "<@#{user_id}> message"
-              }
-            }
-          ],
-          username: "My Bot",
-          icon_url: "https://example.com/icon.png",
-          icon_emoji: ":smile:"
-        )
-      end
-
-      it { is_expected.to eq(params) }
-    end
-
-    context "when blocks is given" do
-      let(:blocks_builder) do
-        instance_double(Slkecho::BlocksBuilder, build_from_json: [
-                          {
-                            "type" => "section",
-                            "text" => {
-                              "type" => "mrkdwn",
-                              "text" => "<@#{user_id}> message"
-                            }
-                          }
-                        ])
-      end
-      let(:options) do
-        Slkecho::Options.new.tap do |o|
-          o.channel = "#general"
-          o.mention_by_email = "user1@example.com"
-          o.message = <<~BLOCKS
-            [
-              {
-                "type": "section",
-                "text": {
-                  "type": "mrkdwn",
-                  "text": "<mention> message"
-                }
-              }
-            ]
-          BLOCKS
-          o.username = "My Bot"
-          o.icon_url = "https://example.com/icon.png"
-          o.icon_emoji = ":smile:"
-          o.message_as_blocks = true
-        end
-      end
-      let(:user_id) { "U012A3CDE" }
-      let(:params) do
-        Slkecho::SlackClient::PostMessageParams.new(
-          channel: "#general",
-          blocks: [
-            {
-              "type" => "section",
-              "text" => {
-                "type" => "mrkdwn",
-                "text" => "<@#{user_id}> message"
-              }
-            }
-          ],
-          username: "My Bot",
-          icon_url: "https://example.com/icon.png",
-          icon_emoji: ":smile:"
-        )
-      end
-
-      it { is_expected.to eq(params) }
+      its_block { is_expected.to output("Message sent successfully.\n").to_stdout }
     end
   end
 end
