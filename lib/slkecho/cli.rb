@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative "commands/configure_user_token"
+require_relative "commands/post_message"
 
 module Slkecho
   class CLI
