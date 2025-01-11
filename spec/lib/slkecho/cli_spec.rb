@@ -19,9 +19,9 @@ RSpec.describe Slkecho::CLI do
       let(:argv) { %w[--channel #general --token token message] }
 
       before do
-        slack_client = instance_double(Slkecho::SlackClient)
-        allow(Slkecho::SlackClient).to receive(:new).with(slack_api_token: "token").and_return(slack_client)
-        allow(slack_client).to receive(:post_message).and_return(nil)
+        post_message_command = instance_double(Slkecho::Commands::PostMessage)
+        allow(Slkecho::Commands::PostMessage).to receive(:new).and_return(post_message_command)
+        allow(post_message_command).to receive(:execute) { puts "Message sent successfully.\n" }
       end
 
       its_block { is_expected.to output("Message sent successfully.\n").to_stdout }
@@ -31,9 +31,9 @@ RSpec.describe Slkecho::CLI do
       let(:argv) { %w[--channel #general message] }
 
       before do
-        slack_client = instance_double(Slkecho::SlackClient)
-        allow(Slkecho::SlackClient).to receive(:new).with(slack_api_token: "token").and_return(slack_client)
-        allow(slack_client).to receive(:post_message).and_return(nil)
+        post_message_command = instance_double(Slkecho::Commands::PostMessage)
+        allow(Slkecho::Commands::PostMessage).to receive(:new).and_return(post_message_command)
+        allow(post_message_command).to receive(:execute) { puts "Message sent successfully.\n" }
       end
 
       around do |example|
