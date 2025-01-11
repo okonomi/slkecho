@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Slkecho
-  class Commands
+  class Command
     class ConfigureUserToken
       def execute
         puts "Slkecho configuration"

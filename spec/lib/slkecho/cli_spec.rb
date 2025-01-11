@@ -18,8 +18,8 @@ RSpec.describe Slkecho::CLI do
       let(:argv) { %w[--channel #general --token token message] }
 
       before do
-        post_message_command = instance_double(Slkecho::Commands::PostMessage)
-        allow(Slkecho::Commands::PostMessage).to receive(:new).and_return(post_message_command)
+        post_message_command = instance_double(Slkecho::Command::PostMessage)
+        allow(Slkecho::Command::PostMessage).to receive(:new).and_return(post_message_command)
         allow(post_message_command).to receive(:execute) { puts "Message sent successfully.\n" }
       end
 
@@ -30,8 +30,8 @@ RSpec.describe Slkecho::CLI do
       let(:argv) { %w[--channel #general message] }
 
       before do
-        post_message_command = instance_double(Slkecho::Commands::PostMessage)
-        allow(Slkecho::Commands::PostMessage).to receive(:new).and_return(post_message_command)
+        post_message_command = instance_double(Slkecho::Command::PostMessage)
+        allow(Slkecho::Command::PostMessage).to receive(:new).and_return(post_message_command)
         allow(post_message_command).to receive(:execute) { puts "Message sent successfully.\n" }
       end
 

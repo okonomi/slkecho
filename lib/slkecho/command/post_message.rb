@@ -3,7 +3,7 @@
 require_relative "../slack_client"
 
 module Slkecho
-  class Commands
+  class Command
     class PostMessage
       def initialize(blocks_builder:, options:)
         @blocks_builder = blocks_builder

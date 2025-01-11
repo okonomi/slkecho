@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Slkecho::Commands::ConfigureUserToken do
+RSpec.describe Slkecho::Command::ConfigureUserToken do
   describe "#execute" do
     subject { described_class.new.execute }
 

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_relative "commands/configure_user_token"
-require_relative "commands/post_message"
+require_relative "command/configure_user_token"
+require_relative "command/post_message"
 
 module Slkecho
   class CLI
@@ -13,9 +13,9 @@ module Slkecho
       options = @option_parser.parse(argv)
 
       if options.configure
-        Slkecho::Commands::ConfigureUserToken.new.execute
+        Slkecho::Command::ConfigureUserToken.new.execute
       else
-        Slkecho::Commands::PostMessage.new(
+        Slkecho::Command::PostMessage.new(
           blocks_builder: Slkecho::BlocksBuilder.new,
           options: options
         ).execute

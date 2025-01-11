@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Slkecho::Commands::PostMessage do
+RSpec.describe Slkecho::Command::PostMessage do
   describe "#execute" do
     subject do
       described_class.new(
