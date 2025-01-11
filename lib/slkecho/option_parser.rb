@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "optparse"
+require "xdg"
 
 module Slkecho
   class OptionParser
@@ -31,10 +32,24 @@ module Slkecho
       option_values = {}
       argv = option_parser.parse(argv, into: option_values)
       option_values = option_values.transform_keys { _1.to_s.tr("-", "_").to_sym }
-      option_values[:token] ||= ENV.fetch("SLACK_API_TOKEN", nil)
+      token = fetch_token(option_values)
 
       Slkecho::Options.new(option_values).tap do |opt|
+        opt.token = token
         opt.message = fetch_message(argv)
+      end
+    end
+
+    def fetch_token(option_values)
+      if option_values[:token]
+        option_values[:token]
+      elsif ENV.key?("SLACK_API_TOKEN")
+        ENV.fetch("SLACK_API_TOKEN")
+      else
+        xdg_config = XDG::Config.new
+        config_path = xdg_config.home.join("slkecho", "token.json")
+
+        JSON.parse(config_path.read).dig("authed_user", "access_token") if config_path.exist?
       end
     end
 

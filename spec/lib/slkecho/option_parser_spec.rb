@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "fakefs/safe"
+
 RSpec.describe Slkecho::OptionParser do
   describe "#build_options" do
     subject { described_class.new.build_options(argv) }
@@ -85,6 +87,59 @@ RSpec.describe Slkecho::OptionParser do
       let(:argv) { %w[--configure] }
 
       it { is_expected.to have_attributes(configure: true) }
+    end
+  end
+
+  describe "#fetch_token" do
+    subject { described_class.new.fetch_token(option_values) }
+
+    context "when token is given" do
+      let(:option_values) { { token: "token" } }
+
+      it { is_expected.to eq "token" }
+    end
+
+    context "when SLACK_API_TOKEN is set" do
+      let(:option_values) { {} }
+
+      around do |example|
+        ClimateControl.modify SLACK_API_TOKEN: "token" do
+          example.run
+        end
+      end
+
+      it { is_expected.to eq "token" }
+    end
+
+    context "when token is configured" do
+      let(:option_values) { {} }
+
+      around do |example|
+        FakeFS.with_fresh do
+          example.run
+        end
+      end
+
+      before do
+        config_path = Pathname.new(File.expand_path("~/.config/slkecho/token.json"))
+        config_path.dirname.mkpath
+        config = { authed_user: { access_token: "token" } }
+        File.write(config_path, JSON.generate(config))
+      end
+
+      it { is_expected.to eq "token" }
+    end
+
+    context "when token is not given" do
+      let(:option_values) { {} }
+
+      around do |example|
+        ClimateControl.modify SLACK_API_TOKEN: nil, XDG_CONFIG_HOME: "/tmp/.config" do
+          example.run
+        end
+      end
+
+      it { is_expected.to be_nil }
     end
   end
 

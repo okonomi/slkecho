@@ -16,6 +16,7 @@ gem "rubocop-rspec"
 
 gem "climate_control"
 gem "debug"
+gem "fakefs", require: false
 gem "ruby-lsp"
 gem "ruby-lsp-rspec"
 gem "saharspec"
