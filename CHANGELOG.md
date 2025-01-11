@@ -6,6 +6,7 @@
 
 - feat: add `--configure` option (to be implemented)
 - feat: add `--token` option
+- refactor: extract command classes
 - test: use `its_block` in rspec
 
 ## [v2.1.6] - 2025-01-05
