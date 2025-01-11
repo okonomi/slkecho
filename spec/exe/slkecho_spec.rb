@@ -3,7 +3,7 @@
 RSpec.describe Slkecho do
   describe "execute" do
     subject do
-      system({ "SLACK_API_TOKEN" => nil }, "exe/slkecho #{args}")
+      system({ "SLACK_API_TOKEN" => nil, "XDG_CONFIG_HOME" => "/tmp/.config" }, "exe/slkecho #{args}")
     end
 
     context "with --help" do
