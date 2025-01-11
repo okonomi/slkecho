@@ -122,13 +122,8 @@ RSpec.describe Slkecho::OptionParser do
 
       before do
         config_path = Pathname.new(File.expand_path("~/.config/slkecho/token.json"))
-        config = {
-          authed_user: {
-            access_token: "token"
-          }
-        }
         config_path.dirname.mkpath
-        puts config_path.dirname
+        config = { authed_user: { access_token: "token" } }
         File.write(config_path, JSON.generate(config))
       end
 
