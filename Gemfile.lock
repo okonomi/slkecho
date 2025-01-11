@@ -119,6 +119,8 @@ GEM
       prism (>= 1.2, < 2.0)
       rbs (>= 3, < 4)
       sorbet-runtime (>= 0.5.10782)
+    ruby-lsp-rspec (0.1.19)
+      ruby-lsp (~> 0.22.0)
     ruby-progressbar (1.13.0)
     ruby2_keywords (0.0.5)
     saharspec (0.0.10)
@@ -167,6 +169,7 @@ DEPENDENCIES
   rubocop-rake
   rubocop-rspec
   ruby-lsp
+  ruby-lsp-rspec
   saharspec
   slkecho!
   steep
