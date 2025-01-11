@@ -47,8 +47,9 @@ module Slkecho
         ENV.fetch("SLACK_API_TOKEN")
       else
         xdg_config = XDG::Config.new
-        config_dir = xdg_config.home.join("slkecho")
-        JSON.parse(File.read(config_dir.join("token.json"))).dig("authed_user", "access_token")
+        config_path = xdg_config.home.join("slkecho", "token.json")
+
+        JSON.parse(config_path.read).dig("authed_user", "access_token") if config_path.exist?
       end
     end
 

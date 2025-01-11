@@ -111,7 +111,7 @@ RSpec.describe Slkecho::OptionParser do
       it { is_expected.to eq "token" }
     end
 
-    context "when token is not given" do
+    context "when token is configured" do
       let(:option_values) { {} }
 
       around do |example|
@@ -128,6 +128,18 @@ RSpec.describe Slkecho::OptionParser do
       end
 
       it { is_expected.to eq "token" }
+    end
+
+    context "when token is not given" do
+      let(:option_values) { {} }
+
+      around do |example|
+        ClimateControl.modify SLACK_API_TOKEN: nil, XDG_CONFIG_HOME: "/tmp/.config" do
+          example.run
+        end
+      end
+
+      it { is_expected.to be_nil }
     end
   end
 
