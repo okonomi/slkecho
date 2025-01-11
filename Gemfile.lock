@@ -41,6 +41,7 @@ GEM
       reline (>= 0.3.8)
     diff-lcs (1.5.1)
     drb (2.2.1)
+    fakefs (2.8.0)
     ffi (1.17.1)
     ffi (1.17.1-arm64-darwin)
     fileutils (1.7.2)
@@ -162,6 +163,7 @@ DEPENDENCIES
   activesupport (~> 7.1.5)
   climate_control
   debug
+  fakefs
   rake (~> 13.2)
   rspec (~> 3.13)
   rubocop (~> 1.69)
