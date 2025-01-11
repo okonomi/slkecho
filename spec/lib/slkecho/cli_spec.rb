@@ -4,8 +4,7 @@ RSpec.describe Slkecho::CLI do
   describe "#run" do
     subject do
       described_class.new(
-        option_parser: Slkecho::OptionParser.new,
-        blocks_builder: Slkecho::BlocksBuilder.new
+        option_parser: Slkecho::OptionParser.new
       ).run(argv)
     end
 

@@ -5,9 +5,8 @@ require_relative "commands/post_message"
 
 module Slkecho
   class CLI
-    def initialize(option_parser:, blocks_builder:)
+    def initialize(option_parser:)
       @option_parser = option_parser
-      @blocks_builder = blocks_builder
     end
 
     def run(argv)
@@ -25,8 +24,7 @@ module Slkecho
 
     def self.run(argv)
       cli = new(
-        option_parser: Slkecho::OptionParser.new,
-        blocks_builder: Slkecho::BlocksBuilder.new
+        option_parser: Slkecho::OptionParser.new
       )
       cli.run(argv)
     end
