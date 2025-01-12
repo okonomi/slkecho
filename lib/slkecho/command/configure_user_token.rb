@@ -21,7 +21,9 @@ module Slkecho
 
         puts "Exchange the code for an access token..."
         token_info = exchange_code_for_access_token(code, client_id, client_secret)
-        pp token_info
+
+        puts "Save token_info to a file..."
+        save_token_info(token_info)
       end
 
       private
@@ -58,6 +60,18 @@ module Slkecho
         }
         response = Slkecho::HTTP.post("https://slack.com/api/oauth.v2.access", body: URI.encode_www_form(body))
         JSON.parse(response.body)
+      end
+
+      def save_token_info(token_info)
+        xdg_config = XDG::Config.new
+        config_path = xdg_config.home.join("slkecho", "token.json")
+        config_path.dirname.mkpath
+        File.write(
+          config_path,
+          JSON.pretty_generate(
+            token_info.slice("app_id", "authed_user", "team")
+          )
+        )
       end
     end
   end
