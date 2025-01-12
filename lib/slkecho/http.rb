@@ -12,7 +12,8 @@ module Slkecho
         http.get(uri, headers)
       end
 
-      def post(uri, headers: nil, body: nil)
+      def post(url, headers: nil, body: nil)
+        uri = URI(url)
         http = Net::HTTP.new(uri.host, uri.port)
         http.use_ssl = uri.scheme == "https"
         http.post(uri, body, headers)
