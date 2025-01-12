@@ -12,6 +12,10 @@ module Slkecho
 
         puts "Open the authorize URL in your browser..."
         Launchy.open(build_authorize_url(client_id))
+
+        puts "Please enter the code from the URL:"
+        print "code: "
+        code = $stdin.gets.chomp
       end
 
       private
