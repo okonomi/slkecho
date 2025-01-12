@@ -6,7 +6,8 @@ require "uri"
 module Slkecho
   class HTTP
     class << self
-      def get(uri, headers: nil)
+      def get(url, headers: nil)
+        uri = URI(url)
         http = Net::HTTP.new(uri.host, uri.port)
         http.use_ssl = uri.scheme == "https"
         http.get(uri, headers)

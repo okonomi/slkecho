@@ -42,7 +42,6 @@ module Slkecho
           redirect_uri: "https://okonomi.github.io/slkecho/callback.html",
           client_id: client_id
         }
-
         URI::HTTPS.build(
           host: "slack.com",
           path: "/oauth/v2/authorize",
