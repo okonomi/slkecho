@@ -11,6 +11,12 @@ RSpec.describe Slkecho::CLI do
     context "when configure is true" do
       let(:argv) { %w[--configure] }
 
+      before do
+        configure_user_token_command = instance_double(Slkecho::Command::ConfigureUserToken)
+        allow(Slkecho::Command::ConfigureUserToken).to receive(:new).and_return(configure_user_token_command)
+        allow(configure_user_token_command).to receive(:execute) { puts "Slkecho configuration\n" }
+      end
+
       its_block { is_expected.to output("Slkecho configuration\n").to_stdout }
     end
 

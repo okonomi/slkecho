@@ -40,14 +40,14 @@ module Slkecho
 
       def send_request(token, params)
         Slkecho::SlackRequest.send_request do
-          uri = URI("https://slack.com/api/chat.postMessage")
+          url = "https://slack.com/api/chat.postMessage"
           headers = {
             "Content-Type" => "application/json; charset=utf-8",
             "Authorization" => "Bearer #{token}"
           }
           body = params.to_request_body
 
-          Slkecho::HTTP.post(uri, headers: headers, body: body)
+          Slkecho::HTTP.post(url, headers: headers, body: body)
         end
       end
     end
