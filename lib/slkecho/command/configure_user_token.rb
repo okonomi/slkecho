@@ -8,7 +8,7 @@ require_relative "../http"
 module Slkecho
   class Command
     class ConfigureUserToken
-      def execute
+      def execute # rubocop:disable Metrics/MethodLength
         puts "Slkecho configuration"
         client_id, client_secret = gets_oauth2_credentials
 
