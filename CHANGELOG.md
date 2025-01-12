@@ -3,6 +3,7 @@
 - docs: fix section level in README
 - refactor: extract command classes
 - feat: load token from configuration file
+- feat: implement user token configuration
 
 ## [v2.2.0] - 2025-01-10
 
