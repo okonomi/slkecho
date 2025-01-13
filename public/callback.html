@@ -7,7 +7,32 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
-  <div id="app"></div>
+  <div id="app">
+    <div id="error-card" class="hidden max-w-md w-full bg-white border border-red-500 rounded-lg shadow-lg">
+      <div class="bg-red-100 text-red-700 p-4 rounded-t-lg">
+        <h2 class="text-lg font-bold">Authorization Code Not Found</h2>
+        <p class="mt-2">The URL does not contain an authorization code. Please restart the authorization process for Slkecho.</p>
+      </div>
+    </div>
+    
+    <div id="success-card" class="hidden max-w-md w-full bg-white border border-purple-800 rounded-lg shadow-lg">
+      <div class="bg-purple-800 text-white p-4 rounded-t-lg">
+        <h2 class="text-lg font-bold">Slkecho Authorization Successful</h2>
+        <p class="text-sm mt-2">Please enter the following authorization code into the Slkecho CLI.</p>
+      </div>
+      <div class="p-4">
+        <div id="auth-code-container" class="bg-gray-100 border border-purple-800 rounded-md p-4 mb-4 break-words">
+          <code id="auth-code" class="text-sm text-gray-800"></code>
+        </div>
+        <button id="copy-button" class="w-full bg-purple-800 text-white py-2 rounded-md hover:bg-purple-700 disabled:bg-gray-400 disabled:cursor-not-allowed">
+          Copy to Clipboard
+        </button>
+        <p class="text-sm text-gray-600 text-center mt-4">
+          Copy this code and paste it into the Slkecho CLI.
+        </p>
+      </div>
+    </div>
+  </div>
 
   <script>
     // Helper function to get query parameters
@@ -18,47 +43,21 @@
 
     // Main function to initialize the app
     function init() {
-      const app = document.getElementById('app');
       const authCode = getQueryParam('code');
+      const errorCard = document.getElementById('error-card');
+      const successCard = document.getElementById('success-card');
+      const authCodeElement = document.getElementById('auth-code');
+      const copyButton = document.getElementById('copy-button');
 
       if (!authCode) {
-        // Render error card
-        app.innerHTML = `
-          <div class="max-w-md w-full bg-white border border-red-500 rounded-lg shadow-lg">
-            <div class="bg-red-100 text-red-700 p-4 rounded-t-lg">
-              <h2 class="text-lg font-bold">Authorization Code Not Found</h2>
-              <p class="mt-2">The URL does not contain an authorization code. Please restart the authorization process for Slkecho.</p>
-            </div>
-          </div>
-        `;
+        errorCard.classList.remove('hidden');
         return;
       }
 
-      // Render success card
-      app.innerHTML = `
-        <div class="max-w-md w-full bg-white border border-purple-800 rounded-lg shadow-lg">
-          <div class="bg-purple-800 text-white p-4 rounded-t-lg">
-            <h2 class="text-lg font-bold">Slkecho Authorization Successful</h2>
-            <p class="text-sm mt-2">Please enter the following authorization code into the Slkecho CLI.</p>
-          </div>
-          <div class="p-4">
-            <div class="bg-gray-100 border border-purple-800 rounded-md p-4 mb-4 break-words">
-              <code id="auth-code" class="text-sm text-gray-800">${authCode}</code>
-            </div>
-            <button id="copy-button" class="w-full bg-purple-800 text-white py-2 rounded-md hover:bg-purple-700 disabled:bg-gray-400 disabled:cursor-not-allowed">
-              Copy to Clipboard
-            </button>
-            <p class="text-sm text-gray-600 text-center mt-4">
-              Copy this code and paste it into the Slkecho CLI.
-            </p>
-          </div>
-        </div>
-      `;
+      successCard.classList.remove('hidden');
+      authCodeElement.textContent = authCode;
 
       // Handle copy to clipboard
-      const copyButton = document.getElementById('copy-button');
-      const authCodeElement = document.getElementById('auth-code');
-
       copyButton.addEventListener('click', () => {
         navigator.clipboard.writeText(authCode)
           .then(() => {
