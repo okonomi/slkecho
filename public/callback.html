@@ -45,8 +45,8 @@
       });
     }
 
-    // Initialize the app on page load
-    window.onload = init;
+    // Wait for the DOM content to be fully loaded
+    document.addEventListener('DOMContentLoaded', init);
   </script>
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
