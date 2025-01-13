@@ -4,6 +4,7 @@
 - refactor: extract command classes
 - feat: load token from configuration file
 - feat: implement user token configuration
+- feat: implement callback page for OAuth 2.0 authorization code flow
 
 ## [v2.2.0] - 2025-01-10
 
