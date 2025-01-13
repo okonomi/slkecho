@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,8 +26,8 @@
         app.innerHTML = `
           <div class="max-w-md w-full bg-white border border-red-500 rounded-lg shadow-lg">
             <div class="bg-red-100 text-red-700 p-4 rounded-t-lg">
-              <h2 class="text-lg font-bold">認可コードが見つかりません</h2>
-              <p class="mt-2">URLに認可コードが含まれていません。Slkechoの認可プロセスを再度開始してください。</p>
+              <h2 class="text-lg font-bold">Authorization Code Not Found</h2>
+              <p class="mt-2">The URL does not contain an authorization code. Please restart the authorization process for Slkecho.</p>
             </div>
           </div>
         `;
@@ -38,18 +38,18 @@
       app.innerHTML = `
         <div class="max-w-md w-full bg-white border border-purple-800 rounded-lg shadow-lg">
           <div class="bg-purple-800 text-white p-4 rounded-t-lg">
-            <h2 class="text-lg font-bold">Slkecho 認可成功</h2>
-            <p class="text-sm mt-2">以下の認可コードをSlkecho CLIに入力してください。</p>
+            <h2 class="text-lg font-bold">Slkecho Authorization Successful</h2>
+            <p class="text-sm mt-2">Please enter the following authorization code into the Slkecho CLI.</p>
           </div>
           <div class="p-4">
             <div class="bg-gray-100 border border-purple-800 rounded-md p-4 mb-4 break-words">
               <code id="auth-code" class="text-sm text-gray-800">${authCode}</code>
             </div>
             <button id="copy-button" class="w-full bg-purple-800 text-white py-2 rounded-md hover:bg-purple-700 disabled:bg-gray-400 disabled:cursor-not-allowed">
-              クリップボードにコピー
+              Copy to Clipboard
             </button>
             <p class="text-sm text-gray-600 text-center mt-4">
-              このコードをコピーし、Slkecho CLIに貼り付けてください。
+              Copy this code and paste it into the Slkecho CLI.
             </p>
           </div>
         </div>
@@ -62,15 +62,15 @@
       copyButton.addEventListener('click', () => {
         navigator.clipboard.writeText(authCode)
           .then(() => {
-            copyButton.textContent = 'コピーしました';
+            copyButton.textContent = 'Copied!';
             copyButton.disabled = true;
             setTimeout(() => {
-              copyButton.textContent = 'クリップボードにコピー';
+              copyButton.textContent = 'Copy to Clipboard';
               copyButton.disabled = false;
             }, 2000);
           })
           .catch(err => {
-            console.error('コピーに失敗しました:', err);
+            console.error('Failed to copy:', err);
           });
       });
     }
