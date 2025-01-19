@@ -14,7 +14,7 @@ module Slkecho
       def save(data)
         path = config_path
         path.dirname.mkpath
-        File.write(path, JSON.pretty_generate({ "token_info" => data }))
+        File.write(path, JSON.pretty_generate({ "token_info" => [data] }))
       end
 
       def load
