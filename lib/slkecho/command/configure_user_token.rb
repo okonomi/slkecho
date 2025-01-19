@@ -4,6 +4,7 @@ require "launchy"
 require "uri"
 
 require_relative "../http"
+require_relative "../config"
 
 module Slkecho
   class Command
@@ -63,14 +64,8 @@ module Slkecho
       end
 
       def save_token_info(token_info)
-        xdg_config = XDG::Config.new
-        config_path = xdg_config.home.join("slkecho", "token.json")
-        config_path.dirname.mkpath
-        File.write(
-          config_path,
-          JSON.pretty_generate(
-            token_info.slice("app_id", "authed_user", "team")
-          )
+        Slkecho::Config.save(
+          token_info.slice("app_id", "authed_user", "team")
         )
       end
     end
