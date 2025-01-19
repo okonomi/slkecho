@@ -3,7 +3,7 @@
 require "fakefs/safe"
 
 RSpec.describe Slkecho::Config do
-  let(:test_data) do
+  let(:token_info) do
     {
       "app_id" => "A123456",
       "authed_user" => {
@@ -14,6 +14,12 @@ RSpec.describe Slkecho::Config do
         "id" => "T123456",
         "name" => "Test Team"
       }
+    }
+  end
+
+  let(:config_data) do
+    {
+      "token_info" => [token_info]
     }
   end
 
@@ -54,7 +60,7 @@ RSpec.describe Slkecho::Config do
   end
 
   describe ".save" do
-    subject { described_class.save(test_data) }
+    subject { described_class.save(token_info) }
 
     around do |example|
       ClimateControl.modify XDG_CONFIG_HOME: "/custom/config" do
@@ -81,10 +87,10 @@ RSpec.describe Slkecho::Config do
     context "when config file exists" do
       before do
         FileUtils.mkdir_p(described_class.config_path.dirname)
-        File.write(described_class.config_path, JSON.pretty_generate(test_data))
+        File.write(described_class.config_path, JSON.pretty_generate(config_data))
       end
 
-      it { is_expected.to eq test_data }
+      it { is_expected.to eq token_info }
     end
 
     context "when config file doesn't exist" do

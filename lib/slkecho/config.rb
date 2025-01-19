@@ -14,14 +14,14 @@ module Slkecho
       def save(data)
         path = config_path
         path.dirname.mkpath
-        File.write(path, JSON.pretty_generate(data))
+        File.write(path, JSON.pretty_generate({ "token_info" => data }))
       end
 
       def load
         path = config_path
         return nil unless path.exist?
 
-        JSON.parse(path.read)
+        JSON.parse(path.read)&.dig("token_info")&.first
       end
     end
   end
