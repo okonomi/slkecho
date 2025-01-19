@@ -1,3 +1,7 @@
+<div align="center">
+  <img src="assets/icon.png" width="128" height="128" alt="Slkecho icon">
+</div>
+
 # Slkecho
 
 [![Gem Version](https://badge.fury.io/rb/slkecho.svg)](https://badge.fury.io/rb/slkecho)
