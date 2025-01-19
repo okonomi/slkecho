@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require "optparse"
-require "xdg"
+require "json"
 
 module Slkecho
   class OptionParser
@@ -46,10 +46,8 @@ module Slkecho
       elsif ENV.key?("SLACK_API_TOKEN")
         ENV.fetch("SLACK_API_TOKEN")
       else
-        xdg_config = XDG::Config.new
-        config_path = xdg_config.home.join("slkecho", "token.json")
-
-        JSON.parse(config_path.read).dig("authed_user", "access_token") if config_path.exist?
+        config = Slkecho::Config.load
+        config&.dig("authed_user", "access_token")
       end
     end
 
