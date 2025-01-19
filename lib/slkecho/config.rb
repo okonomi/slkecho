@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Slkecho
   class Config
     def self.config_dir
