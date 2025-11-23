@@ -21,11 +21,11 @@ RSpec.describe Slkecho::Configuration do
     end
   end
 
-  describe "#validate" do
+  describe "#valid?" do
     subject do
       c = described_class.new
       c.slack_api_token = slack_api_token
-      c.validate
+      c.valid?
     end
 
     context "when slack_api_token is not given" do

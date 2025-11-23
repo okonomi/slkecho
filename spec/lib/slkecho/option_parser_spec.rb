@@ -143,8 +143,8 @@ RSpec.describe Slkecho::OptionParser do
     end
   end
 
-  describe "#validate_options" do
-    subject { described_class.new.validate_options(options) }
+  describe "#valid_options?" do
+    subject { described_class.new.valid_options?(options) }
 
     context "when options is valid" do
       let(:options) { instance_double(Slkecho::Options, valid?: true, error_message: "") }
