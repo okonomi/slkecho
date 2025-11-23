@@ -5,11 +5,11 @@ source "https://rubygems.org"
 # Specify your gem's dependencies in slkecho.gemspec
 gemspec
 
-gem "rake", "~> 13.2"
+gem "rake", "~> 13.3"
 
 gem "rspec", "~> 3.13"
 
-gem "rubocop", "~> 1.69"
+gem "rubocop", "~> 1.81"
 gem "rubocop-performance"
 gem "rubocop-rake"
 gem "rubocop-rspec"
