@@ -19,44 +19,46 @@ jobs:
       packages: write
 
     steps:
-    - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+      - uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
+        with:
+          persist-credentials: false
 
-    - name: Set up Ruby
-      uses: ruby/setup-ruby@0481980f17b760ef6bca5e8c55809102a0af1e5a # v1.263.0
-      with:
-        ruby-version: "3.3"
-        bundler-cache: true
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@8aeb6ff8030dd539317f8e1769a044873b56ea71 # v1.268.0
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
 
-    - name: Configure Git
-      run: |
-        git config --global user.name "${GITHUB_ACTOR}"
-        git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+      - name: Configure Git
+        run: |
+          git config --global user.name "${GITHUB_ACTOR}"
+          git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
 
-    - name: Publish to GPR
-      run: |
-        mkdir -p $HOME/.gem
-        touch $HOME/.gem/credentials
-        chmod 0600 $HOME/.gem/credentials
-        printf -- "---\n:github: ${GEM_HOST_API_KEY}\n" > $HOME/.gem/credentials
-        bundle exec rake build
-        gem push --KEY github --host https://rubygems.pkg.github.com/${OWNER} pkg/*.gem
-      env:
-        GEM_HOST_API_KEY: "Bearer ${{ secrets.GITHUB_TOKEN }}"
-        OWNER: ${{ github.repository_owner }}
+      - name: Publish to GPR
+        run: |
+          mkdir -p $HOME/.gem
+          touch $HOME/.gem/credentials
+          chmod 0600 $HOME/.gem/credentials
+          printf -- "---\n:github: ${GEM_HOST_API_KEY}\n" > $HOME/.gem/credentials
+          bundle exec rake build
+          gem push --KEY github --host https://rubygems.pkg.github.com/${OWNER} pkg/*.gem
+        env:
+          GEM_HOST_API_KEY: "Bearer ${{ secrets.GITHUB_TOKEN }}"
+          OWNER: ${{ github.repository_owner }}
 
-    - name: Publish to RubyGems
-      run: bundle exec rake release
-      env:
-        GEM_HOST_API_KEY: "${{ secrets.RUBYGEMS_AUTH_TOKEN }}"
-        GEM_HOST_OTP_CODE: "${{ github.event.inputs.otp }}"
+      - name: Publish to RubyGems
+        run: bundle exec rake release
+        env:
+          GEM_HOST_API_KEY: "${{ secrets.RUBYGEMS_AUTH_TOKEN }}"
+          GEM_HOST_OTP_CODE: "${{ github.event.inputs.otp }}"
 
-    - name: Latest tag
-      run: |
-        echo "name=$(git describe --tags --abbrev=0)" >> "$GITHUB_OUTPUT"
-      id: tag
+      - name: Latest tag
+        run: |
+          echo "name=$(git describe --tags --abbrev=0)" >> "$GITHUB_OUTPUT"
+        id: tag
 
-    - name: Create GitHub release
-      run: gh release create "${TAG_NAME}" --title "${TAG_NAME}" --generate-notes --draft
-      env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        TAG_NAME: ${{ steps.tag.outputs.name }}
+      - name: Create GitHub release
+        run: gh release create "${TAG_NAME}" --title "${TAG_NAME}" --generate-notes --draft
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG_NAME: ${{ steps.tag.outputs.name }}
