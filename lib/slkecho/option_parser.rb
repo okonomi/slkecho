@@ -23,7 +23,7 @@ module Slkecho
 
     def parse(argv)
       options = build_options(argv)
-      validate_options(options)
+      valid_options?(options)
 
       options
     end
@@ -59,7 +59,7 @@ module Slkecho
       end
     end
 
-    def validate_options(options)
+    def valid_options?(options)
       raise Slkecho::InvalidOptionError, options.error_message unless options.valid?
 
       true
