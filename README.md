@@ -16,15 +16,26 @@ Install it yourself as:
 gem install slkecho
 ```
 
-or add this line to your application's Gemfile:
+or run without installation:
 
 ```
-source "https://rubygems.pkg.github.com/okonomi" do
-  gem "slkecho"
-end
+gem exec slkecho
 ```
 
-More details: [Working with the RubyGems registry - GitHub Docs](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-rubygems-registry#installing-a-package)
+## Setup
+
+Before using slkecho, you need to configure your Slack API token:
+
+```
+slkecho --configure
+```
+
+This will:
+1. Prompt you to enter your Slack App Client ID and Client Secret
+2. Open a browser for OAuth authorization
+3. Save the access token to `~/.config/slkecho/token.json`
+
+Once configured, you can use slkecho without the `--token` option.
 
 ## Usage
 
@@ -78,6 +89,11 @@ See below: https://api.slack.com/methods/chat.postMessage#arg_blocks
 #### --token <token> (optional)
 
 Pass a token to authenticate with Slack.
+
+#### --configure (optional)
+
+Configure Slack API token via OAuth 2.0 authentication.
+Saves token to `~/.config/slkecho/token.json` (or `$XDG_CONFIG_HOME/slkecho/token.json`).
 
 ## Contributing
 
